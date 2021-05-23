@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "./Header";
 
 function TaskManager() {
   const [tasks, setTasks] = useState([]);
@@ -47,6 +46,7 @@ function TaskManager() {
               style={{ margin: "0 1rem" }}
               type="text"
               value={newTaskText}
+              placeholder="Description"
               // how do you know it's event.target.value? it just is.
               // search it up on MDN, and view react code samples
               // See: https://reactjs.org/docs/forms.html
@@ -56,6 +56,7 @@ function TaskManager() {
               style={{ margin: "0 1rem" }}
               type="text"
               value={amount}
+              placeholder="Amount"
               // how do you know it's event.target.value? it just is.
               // search it up on MDN, and view react code samples
               // See: https://reactjs.org/docs/forms.html

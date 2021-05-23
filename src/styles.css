@@ -9,3 +9,7 @@
   flex-basis: 50%;
   flex-grow: 0;
 }
+
+.color-nav {
+  background-color: burlywood;
+}

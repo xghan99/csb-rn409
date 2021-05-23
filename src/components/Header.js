@@ -1,5 +1,4 @@
 import { useState } from "react";
-import TaskManager from "./TaskManager";
 
 function Header() {
   return (
