@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+//import { DropdownButton, Dropdown } from "react-bootstrap";
+import CategoryDropdown from "./CategoryDropdown.js";
+import { Form } from "react-bootstrap";
 
 function TaskManager() {
   const [tasks, setTasks] = useState([]);
   const [newTaskText, setNewTaskText] = useState("");
   const [isNeed, setNeedWant] = useState(false);
   const [amount, setAmount] = useState();
+  const [category, setCat] = useState("");
+
   const amountAddFunc = (seed, currObj) =>
     Number(seed) + Number(currObj.amount);
   const totalAmount = tasks.reduce(amountAddFunc, 0);
@@ -36,7 +41,8 @@ function TaskManager() {
       {
         description: description,
         isNeed: isNeed,
-        amount: amount
+        amount: amount,
+        category: category
       }
     ];
     setTasks(newTasks);
@@ -71,6 +77,21 @@ function TaskManager() {
               onChange={(event) => setAmount(event.target.value)}
             />
           </label>
+          <Form inline>
+            <Form.Control
+              as="select"
+              className="my-1 mr-sm-2"
+              id="inlineFormCustomSelectPref"
+              custom
+              onChange={(e) => setCat(e.target.value)}
+            >
+              <option value="NIL">Choose...</option>
+              <option value="Food & Drink">Food & Drinks</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Others">Others</option>
+            </Form.Control>
+          </Form>
+
           <label>
             Need
             <input
@@ -113,6 +134,7 @@ function TaskManager() {
               <th>Description</th>
               <th>Amount</th>
               <th>Need/Want</th>
+              <th>Category</th>
             </tr>
           </thead>
           <tbody>
@@ -124,7 +146,8 @@ function TaskManager() {
                 <td>{index + 1}</td>
                 <td>{task.description}</td>
                 <td>${task.amount}</td>
-                <td>{task.needwant}</td>
+                <td>{task.isNeed ? "Need" : "Want"}</td>
+                <td>{task.category}</td>
               </tr>
             ))}
           </tbody>
