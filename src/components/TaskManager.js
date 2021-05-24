@@ -5,7 +5,8 @@ function TaskManager() {
   const [newTaskText, setNewTaskText] = useState("");
   const [needwant, setNeedWant] = useState("");
   const [amount, setAmount] = useState();
-  //const totalamount = tasks.reduce ((total,task)=> {return total+ +task.amount;},0);
+  const additionFunc = (seed, current) => Number(seed) + Number(current);
+  const totalAmount = tasks.reduce(additionFunc, 0);
 
   //const total=document.querySelector(".total")
   //total.textContent = totalamount
@@ -37,7 +38,7 @@ function TaskManager() {
 
   return (
     <>
-      <div>
+      <div className="addMarg">
         <h2>Add Expenses</h2>
         <form onSubmit={handleAddTask}>
           <label>
@@ -94,7 +95,7 @@ function TaskManager() {
       </div>
 
       <div>
-        <h2>Expense</h2>
+        <h3>Total Expenses: ${totalAmount}</h3>
         <table style={{ margin: "0 auto", width: "100%" }}>
           <thead>
             <tr>

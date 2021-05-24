@@ -21,8 +21,7 @@ function OverviewBox() {
   const [name, setName] = useState("John Doe");
 
   return (
-    <div className="HeaderBox">
-      <h2>Overview</h2>
+    <div className="HeaderBox addMarg">
       <p>
         Welcome back,{" "}
         <strong

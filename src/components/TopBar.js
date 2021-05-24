@@ -1,4 +1,4 @@
-import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 
 import { Fragment, Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,7 +8,16 @@ export default class TopBar extends Component {
     return (
       <Fragment>
         <Navbar className="color-nav" expand="lg">
-          <Navbar.Brand href="#home">Goalie</Navbar.Brand>
+          <Navbar.Brand href="#home">
+            <img
+              alt="h"
+              width="60"
+              height="60"
+              src="resources/pig.png"
+              className="d-inline-block-align-top"
+            />{" "}
+            Goalie
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
