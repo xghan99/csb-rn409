@@ -18,7 +18,7 @@
 Goalie seeks to help people keep track of their expenses and income, as well as investments, providing a goal-based solution to help individuals achieve their financial goals.
 This is part of the module CP2106 Independent Software Development, also known as Orbital.  
 
-![][resources/poster.jpg]
+![](resources/poster.jpg)
 
 
 ### Built With
