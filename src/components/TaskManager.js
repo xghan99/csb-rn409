@@ -3,12 +3,17 @@ import React, { useState } from "react";
 function TaskManager() {
   const [tasks, setTasks] = useState([]);
   const [newTaskText, setNewTaskText] = useState("");
-  const [needwant, setNeedWant] = useState("");
+  const [isNeed, setNeedWant] = useState(false);
   const [amount, setAmount] = useState();
-  const totalAmount = tasks.reduce(
-    (seed, current) => Number(seed) + Number(current.amount),
-    0
-  );
+  const amountAddFunc = (seed, currObj) =>
+    Number(seed) + Number(currObj.amount);
+  const totalAmount = tasks.reduce(amountAddFunc, 0);
+  const wantAmount = tasks
+    .filter((task) => !task.isNeed)
+    .reduce(amountAddFunc, 0);
+  const needAmount = tasks
+    .filter((task) => task.isNeed)
+    .reduce(amountAddFunc, 0);
 
   //const total=document.querySelector(".total")
   //total.textContent = totalamount
@@ -30,7 +35,7 @@ function TaskManager() {
       ...tasks,
       {
         description: description,
-        needwant: needwant,
+        isNeed: isNeed,
         amount: amount
       }
     ];
@@ -71,8 +76,8 @@ function TaskManager() {
             <input
               style={{ margin: "0 1rem" }}
               type="radio"
-              value={needwant}
-              onChange={(event) => setNeedWant("Need")}
+              value={isNeed}
+              onChange={(event) => setNeedWant(true)}
               name="need-want"
               // how do you know it's event.target.value? it just is.
               // search it up on MDN, and view react code samples
@@ -84,9 +89,9 @@ function TaskManager() {
             <input
               style={{ margin: "0 1rem" }}
               type="radio"
-              value={needwant}
+              value={isNeed}
               name="need-want"
-              onChange={(event) => setNeedWant("Want")}
+              onChange={(event) => setNeedWant(false)}
               // how do you know it's event.target.value? it just is.
               // search it up on MDN, and view react code samples
               // See: https://reactjs.org/docs/forms.html
@@ -97,7 +102,10 @@ function TaskManager() {
       </div>
 
       <div>
-        <h3 className="addMarg">Total Expenses: ${totalAmount}</h3>
+        <h3 className="addMarg">
+          Total Expenses: ${totalAmount}, Want Expenses: ${wantAmount}, Need
+          Expenses: ${needAmount}
+        </h3>
         <table style={{ margin: "0 auto", width: "100%" }}>
           <thead>
             <tr>
