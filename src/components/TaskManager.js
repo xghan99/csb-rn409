@@ -5,8 +5,10 @@ function TaskManager() {
   const [newTaskText, setNewTaskText] = useState("");
   const [needwant, setNeedWant] = useState("");
   const [amount, setAmount] = useState();
-  const additionFunc = (seed, current) => Number(seed) + Number(current);
-  const totalAmount = tasks.reduce(additionFunc, 0);
+  const totalAmount = tasks.reduce(
+    (seed, current) => Number(seed) + Number(current.amount),
+    0
+  );
 
   //const total=document.querySelector(".total")
   //total.textContent = totalamount
@@ -95,7 +97,7 @@ function TaskManager() {
       </div>
 
       <div>
-        <h3>Total Expenses: ${totalAmount}</h3>
+        <h3 className="addMarg">Total Expenses: ${totalAmount}</h3>
         <table style={{ margin: "0 auto", width: "100%" }}>
           <thead>
             <tr>
