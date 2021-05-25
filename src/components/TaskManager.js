@@ -48,7 +48,13 @@ function TaskManager() {
     setTasks(newTasks);
     console.log(newTasks);
   }
-
+  function deleteItem(index) {
+    const newTasks = tasks
+      .slice(0, index)
+      .concat(tasks.slice(index + 1, tasks.length));
+    console.log(newTasks);
+    setTasks(newTasks);
+  }
   return (
     <>
       <div className="addMarg">
@@ -148,6 +154,9 @@ function TaskManager() {
                 <td>${task.amount}</td>
                 <td>{task.isNeed ? "Need" : "Want"}</td>
                 <td>{task.category}</td>
+                <td>
+                  <button onClick={() => deleteItem(index)}>Delete</button>
+                </td>
               </tr>
             ))}
           </tbody>
