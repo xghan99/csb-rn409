@@ -57,7 +57,7 @@ function TaskManager() {
     <main>
       <div className="addMarg">
         <h2>Add Expenses</h2>
-        <form onSubmit={handleAddTask}>
+        <form onSubmit={handleAddTask} className="info">
           <label>
             Expense:
             <input
@@ -89,48 +89,55 @@ function TaskManager() {
               custom
               onChange={(e) => setCat(e.target.value)}
             >
-              <option value="NIL">Choose...</option>
+              <option value="NIL">Category</option>
               <option value="Food & Drink">Food & Drinks</option>
               <option value="Entertainment">Entertainment</option>
               <option value="Others">Others</option>
             </Form.Control>
           </Form>
 
-          <label>
-            Need
-            <input
-              style={{ margin: "0 1rem" }}
-              type="radio"
-              value={isNeed}
-              onChange={(event) => setNeedWant(true)}
-              name="need-want"
-              // how do you know it's event.target.value? it just is.
-              // search it up on MDN, and view react code samples
-              // See: https://reactjs.org/docs/forms.html
-            />
-          </label>
-          <label>
-            Want
-            <input
-              style={{ margin: "0 1rem" }}
-              type="radio"
-              value={isNeed}
-              name="need-want"
-              onChange={(event) => setNeedWant(false)}
-              // how do you know it's event.target.value? it just is.
-              // search it up on MDN, and view react code samples
-              // See: https://reactjs.org/docs/forms.html
-            />
-          </label>
+          <div>
+            <label style={{ color: "green" }}>
+              Need
+              <input
+                style={{ margin: "0 1rem" }}
+                type="radio"
+                value={isNeed}
+                onChange={(event) => setNeedWant(true)}
+                name="need-want"
+                // how do you know it's event.target.value? it just is.
+                // search it up on MDN, and view react code samples
+                // See: https://reactjs.org/docs/forms.html
+              />
+            </label>
+            <label style={{ color: "red" }}>
+              Want
+              <input
+                style={{ margin: "0 1rem" }}
+                type="radio"
+                value={isNeed}
+                name="need-want"
+                onChange={(event) => setNeedWant(false)}
+                // how do you know it's event.target.value? it just is.
+                // search it up on MDN, and view react code samples
+                // See: https://reactjs.org/docs/forms.html
+              />
+            </label>
+          </div>
           <input type="submit" value="Add" />
         </form>
       </div>
 
       <div>
-        <h3 className="addMarg">
-          Total Expenses: ${totalAmount}, Want Expenses: ${wantAmount}, Need
-          Expenses: ${needAmount}
-        </h3>
+        <div className="splitExpense">
+          <div>
+            <h3 style={{ color: "red" }}>Want Expenses: ${wantAmount}</h3>
+            <h3 style={{ color: "green" }}>Need Expenses: ${needAmount}</h3>
+          </div>
+          <div>
+            <h3 className="addMarg">Total Expenses: ${totalAmount}</h3>
+          </div>
+        </div>
         <table style={{ margin: "0 auto", width: "100%" }}>
           <thead>
             <tr>
@@ -150,7 +157,9 @@ function TaskManager() {
                 <td>{index + 1}</td>
                 <td>{task.description}</td>
                 <td>${task.amount}</td>
-                <td>{task.isNeed ? "Need" : "Want"}</td>
+                <td style={{ color: task.isNeed ? "green" : "red" }}>
+                  {task.isNeed ? "Need" : "Want"}
+                </td>
                 <td>{task.category}</td>
                 <td>
                   <button onClick={() => deleteItem(index)}>Delete</button>

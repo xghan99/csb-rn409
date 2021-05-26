@@ -17,3 +17,16 @@
 .addMarg {
   margin: 30px;
 }
+
+.splitExpense {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 50px;
+}
+
+.info {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
