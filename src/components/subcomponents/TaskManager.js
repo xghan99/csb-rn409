@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-//import { DropdownButton, Dropdown } from "react-bootstrap";
-import CategoryDropdown from "./CategoryDropdown.js";
 import { Form } from "react-bootstrap";
 
 function TaskManager() {
@@ -56,7 +54,7 @@ function TaskManager() {
     setTasks(newTasks);
   }
   return (
-    <>
+    <main>
       <div className="addMarg">
         <h2>Add Expenses</h2>
         <form onSubmit={handleAddTask}>
@@ -162,7 +160,7 @@ function TaskManager() {
           </tbody>
         </table>
       </div>
-    </>
+    </main>
   );
 }
 
