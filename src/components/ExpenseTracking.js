@@ -6,7 +6,6 @@ function ExpenseTracking() {
   return (
     <div className="App">
       <TopBar />
-      <Header />
       <main>
         <TaskManager />
       </main>
