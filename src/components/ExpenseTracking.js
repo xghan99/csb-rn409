@@ -1,5 +1,4 @@
 import TopBar from "./subcomponents/TopBar";
-import Header from "./subcomponents/Header";
 import TaskManager from "./subcomponents/TaskManager";
 
 function ExpenseTracking() {

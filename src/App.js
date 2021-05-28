@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { Container } from "react-bootstrap";
 import SignUp from "./components/SignUp";
@@ -6,6 +7,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ExpenseTracking from "./components/ExpenseTracking";
 import PrivateRoute from "./components/PrivateRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./styles.css";
 

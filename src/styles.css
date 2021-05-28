@@ -21,7 +21,7 @@
 .splitExpense {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
   padding-bottom: 50px;
 }
 
@@ -29,4 +29,32 @@
   padding-top: 30px;
   display: flex;
   justify-content: space-around;
+}
+
+.image {
+  width: 500px;
+}
+
+#want {
+  border: solid;
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 10px 10px 10px;
+}
+
+#need {
+  border: solid;
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 10px 10px 10px;
+}
+
+#total {
+  border: solid;
+  background-color: blue;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 10px 10px 10px;
 }

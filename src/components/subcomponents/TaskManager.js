@@ -10,13 +10,15 @@ function TaskManager() {
 
   const amountAddFunc = (seed, currObj) =>
     Number(seed) + Number(currObj.amount);
-  const totalAmount = tasks.reduce(amountAddFunc, 0);
+  const totalAmount = tasks.reduce(amountAddFunc, 0).toFixed(2);
   const wantAmount = tasks
     .filter((task) => !task.isNeed)
-    .reduce(amountAddFunc, 0);
+    .reduce(amountAddFunc, 0)
+    .toFixed(2);
   const needAmount = tasks
     .filter((task) => task.isNeed)
-    .reduce(amountAddFunc, 0);
+    .reduce(amountAddFunc, 0)
+    .toFixed(2);
 
   //const total=document.querySelector(".total")
   //total.textContent = totalamount
@@ -37,6 +39,7 @@ function TaskManager() {
       // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
       ...tasks,
       {
+        id: tasks.length,
         description: description,
         isNeed: isNeed,
         amount: amount,
@@ -72,7 +75,8 @@ function TaskManager() {
             />
             <input
               style={{ margin: "0 1rem" }}
-              type="text"
+              type="number"
+              step="any"
               value={amount}
               placeholder="Amount"
               // how do you know it's event.target.value? it just is.
@@ -89,8 +93,8 @@ function TaskManager() {
               custom
               onChange={(e) => setCat(e.target.value)}
             >
-              <option value="NIL">Category</option>
-              <option value="Food & Drink">Food & Drinks</option>
+              <option value="NIL">--Category--</option>
+              <option value="Food & Drink">Food & Drinks </option>
               <option value="Entertainment">Entertainment</option>
               <option value="Others">Others</option>
             </Form.Control>
@@ -103,6 +107,7 @@ function TaskManager() {
                 style={{ margin: "0 1rem" }}
                 type="radio"
                 value={isNeed}
+                checked={isNeed}
                 onChange={(event) => setNeedWant(true)}
                 name="need-want"
                 // how do you know it's event.target.value? it just is.
@@ -116,6 +121,7 @@ function TaskManager() {
                 style={{ margin: "0 1rem" }}
                 type="radio"
                 value={isNeed}
+                checked={!isNeed}
                 name="need-want"
                 onChange={(event) => setNeedWant(false)}
                 // how do you know it's event.target.value? it just is.
@@ -131,11 +137,13 @@ function TaskManager() {
       <div>
         <div className="splitExpense">
           <div>
-            <h3 style={{ color: "red" }}>Want Expenses: ${wantAmount}</h3>
-            <h3 style={{ color: "green" }}>Need Expenses: ${needAmount}</h3>
+            <h3 id="want">Want Expenses: ${wantAmount}</h3>
+            <h3 id="need">Need Expenses: ${needAmount}</h3>
           </div>
           <div>
-            <h3 className="addMarg">Total Expenses: ${totalAmount}</h3>
+            <h3 className="addMarg" id="total">
+              Total Expenses: ${totalAmount}
+            </h3>
           </div>
         </div>
         <table style={{ margin: "0 auto", width: "100%" }}>
@@ -153,7 +161,7 @@ function TaskManager() {
               // We should specify key here to help react identify
               // what has updated
               // https://reactjs.org/docs/lists-and-keys.html#keys
-              <tr key={task.description}>
+              <tr key={task.id}>
                 <td>{index + 1}</td>
                 <td>{task.description}</td>
                 <td>${task.amount}</td>
