@@ -4,7 +4,9 @@ import { Container } from "react-bootstrap";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import { AuthProvider } from "./contexts/AuthContext";
-import ExpenseTracking from "./components/ExpenseTracking";
+import TaskManager from "./components/TaskManager";
+import Dashboard from "./components/Dashboard";
+import TopBar from "./components/TopBar";
 import PrivateRoute from "./components/PrivateRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,9 +23,13 @@ export default function App() {
         <Router>
           <AuthProvider>
             <Switch>
-              <PrivateRoute exact path="/" component={ExpenseTracking} />
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
+              <div>
+                <TopBar />
+                <PrivateRoute exact path="/" component={TaskManager} />
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </div>
             </Switch>
           </AuthProvider>
         </Router>

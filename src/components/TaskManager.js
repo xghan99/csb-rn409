@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
-import { useAuth } from "../../contexts/AuthContext";
-import firebase from "../../Firebase";
+import { useAuth } from "../contexts/AuthContext";
+import firebase from "../Firebase";
 
 function TaskManager() {
   const { currentUser } = useAuth();
@@ -47,19 +47,6 @@ function TaskManager() {
     getExpenses();
     // eslint-disable-next-line
   }, []);
-
-  //lambdas
-  const amountAddFunc = (seed, currObj) =>
-    Number(seed) + Number(currObj.amount);
-  const totalAmount = tasks.reduce(amountAddFunc, 0).toFixed(2);
-  const wantAmount = tasks
-    .filter((task) => !task.isNeed)
-    .reduce(amountAddFunc, 0)
-    .toFixed(2);
-  const needAmount = tasks
-    .filter((task) => task.isNeed)
-    .reduce(amountAddFunc, 0)
-    .toFixed(2);
 
   function handleAddTask(event) {
     event.preventDefault();
@@ -183,17 +170,6 @@ function TaskManager() {
       </div>
 
       <div>
-        <div className="splitExpense">
-          <div>
-            <h3 id="want">Want Expenses: ${wantAmount}</h3>
-            <h3 id="need">Need Expenses: ${needAmount}</h3>
-          </div>
-          <div>
-            <h3 className="addMarg" id="total">
-              Total Expenses: ${totalAmount}
-            </h3>
-          </div>
-        </div>
         <table style={{ margin: "0 auto", width: "100%" }}>
           <thead>
             <tr>
