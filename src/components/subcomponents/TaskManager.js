@@ -1,13 +1,59 @@
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Form, Modal, Button } from "react-bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
+import firebase from "../../Firebase";
 
 function TaskManager() {
+  const { currentUser } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [newTaskText, setNewTaskText] = useState("");
   const [isNeed, setNeedWant] = useState(false);
   const [amount, setAmount] = useState();
   const [category, setCat] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [modalOpen, toggleModal] = useState(false);
+  const [edit, setEdit] = useState({
+    id: null,
+    description: "",
+    isNeed: null,
+    amount: null,
+    category: null
+  });
 
+  //ref
+  const db = firebase.firestore();
+
+  function getExpenses() {
+    setLoading(true);
+    db.collection("expenses")
+      .doc(currentUser.email)
+      //.where('owner', '==', currentUserId)
+      //.where('title', '==', 'School1') // does not need index
+      //.where('score', '<=', 10)    // needs index
+      //.orderBy('owner', 'asc')
+      //.limit(3)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          console.log(doc);
+          const items = doc.data().Expenses;
+          setTasks(items);
+          setLoading(false);
+        } else {
+          const newObj = {
+            Expenses: []
+          };
+          db.collection("expenses").doc(currentUser.email).set(newObj);
+          setLoading(false);
+        }
+      });
+  }
+
+  useEffect(() => {
+    getExpenses();
+    // eslint-disable-next-line
+  }, []);
+
+  //lambdas
   const amountAddFunc = (seed, currObj) =>
     Number(seed) + Number(currObj.amount);
   const totalAmount = tasks.reduce(amountAddFunc, 0).toFixed(2);
@@ -33,10 +79,6 @@ function TaskManager() {
 
   function addTask(description) {
     const newTasks = [
-      // the ... operator is called the spread operator
-      // what we are doing is creating a brand new array of
-      // tasks, that is different from the previous array
-      // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
       ...tasks,
       {
         id: tasks.length,
@@ -44,44 +86,73 @@ function TaskManager() {
         isNeed: isNeed,
         amount: amount,
         category: category
+        //createdAt: firebase.firestore.FieldValue.serverTimeStamp(),
+        //lastUpdate: firebase.firestore.FieldValue.serverTimeStamp()
       }
     ];
-    setTasks(newTasks);
+
+    const newObj = {
+      Expenses: newTasks
+    };
+
+    db.collection("expenses")
+      .doc(currentUser.email)
+      .set(newObj)
+      .catch((err) => {
+        console.log(err);
+      });
     console.log(newTasks);
   }
+
   function deleteItem(index) {
     const newTasks = tasks
       .slice(0, index)
       .concat(tasks.slice(index + 1, tasks.length));
     console.log(newTasks);
-    setTasks(newTasks);
+    const newObj = {
+      Expenses: newTasks
+    };
+    db.collection("expenses").doc(currentUser.email).set(newObj);
   }
+
+  function handleEdit(index) {
+    const newTasks = [...tasks];
+    newTasks[index] = edit;
+
+    console.log(edit);
+
+    const newObj = {
+      Expenses: newTasks
+    };
+    db.collection("expenses").doc(currentUser.email).set(newObj);
+  }
+
+  function editItem(index) {
+    setEdit(tasks[index]);
+    toggleModal(true);
+  }
+
   return (
     <main>
       <div className="addMarg">
         <h2>Add Expenses</h2>
+        {loading ? <h2> loading... </h2> : null}
         <form onSubmit={handleAddTask} className="info">
           <label>
             Expense:
             <input
               style={{ margin: "0 1rem" }}
               type="text"
-              value={newTaskText}
+              //value={newTaskText}
               placeholder="Description"
-              // how do you know it's event.target.value? it just is.
-              // search it up on MDN, and view react code samples
-              // See: https://reactjs.org/docs/forms.html
               onChange={(event) => setNewTaskText(event.target.value)}
             />
             <input
               style={{ margin: "0 1rem" }}
               type="number"
               step="any"
-              value={amount}
+              //value={amount}
               placeholder="Amount"
-              // how do you know it's event.target.value? it just is.
-              // search it up on MDN, and view react code samples
-              // See: https://reactjs.org/docs/forms.html
               onChange={(event) => setAmount(event.target.value)}
             />
           </label>
@@ -106,13 +177,10 @@ function TaskManager() {
               <input
                 style={{ margin: "0 1rem" }}
                 type="radio"
-                value={isNeed}
+                //value={isNeed}
                 checked={isNeed}
                 onChange={(event) => setNeedWant(true)}
                 name="need-want"
-                // how do you know it's event.target.value? it just is.
-                // search it up on MDN, and view react code samples
-                // See: https://reactjs.org/docs/forms.html
               />
             </label>
             <label style={{ color: "red" }}>
@@ -120,13 +188,10 @@ function TaskManager() {
               <input
                 style={{ margin: "0 1rem" }}
                 type="radio"
-                value={isNeed}
+                //value={isNeed}
                 checked={!isNeed}
                 name="need-want"
                 onChange={(event) => setNeedWant(false)}
-                // how do you know it's event.target.value? it just is.
-                // search it up on MDN, and view react code samples
-                // See: https://reactjs.org/docs/forms.html
               />
             </label>
           </div>
@@ -158,9 +223,6 @@ function TaskManager() {
           </thead>
           <tbody>
             {tasks.map((task, index) => (
-              // We should specify key here to help react identify
-              // what has updated
-              // https://reactjs.org/docs/lists-and-keys.html#keys
               <tr key={task.id}>
                 <td>{index + 1}</td>
                 <td>{task.description}</td>
@@ -172,11 +234,84 @@ function TaskManager() {
                 <td>
                   <button onClick={() => deleteItem(index)}>Delete</button>
                 </td>
+                <td>
+                  <button onClick={() => editItem(index)}>Edit</button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <Modal show={modalOpen} onHide={() => toggleModal(!modalOpen)}>
+        <Modal.Header closeButton>Edit</Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={() => handleEdit(edit.id)} id="edit">
+            <Form.Group>
+              <Form.Label> Amount </Form.Label>
+              <Form.Control
+                type="text"
+                defaultValue={edit.amount}
+                onChange={(event) =>
+                  setEdit({ ...edit, amount: event.target.value })
+                }
+              />
+            </Form.Group>
+            <br />
+            <Form.Group>
+              <Form.Label> Category </Form.Label>
+              <Form.Control
+                as="select"
+                defaultValue={edit.category}
+                onChange={(event) =>
+                  setEdit({ ...edit, category: event.target.value })
+                }
+              >
+                <option> Food & Drink </option>
+                <option> Entertainment </option>
+                <option> Others </option>
+              </Form.Control>
+            </Form.Group>
+            <br />
+            <Form.Group>
+              <Form.Label> Description </Form.Label>
+              <Form.Control
+                type="text"
+                defaultValue={edit.description}
+                onChange={(event) =>
+                  setEdit({ ...edit, description: event.target.value })
+                }
+              />
+            </Form.Group>
+            <br />
+            <Form.Group>
+              <Form.Check
+                type="radio"
+                label="Need"
+                name="formHorizontolRadios"
+                id="formHorizontalRadios1"
+                defaultChecked={edit.isNeed}
+                onChange={(event) => setEdit({ ...edit, isNeed: true })}
+              />
+              <Form.Check
+                type="radio"
+                label="Want"
+                name="formHorizontolRadios"
+                id="formHorizontalRadios2"
+                defaultChecked={!edit.isNeed}
+                onChange={(event) => setEdit({ ...edit, isNeed: false })}
+              />
+            </Form.Group>
+            <br />
+            <Button
+              variant="primary"
+              type="submit"
+              onClick={() => toggleModal(false)}
+            >
+              Save changes
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
     </main>
   );
 }
