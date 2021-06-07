@@ -27,11 +27,6 @@ function TaskManager() {
     setLoading(true);
     db.collection("expenses")
       .doc(currentUser.email)
-      //.where('owner', '==', currentUserId)
-      //.where('title', '==', 'School1') // does not need index
-      //.where('score', '<=', 10)    // needs index
-      //.orderBy('owner', 'asc')
-      //.limit(3)
       .onSnapshot((doc) => {
         if (doc.exists) {
           console.log(doc);
@@ -66,13 +61,7 @@ function TaskManager() {
     .reduce(amountAddFunc, 0)
     .toFixed(2);
 
-  //const total=document.querySelector(".total")
-  //total.textContent = totalamount
   function handleAddTask(event) {
-    // React honours default browser behavior and the
-    // default behaviour for a form submission is to
-    // submit AND refresh the page. So we override the
-    // default behaviour here as we don't want to refresh
     event.preventDefault();
     addTask(newTaskText);
   }
@@ -86,8 +75,6 @@ function TaskManager() {
         isNeed: isNeed,
         amount: amount,
         category: category
-        //createdAt: firebase.firestore.FieldValue.serverTimeStamp(),
-        //lastUpdate: firebase.firestore.FieldValue.serverTimeStamp()
       }
     ];
 
@@ -143,7 +130,6 @@ function TaskManager() {
             <input
               style={{ margin: "0 1rem" }}
               type="text"
-              //value={newTaskText}
               placeholder="Description"
               onChange={(event) => setNewTaskText(event.target.value)}
             />
@@ -151,7 +137,6 @@ function TaskManager() {
               style={{ margin: "0 1rem" }}
               type="number"
               step="any"
-              //value={amount}
               placeholder="Amount"
               onChange={(event) => setAmount(event.target.value)}
             />
@@ -177,7 +162,6 @@ function TaskManager() {
               <input
                 style={{ margin: "0 1rem" }}
                 type="radio"
-                //value={isNeed}
                 checked={isNeed}
                 onChange={(event) => setNeedWant(true)}
                 name="need-want"
@@ -188,7 +172,6 @@ function TaskManager() {
               <input
                 style={{ margin: "0 1rem" }}
                 type="radio"
-                //value={isNeed}
                 checked={!isNeed}
                 name="need-want"
                 onChange={(event) => setNeedWant(false)}
