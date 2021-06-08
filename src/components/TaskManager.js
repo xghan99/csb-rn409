@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Modal, Button } from "react-bootstrap";
+import { Form, Modal, Button, Col, Table } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 
@@ -111,66 +111,66 @@ function TaskManager() {
       <div className="addMarg">
         <h2>Add Expenses</h2>
         {loading ? <h2> loading... </h2> : null}
-        <form onSubmit={handleAddTask} className="info">
-          <label>
-            Expense:
-            <input
-              style={{ margin: "0 1rem" }}
-              type="text"
-              placeholder="Description"
-              onChange={(event) => setNewTaskText(event.target.value)}
-            />
-            <input
-              style={{ margin: "0 1rem" }}
-              type="number"
-              step="any"
-              placeholder="Amount"
-              onChange={(event) => setAmount(event.target.value)}
-            />
-          </label>
-          <Form inline>
-            <Form.Control
-              as="select"
-              className="my-1 mr-sm-2"
-              id="inlineFormCustomSelectPref"
-              custom
-              onChange={(e) => setCat(e.target.value)}
-            >
-              <option value="NIL">--Category--</option>
-              <option value="Food & Drink">Food & Drinks </option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Others">Others</option>
-            </Form.Control>
-          </Form>
-
-          <div>
-            <label style={{ color: "green" }}>
-              Need
-              <input
-                style={{ margin: "0 1rem" }}
+        <Form onSubmit={handleAddTask} className="info">
+          <Form.Row>
+            <Form.Group as={Col} xs={12} md="auto">
+              <Form.Control
+                type="text"
+                placeholder="Description"
+                onChange={(event) => setNewTaskText(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group as={Col} xs={12} md="auto">
+              <Form.Control
+                type="number"
+                step="any"
+                placeholder="Amount"
+                onChange={(event) => setAmount(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group as={Col} xs={12} xs={12} md="auto">
+              <Form.Control
+                as="select"
+                onChange={(e) => setCat(e.target.value)}
+              >
+                <option value="NIL">--Category--</option>
+                <option value="Food & Drink">Food & Drinks </option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Others">Others</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col} xs={6} md="auto">
+              <Form.Check
                 type="radio"
-                checked={isNeed}
+                label="Need"
+                id="formHorizontalRadios3"
+                style={{ color: "green" }}
+                //checked={isNeed}
                 onChange={(event) => setNeedWant(true)}
                 name="need-want"
+                className="mt-2"
               />
-            </label>
-            <label style={{ color: "red" }}>
-              Want
-              <input
-                style={{ margin: "0 1rem" }}
+            </Form.Group>
+            <Form.Group as={Col} xs={6} md="auto">
+              <Form.Check
                 type="radio"
-                checked={!isNeed}
-                name="need-want"
+                label="Want"
+                id="formHorizontalRadios4"
+                style={{ color: "red" }}
+                //checked={!isNeed}
                 onChange={(event) => setNeedWant(false)}
+                name="need-want"
+                className="mt-2"
               />
-            </label>
-          </div>
-          <input type="submit" value="Add" />
-        </form>
+            </Form.Group>
+            <Form.Group as={Col} xs={12} md="auto">
+              <Button type="submit">Add</Button>
+            </Form.Group>
+          </Form.Row>
+        </Form>
       </div>
-
       <div>
-        <table style={{ margin: "0 auto", width: "100%" }}>
+        <Table responsive style={{ margin: "0 auto", width: "100%" }}>
           <thead>
             <tr>
               <th>No.</th>
@@ -199,7 +199,7 @@ function TaskManager() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </div>
       <Modal show={modalOpen} onHide={() => toggleModal(!modalOpen)}>
         <Modal.Header closeButton>Edit</Modal.Header>
@@ -208,7 +208,7 @@ function TaskManager() {
             <Form.Group>
               <Form.Label> Amount </Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 defaultValue={edit.amount}
                 onChange={(event) =>
                   setEdit({ ...edit, amount: event.target.value })
