@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Form, Modal, Button, Col, Table } from "react-bootstrap";
+import { Form, Modal, Button, Col, Table, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
+import validate from "./validate";
 
 function TaskManager() {
   const { currentUser } = useAuth();
@@ -29,7 +30,7 @@ function TaskManager() {
       .doc(currentUser.email)
       .onSnapshot((doc) => {
         if (doc.exists) {
-          console.log(doc);
+          //console.log(doc);
           const items = doc.data().Expenses;
           setTasks(items);
           setLoading(false);
@@ -65,24 +66,27 @@ function TaskManager() {
       }
     ];
 
-    const newObj = {
-      Expenses: newTasks
-    };
+    if (validate(newTasks[newTasks.length - 1])) {
+      const newObj = {
+        Expenses: newTasks
+      };
 
-    db.collection("expenses")
-      .doc(currentUser.email)
-      .set(newObj)
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(newTasks);
+      db.collection("expenses")
+        .doc(currentUser.email)
+        .set(newObj)
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert("Please ensure all fields are filled!");
+    }
   }
 
   function deleteItem(index) {
     const newTasks = tasks
       .slice(0, index)
       .concat(tasks.slice(index + 1, tasks.length));
-    console.log(newTasks);
+    //console.log(newTasks);
     const newObj = {
       Expenses: newTasks
     };
@@ -93,7 +97,7 @@ function TaskManager() {
     const newTasks = [...tasks];
     newTasks[index] = edit;
 
-    console.log(edit);
+    //console.log(edit);
 
     const newObj = {
       Expenses: newTasks
