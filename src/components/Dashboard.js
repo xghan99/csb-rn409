@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
+import Visualisation from "./Visualisation";
 
 function Dashboard() {
   const { currentUser } = useAuth();
@@ -51,7 +52,6 @@ function Dashboard() {
     getExpensesSummary();
     // eslint-disable-next-line
   }, []);
-
   return (
     <>
       <div>
@@ -65,6 +65,9 @@ function Dashboard() {
               Total Expenses: ${stats.totalAmount}
             </h3>
           </div>
+        </div>
+        <div>
+          <Visualisation stats={stats} />
         </div>
       </div>
     </>

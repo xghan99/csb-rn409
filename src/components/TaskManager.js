@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Modal, Button, Col, Table, Alert } from "react-bootstrap";
+import { Form, Modal, Button, Col, Table } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import validate from "./validate";
@@ -52,6 +52,11 @@ function TaskManager() {
   function handleAddTask(event) {
     event.preventDefault();
     addTask(newTaskText);
+    event.target.reset();
+    setNewTaskText("");
+    setNeedWant(null);
+    setAmount();
+    setCat("");
   }
 
   function addTask(description) {
@@ -86,6 +91,8 @@ function TaskManager() {
     const newTasks = tasks
       .slice(0, index)
       .concat(tasks.slice(index + 1, tasks.length));
+    var id = 0;
+    newTasks.map((obj) => (obj.id = id++));
     //console.log(newTasks);
     const newObj = {
       Expenses: newTasks
@@ -104,6 +111,7 @@ function TaskManager() {
         Expenses: newTasks
       };
       db.collection("expenses").doc(currentUser.email).set(newObj);
+      document.getElementById("form1").reset();
     } else {
       alert("Please ensure all fields are filled!");
     }
@@ -119,7 +127,7 @@ function TaskManager() {
       <div className="addMarg">
         <h2>Add Expenses</h2>
         {loading ? <h2> loading... </h2> : null}
-        <Form onSubmit={handleAddTask} className="info">
+        <Form onSubmit={handleAddTask} className="info" id="form1">
           <Form.Row>
             <Form.Group as={Col} xs={12} md="auto">
               <Form.Control
@@ -136,7 +144,7 @@ function TaskManager() {
                 onChange={(event) => setAmount(event.target.value)}
               />
             </Form.Group>
-            <Form.Group as={Col} xs={12} xs={12} md="auto">
+            <Form.Group as={Col} xs={12} md="auto">
               <Form.Control
                 as="select"
                 onChange={(e) => setCat(e.target.value)}
@@ -151,10 +159,8 @@ function TaskManager() {
               <Form.Check
                 type="radio"
                 label="Need"
-                id="formHorizontalRadios3"
                 style={{ color: "green" }}
-                //checked={isNeed}
-                onChange={(event) => setNeedWant(true)}
+                onInput={(event) => setNeedWant(true)}
                 name="need-want"
                 className="mt-2"
               />
@@ -165,8 +171,7 @@ function TaskManager() {
                 label="Want"
                 id="formHorizontalRadios4"
                 style={{ color: "red" }}
-                //checked={!isNeed}
-                onChange={(event) => setNeedWant(false)}
+                onInput={(event) => setNeedWant(false)}
                 name="need-want"
                 className="mt-2"
               />
