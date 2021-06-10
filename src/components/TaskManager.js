@@ -8,7 +8,7 @@ function TaskManager() {
   const { currentUser } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [newTaskText, setNewTaskText] = useState("");
-  const [isNeed, setNeedWant] = useState(false);
+  const [isNeed, setNeedWant] = useState(null);
   const [amount, setAmount] = useState();
   const [category, setCat] = useState("");
   const [loading, setLoading] = useState(false);
@@ -94,15 +94,19 @@ function TaskManager() {
   }
 
   function handleEdit(index) {
-    const newTasks = [...tasks];
-    newTasks[index] = edit;
+    if (validate(edit)) {
+      const newTasks = [...tasks];
+      newTasks[index] = edit;
 
-    //console.log(edit);
+      //console.log(edit);
 
-    const newObj = {
-      Expenses: newTasks
-    };
-    db.collection("expenses").doc(currentUser.email).set(newObj);
+      const newObj = {
+        Expenses: newTasks
+      };
+      db.collection("expenses").doc(currentUser.email).set(newObj);
+    } else {
+      alert("Please ensure all fields are filled!");
+    }
   }
 
   function editItem(index) {
