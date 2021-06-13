@@ -70,8 +70,9 @@ function TaskManager() {
         category: category
       }
     ];
-
-    if (validate(newTasks[newTasks.length - 1])) {
+    //console.log(newTasks[newTasks.length - 1]);
+    //console.log(validate(newTasks[newTasks.length - 1]));
+    if (validate(newTasks[newTasks.length - 1]) === 1) {
       const newObj = {
         Expenses: newTasks
       };
@@ -83,7 +84,7 @@ function TaskManager() {
           console.log(err);
         });
     } else {
-      alert("Please ensure all fields are filled!");
+      alert(validate(newTasks[newTasks.length - 1]));
     }
   }
 
@@ -101,7 +102,7 @@ function TaskManager() {
   }
 
   function handleEdit(index) {
-    if (validate(edit)) {
+    if (validate(edit) === 1) {
       const newTasks = [...tasks];
       newTasks[index] = edit;
 
@@ -113,7 +114,7 @@ function TaskManager() {
       db.collection("expenses").doc(currentUser.email).set(newObj);
       document.getElementById("form1").reset();
     } else {
-      alert("Please ensure all fields are filled!");
+      alert(validate(edit));
     }
   }
 
