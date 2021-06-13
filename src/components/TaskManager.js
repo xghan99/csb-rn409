@@ -51,12 +51,13 @@ function TaskManager() {
 
   function handleAddTask(event) {
     event.preventDefault();
-    addTask(newTaskText);
-    event.target.reset();
-    setNewTaskText("");
-    setNeedWant(null);
-    setAmount();
-    setCat("");
+    if (addTask(newTaskText) !== false) {
+      event.target.reset();
+      setNewTaskText("");
+      setNeedWant(null);
+      setAmount();
+      setCat("");
+    }
   }
 
   function addTask(description) {
@@ -72,6 +73,7 @@ function TaskManager() {
     ];
     //console.log(newTasks[newTasks.length - 1]);
     //console.log(validate(newTasks[newTasks.length - 1]));
+    console.log(newTasks[newTasks.length - 1]);
     if (validate(newTasks[newTasks.length - 1]) === 1) {
       const newObj = {
         Expenses: newTasks
@@ -85,6 +87,7 @@ function TaskManager() {
         });
     } else {
       alert(validate(newTasks[newTasks.length - 1]));
+      return false;
     }
   }
 
@@ -101,10 +104,11 @@ function TaskManager() {
     db.collection("expenses").doc(currentUser.email).set(newObj);
   }
 
-  function handleEdit(index) {
+  function handleEdit(event) {
+    event.preventDefault();
     if (validate(edit) === 1) {
       const newTasks = [...tasks];
-      newTasks[index] = edit;
+      newTasks[edit.id] = edit;
 
       //console.log(edit);
 
@@ -115,6 +119,7 @@ function TaskManager() {
       document.getElementById("form1").reset();
     } else {
       alert(validate(edit));
+      toggleModal(true);
     }
   }
 
@@ -218,7 +223,7 @@ function TaskManager() {
       <Modal show={modalOpen} onHide={() => toggleModal(!modalOpen)}>
         <Modal.Header closeButton>Edit</Modal.Header>
         <Modal.Body>
-          <Form onSubmit={() => handleEdit(edit.id)} id="edit">
+          <Form onSubmit={(e) => handleEdit(e)} id="edit">
             <Form.Group>
               <Form.Label> Amount </Form.Label>
               <Form.Control
