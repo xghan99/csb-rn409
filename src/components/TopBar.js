@@ -39,7 +39,7 @@ function TopBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/dashboard">My Dashboard</Nav.Link>
-            <Nav.Link href="/">Expenses Tracking</Nav.Link>
+            <Nav.Link href="/expenses">Expenses Tracking</Nav.Link>
             <Nav.Link href="/">My Investments</Nav.Link>
             <Nav.Link href="#" onClick={handleLogout}>
               Log out

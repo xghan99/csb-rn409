@@ -27,7 +27,7 @@ export default function App() {
               <Route path="/login" component={Login} />
               <div>
                 <TopBar />
-                <PrivateRoute exact path="/" component={TaskManager} />
+                <PrivateRoute exact path="/expenses" component={TaskManager} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </div>
             </Switch>

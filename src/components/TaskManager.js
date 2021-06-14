@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Form, Modal, Button, Col, Table } from "react-bootstrap";
+import {
+  Form,
+  Modal,
+  Button,
+  ButtonGroup,
+  Col,
+  Table,
+  ToggleButton
+} from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
-import validate from "./validate";
+import { validate, revchrono } from "./Utilities";
+import ExpensesForm from "./ExpensesForm";
+import IncomeForm from "./IncomeForm";
 
 function TaskManager() {
   const { currentUser } = useAuth();
@@ -11,6 +21,7 @@ function TaskManager() {
   const [isNeed, setNeedWant] = useState(null);
   const [amount, setAmount] = useState();
   const [category, setCat] = useState("");
+  const [date, setDate] = useState("");
   const [loading, setLoading] = useState(false);
   const [modalOpen, toggleModal] = useState(false);
   const [edit, setEdit] = useState({
@@ -18,8 +29,24 @@ function TaskManager() {
     description: "",
     isNeed: null,
     amount: null,
-    category: null
+    category: null,
+    date: ""
   });
+  const [filters, setFilters] = useState({
+    isNeed: "default",
+    category: "default"
+  });
+  const [isExpense, toggleExpenseIncome] = useState(false);
+
+  const expFilter = (task) => {
+    if (filters.isNeed !== "default" && filters.isNeed !== task.isNeed) {
+      return false;
+    }
+    if (filters.category !== "default" && filters.category !== task.category) {
+      return false;
+    }
+    return true;
+  };
 
   //ref
   const db = firebase.firestore();
@@ -49,18 +76,19 @@ function TaskManager() {
     // eslint-disable-next-line
   }, []);
 
-  function handleAddTask(event) {
+  function handleAddExpense(event) {
     event.preventDefault();
-    if (addTask(newTaskText) !== false) {
+    if (addExpense(newTaskText) !== false) {
       event.target.reset();
       setNewTaskText("");
       setNeedWant(null);
       setAmount();
       setCat("");
+      setDate("");
     }
   }
 
-  function addTask(description) {
+  function addExpense(description) {
     const newTasks = [
       ...tasks,
       {
@@ -68,17 +96,16 @@ function TaskManager() {
         description: description,
         isNeed: isNeed,
         amount: amount,
-        category: category
+        category: category,
+        date: date
       }
     ];
-    //console.log(newTasks[newTasks.length - 1]);
-    //console.log(validate(newTasks[newTasks.length - 1]));
-    console.log(newTasks[newTasks.length - 1]);
-    if (validate(newTasks[newTasks.length - 1]) === 1) {
+
+    if (validate("Expense", newTasks[newTasks.length - 1]) === 1) {
+      revchrono(newTasks);
       const newObj = {
         Expenses: newTasks
       };
-
       db.collection("expenses")
         .doc(currentUser.email)
         .set(newObj)
@@ -86,7 +113,49 @@ function TaskManager() {
           console.log(err);
         });
     } else {
-      alert(validate(newTasks[newTasks.length - 1]));
+      alert(validate("expense", newTasks[newTasks.length - 1]));
+      return false;
+    }
+  }
+
+  function handleAddIncome(event) {
+    event.preventDefault();
+    if (addIncome(newTaskText) !== false) {
+      event.target.reset();
+      setNewTaskText("");
+      setNeedWant(null);
+      setAmount();
+      setCat("");
+      setDate("");
+    }
+  }
+
+  function addIncome(description) {
+    const newTasks = [
+      ...tasks,
+      {
+        id: tasks.length,
+        description: description,
+        isNeed: "-",
+        amount: amount,
+        category: category,
+        date: date
+      }
+    ];
+
+    if (validate("Income", newTasks[newTasks.length - 1]) === 1) {
+      revchrono(newTasks);
+      const newObj = {
+        Expenses: newTasks
+      };
+      db.collection("expenses")
+        .doc(currentUser.email)
+        .set(newObj)
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert(validate("Income", newTasks[newTasks.length - 1]));
       return false;
     }
   }
@@ -95,8 +164,7 @@ function TaskManager() {
     const newTasks = tasks
       .slice(0, index)
       .concat(tasks.slice(index + 1, tasks.length));
-    var id = 0;
-    newTasks.map((obj) => (obj.id = id++));
+    revchrono(newTasks);
     //console.log(newTasks);
     const newObj = {
       Expenses: newTasks
@@ -111,7 +179,7 @@ function TaskManager() {
       newTasks[edit.id] = edit;
 
       //console.log(edit);
-
+      revchrono(newTasks);
       const newObj = {
         Expenses: newTasks
       };
@@ -128,71 +196,104 @@ function TaskManager() {
     toggleModal(true);
   }
 
+  function handleIsNeedFilter(e) {
+    let isNeedFilterValue = false;
+    if (e.target.value === "Need") {
+      isNeedFilterValue = true;
+    } else if (e.target.value === "Need/Want") {
+      isNeedFilterValue = "default";
+    }
+    setFilters({ ...filters, isNeed: isNeedFilterValue });
+  }
+
+  function handleCatFilter(e) {
+    let catFilterValue = "default";
+    if (e.target.value !== "Category") {
+      catFilterValue = e.target.value;
+    }
+    setFilters({ ...filters, category: catFilterValue });
+  }
+
   return (
     <main>
-      <div className="addMarg">
-        <h2>Add Expenses</h2>
+      <div>
+        <h2>Add {isExpense ? "Expense" : "Income"} </h2>
         {loading ? <h2> loading... </h2> : null}
-        <Form onSubmit={handleAddTask} className="info" id="form1">
+        <ButtonGroup toggle className="mb-2">
+          <ToggleButton
+            type="radio"
+            checked={isExpense}
+            onChange={(e) => toggleExpenseIncome(true)}
+          >
+            Expense
+          </ToggleButton>
+          <ToggleButton
+            type="radio"
+            checked={!isExpense}
+            onChange={(e) => toggleExpenseIncome(false)}
+          >
+            Income
+          </ToggleButton>
+        </ButtonGroup>
+        {isExpense && (
+          <ExpensesForm
+            handleAddTask={handleAddExpense}
+            setDate={setDate}
+            setNewTaskText={setNewTaskText}
+            setAmount={setAmount}
+            setCat={setCat}
+            setNeedWant={setNeedWant}
+          />
+        )}
+        {!isExpense && (
+          <IncomeForm
+            handleAddTask={handleAddIncome}
+            setDate={setDate}
+            setNewTaskText={setNewTaskText}
+            setAmount={setAmount}
+            setCat={setCat}
+          />
+        )}
+      </div>
+
+      <div className="addMarg">
+        <h3> Filter expenses by </h3>
+      </div>
+
+      <div>
+        <Form className="info">
           <Form.Row>
             <Form.Group as={Col} xs={12} md="auto">
-              <Form.Control
-                type="text"
-                placeholder="Description"
-                onChange={(event) => setNewTaskText(event.target.value)}
-              />
-            </Form.Group>
-            <Form.Group as={Col} xs={12} md="auto">
-              <Form.Control
-                type="number"
-                step="any"
-                placeholder="Amount"
-                onChange={(event) => setAmount(event.target.value)}
-              />
-            </Form.Group>
-            <Form.Group as={Col} xs={12} md="auto">
-              <Form.Control
-                as="select"
-                onChange={(e) => setCat(e.target.value)}
-              >
-                <option value="NIL">--Category--</option>
-                <option value="Food & Drink">Food & Drinks </option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Others">Others</option>
+              <Form.Control as="select" onChange={(e) => handleIsNeedFilter(e)}>
+                <option> Need/Want </option>
+                <option> Need </option>
+                <option> Want </option>
               </Form.Control>
             </Form.Group>
-            <Form.Group as={Col} xs={6} md="auto">
-              <Form.Check
-                type="radio"
-                label="Need"
-                style={{ color: "green" }}
-                onInput={(event) => setNeedWant(true)}
-                name="need-want"
-                className="mt-2"
-              />
-            </Form.Group>
-            <Form.Group as={Col} xs={6} md="auto">
-              <Form.Check
-                type="radio"
-                label="Want"
-                id="formHorizontalRadios4"
-                style={{ color: "red" }}
-                onInput={(event) => setNeedWant(false)}
-                name="need-want"
-                className="mt-2"
-              />
-            </Form.Group>
             <Form.Group as={Col} xs={12} md="auto">
-              <Button type="submit">Add</Button>
+              <Form.Control as="select" onChange={(e) => handleCatFilter(e)}>
+                <option> Category </option>
+                <option> Food & Drink </option>
+                <option> Entertainment </option>
+                <option> Others </option>
+              </Form.Control>
             </Form.Group>
           </Form.Row>
         </Form>
       </div>
       <div>
-        <Table responsive style={{ margin: "0 auto", width: "100%" }}>
+        <div>
+          <h2> My Expenses Table </h2>
+        </div>
+        <Table
+          responsive
+          style={{ margin: "0 auto", width: "100%" }}
+          className="addMarg"
+        >
           <thead>
             <tr>
               <th>No.</th>
+              <th>Date</th>
               <th>Description</th>
               <th>Amount</th>
               <th>Need/Want</th>
@@ -200,13 +301,14 @@ function TaskManager() {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task, index) => (
+            {tasks.filter(expFilter).map((task, index) => (
               <tr key={task.id}>
                 <td>{index + 1}</td>
+                <td>{task.date}</td>
                 <td>{task.description}</td>
                 <td>${task.amount}</td>
                 <td style={{ color: task.isNeed ? "green" : "red" }}>
-                  {task.isNeed ? "Need" : "Want"}
+                  {task.isNeed === "-" ? "-" : task.isNeed ? "Need" : "Want"}
                 </td>
                 <td>{task.category}</td>
                 <td>
@@ -224,6 +326,17 @@ function TaskManager() {
         <Modal.Header closeButton>Edit</Modal.Header>
         <Modal.Body>
           <Form onSubmit={(e) => handleEdit(e)} id="edit">
+            <Form.Group>
+              <Form.Label> Date </Form.Label>
+              <Form.Control
+                type="date"
+                defaultValue={edit.date}
+                onChange={(event) =>
+                  setEdit({ ...edit, date: event.target.value })
+                }
+              />
+            </Form.Group>
+            <br />
             <Form.Group>
               <Form.Label> Amount </Form.Label>
               <Form.Control

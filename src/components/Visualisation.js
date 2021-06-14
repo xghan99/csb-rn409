@@ -7,6 +7,7 @@ function Visualisation(props) {
     return (
       <>
         <h1> You have no expenses! </h1>
+        <a href="/expenses"> Add expenses here </a>
       </>
     );
   } else if (+props.stats.needAmount === 0 && +props.stats.wantAmount !== 0) {
