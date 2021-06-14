@@ -17,7 +17,7 @@ function Dashboard() {
   const [goal, setGoal] = useState(0);
   const [filteredAmount, setFilteredAmount] = useState(0);
 
-  today = new Date();
+  const today = new Date();
   var currentMonth = String(today.getMonth() + 1).padStart(2, "0");
 
   const income = 3000;
