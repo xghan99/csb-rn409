@@ -174,7 +174,7 @@ function TaskManager() {
 
   function handleEdit(event) {
     event.preventDefault();
-    if (validate(edit) === 1) {
+    if (validate("Expense",edit) === 1 || validate("Income",edit)) {
       const newTasks = [...tasks];
       newTasks[edit.id] = edit;
 
