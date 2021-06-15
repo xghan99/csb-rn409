@@ -24,6 +24,7 @@ function TaskManager() {
 
   const [loading, setLoading] = useState(false);
   const [modalOpen, toggleModal] = useState(false);
+
   const [edit, setEdit] = useState({
     id: null,
     description: "",
@@ -35,19 +36,11 @@ function TaskManager() {
 
   const [filters, setFilters] = useState({
     isNeed: "default",
-    category: "default"
+    category: "default",
+    type: "default",
+    month: "default"
   });
   const [isExpense, toggleExpenseIncome] = useState(false);
-
-  const expFilter = (task) => {
-    if (filters.isNeed !== "default" && filters.isNeed !== task.isNeed) {
-      return false;
-    }
-    if (filters.category !== "default" && filters.category !== task.category) {
-      return false;
-    }
-    return true;
-  };
 
   const db = firebase.firestore();
 
@@ -191,6 +184,25 @@ function TaskManager() {
     toggleModal(true);
   }
 
+  const expFilter = (task) => {
+    if (filters.isNeed !== "default" && filters.isNeed !== task.isNeed) {
+      return false;
+    }
+    if (filters.category !== "default" && filters.category !== task.category) {
+      return false;
+    }
+    if (filters.type !== "default" && filters.type !== task.type) {
+      return false;
+    }
+    if (
+      filters.month !== "default" &&
+      filters.month !== task.date.slice(5, 7)
+    ) {
+      return false;
+    }
+    return true;
+  };
+
   function handleIsNeedFilter(e) {
     let isNeedFilterValue = false;
     if (e.target.value === "Need") {
@@ -207,6 +219,22 @@ function TaskManager() {
       catFilterValue = e.target.value;
     }
     setFilters({ ...filters, category: catFilterValue });
+  }
+
+  function handleTypeFilter(val) {
+    let typeFilterValue = "default";
+    if (val !== "Expense/Income") {
+      typeFilterValue = val;
+    }
+    setFilters({ ...filters, type: typeFilterValue });
+  }
+
+  function handleMonthFilter(e) {
+    let monthFilterValue = "default";
+    if (e.target.value !== "Month") {
+      monthFilterValue = e.target.value;
+    }
+    setFilters({ ...filters, month: monthFilterValue });
   }
 
   return (
@@ -251,8 +279,12 @@ function TaskManager() {
 
         <div>
           <FilterForm
+            expenseIncome={filters.type}
+            months={[...new Set(tasks.map((task) => task.date.slice(5, 7)))]}
             handleIsNeedFilter={handleIsNeedFilter}
             handleCatFilter={handleCatFilter}
+            handleTypeFilter={handleTypeFilter}
+            handleMonthFilter={handleMonthFilter}
           />
         </div>
         <div>
