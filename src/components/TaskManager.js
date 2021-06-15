@@ -8,6 +8,7 @@ import IncomeForm from "./IncomeForm";
 import TopBar from "./TopBar";
 import ExpenseEditModal from "./ExpenseEditModal";
 import IncomeEditModal from "./IncomeEditModal";
+import FilterForm from "./FilterForm";
 
 function TaskManager() {
   const { currentUser } = useAuth();
@@ -259,28 +260,10 @@ function TaskManager() {
         </div>
 
         <div>
-          <Form className="info">
-            <Form.Row>
-              <Form.Group as={Col} xs={12} md="auto">
-                <Form.Control
-                  as="select"
-                  onChange={(e) => handleIsNeedFilter(e)}
-                >
-                  <option> Need/Want </option>
-                  <option> Need </option>
-                  <option> Want </option>
-                </Form.Control>
-              </Form.Group>
-              <Form.Group as={Col} xs={12} md="auto">
-                <Form.Control as="select" onChange={(e) => handleCatFilter(e)}>
-                  <option> Category </option>
-                  <option> Food & Drink </option>
-                  <option> Entertainment </option>
-                  <option> Others </option>
-                </Form.Control>
-              </Form.Group>
-            </Form.Row>
-          </Form>
+          <FilterForm
+            handleIsNeedFilter={handleIsNeedFilter}
+            handleCatFilter={handleCatFilter}
+          />
         </div>
         <div>
           <div>

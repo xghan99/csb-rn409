@@ -121,14 +121,18 @@ function Dashboard() {
         <h1>
           {" "}
           You can spend up to $
-          {((income - monthlyExp - goal) / daystillend()).toFixed(2)} daily till
-          the end of the month!
+          {(income - monthlyExp - goal) / daystillend() >= 0
+            ? ((income - monthlyExp - goal) / daystillend()).toFixed(2)
+            : 0}{" "}
+          daily till the end of the month!
         </h1>
       </div>
       <div>
         <h2>
           Current Average Daily Spending: $
-          {(monthlyExp / currentDate).toFixed(2)}
+          {monthlyExp / currentDate >= 0
+            ? (monthlyExp / currentDate).toFixed(2)
+            : 0}
         </h2>
       </div>
       <br />
