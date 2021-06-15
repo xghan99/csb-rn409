@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Form, ButtonGroup, Col, Table, ToggleButton } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import { validate, revchrono } from "./Utilities";
@@ -8,7 +7,9 @@ import IncomeForm from "./IncomeForm";
 import TopBar from "./TopBar";
 import ExpenseEditModal from "./ExpenseEditModal";
 import IncomeEditModal from "./IncomeEditModal";
+import ExpenseIncomeTable from "./ExpenseIncomeTable";
 import FilterForm from "./FilterForm";
+import ExpenseIncomeToggle from "./ExpenseIncomeToggle";
 
 function TaskManager() {
   const { currentUser } = useAuth();
@@ -216,22 +217,11 @@ function TaskManager() {
           <h2>Add {isExpense ? "Expense" : "Income"} </h2>
           {loading ? <h2> loading... </h2> : null}
           <br />
-          <ButtonGroup toggle className="mb-2">
-            <ToggleButton
-              type="radio"
-              checked={isExpense}
-              onChange={(e) => toggleExpenseIncome(true)}
-            >
-              Expense
-            </ToggleButton>
-            <ToggleButton
-              type="radio"
-              checked={!isExpense}
-              onChange={(e) => toggleExpenseIncome(false)}
-            >
-              Income
-            </ToggleButton>
-          </ButtonGroup>
+          <ExpenseIncomeToggle
+            isExpense={isExpense}
+            toggleExpenseIncome={toggleExpenseIncome}
+          />
+
           {isExpense && (
             <ExpensesForm
               handleAddTask={handleAddExpense}
@@ -269,48 +259,12 @@ function TaskManager() {
           <div>
             <h2> My Expenses and Income Table </h2>
           </div>
-          <Table
-            responsive
-            style={{ margin: "0 auto", width: "100%" }}
-            className="addMarg"
-          >
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Need/Want</th>
-                <th>Category</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tasks.filter(expFilter).map((task, index) => (
-                <tr key={task.id}>
-                  <td>{index + 1}</td>
-                  <td>{task.date}</td>
-                  <td>{task.type}</td>
-                  <td>{task.description}</td>
-                  <td
-                    style={{ color: task.type === "Expense" ? "red" : "green" }}
-                  >
-                    ${task.amount}
-                  </td>
-                  <td>
-                    {task.isNeed === "-" ? "-" : task.isNeed ? "Need" : "Want"}
-                  </td>
-                  <td>{task.category}</td>
-                  <td>
-                    <button onClick={() => deleteItem(index)}>Delete</button>
-                  </td>
-                  <td>
-                    <button onClick={() => editItem(index)}>Edit</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+          <ExpenseIncomeTable
+            tasks={tasks}
+            expFilter={expFilter}
+            deleteItem={deleteItem}
+            editItem={editItem}
+          />
         </div>
         {edit.type === "Expense" && (
           <ExpenseEditModal
