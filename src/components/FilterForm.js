@@ -1,18 +1,21 @@
-import { Form } from "react-bootstrap";
+import { Form, Col } from "react-bootstrap";
 
-export default function FilterForm() {
+export default function FilterForm(props) {
   return (
     <Form className="info">
       <Form.Row>
         <Form.Group as={Col} xs={12} md="auto">
-          <Form.Control as="select" onChange={(e) => handleIsNeedFilter(e)}>
+          <Form.Control
+            as="select"
+            onChange={(e) => props.handleIsNeedFilter(e)}
+          >
             <option> Need/Want </option>
             <option> Need </option>
             <option> Want </option>
           </Form.Control>
         </Form.Group>
         <Form.Group as={Col} xs={12} md="auto">
-          <Form.Control as="select" onChange={(e) => handleCatFilter(e)}>
+          <Form.Control as="select" onChange={(e) => props.handleCatFilter(e)}>
             <option> Category </option>
             <option> Food & Drink </option>
             <option> Entertainment </option>
