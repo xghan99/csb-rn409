@@ -21,7 +21,7 @@ function TopBar() {
 
   return (
     <Fragment>
-      <Navbar className="color-nav" expand="lg">
+      <Navbar className="color-nav" expand="lg" sticky="top">
         <Navbar.Brand href="#home">
           <img
             alt="h"
@@ -39,7 +39,9 @@ function TopBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/dashboard">My Dashboard</Nav.Link>
-            <Nav.Link href="/expenses">Expenses Tracking</Nav.Link>
+            <Nav.Link href="/expenses-income-tracking">
+              Expenses Tracking
+            </Nav.Link>
             <Nav.Link href="/">My Investments</Nav.Link>
             <Nav.Link href="#" onClick={handleLogout}>
               Log out

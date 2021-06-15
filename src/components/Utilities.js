@@ -46,26 +46,15 @@ function revchrono(expenses) {
   expenses.map((obj) => (obj.id = id++));
 }
 
-function datediff(date1, date2) {
-  var newDate1 = new Date(
-    date1.slice(0, 4),
-    date1.slice(5, 7),
-    date1.slice(8),
-    0,
-    0,
-    0,
-    0
-  );
-  var newDate2 = new Date(
-    date2.slice(0, 4),
-    date2.slice(5, 7),
-    date2.slice(8),
-    0,
-    0,
-    0,
-    0
-  );
-  return (newDate1.getTime() - newDate2.getTime()) / (1000 * 3600 * 24) + 1;
+function daystillend() {
+  var newDate1 = new Date();
+  var newDate2 = new Date(newDate1.getTime());
+
+  newDate2.setMonth(newDate1.getMonth() + 1);
+  newDate2.setDate(0);
+
+  var days = newDate2.getDate() - newDate1.getDate();
+  return days;
 }
 
-export { validate, revchrono, datediff };
+export { validate, revchrono, daystillend };

@@ -39,7 +39,9 @@ function IncomeForm(props) {
             </Form.Control>
           </Form.Group>
           <Form.Group as={Col} xs={12} md="auto">
-            <Button type="submit">Add</Button>
+            <Button type="submit" onClick={(e) => props.setType("Income")}>
+              Add
+            </Button>
           </Form.Group>
         </Form.Row>
       </Form>

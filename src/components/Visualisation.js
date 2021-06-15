@@ -3,25 +3,25 @@ import React from "react";
 
 function Visualisation(props) {
   var data = [];
-  if (+props.stats.needAmount === 0 && +props.stats.wantAmount === 0) {
+  if (+props.stats.needExpense === 0 && +props.stats.wantExpense === 0) {
     return (
       <>
         <h1> You have no expenses! </h1>
         <a href="/expenses"> Add expenses here </a>
       </>
     );
-  } else if (+props.stats.needAmount === 0 && +props.stats.wantAmount !== 0) {
+  } else if (+props.stats.needExpense === 0 && +props.stats.wantExpense !== 0) {
     data = [
-      { title: "Want", value: +props.stats.wantAmount, color: "#f50d00" }
+      { title: "Want", value: +props.stats.wantExpense, color: "#f50d00" }
     ];
-  } else if (+props.stats.needAmount !== 0 && +props.stats.wantAmount === 0) {
+  } else if (+props.stats.needExpense !== 0 && +props.stats.wantExpense === 0) {
     data = [
-      { title: "Need", value: +props.stats.needAmount, color: "#277f00" }
+      { title: "Need", value: +props.stats.needExpense, color: "#277f00" }
     ];
   } else {
     data = [
-      { title: "Want", value: +props.stats.wantAmount, color: "#f50d00" },
-      { title: "Need", value: +props.stats.needAmount, color: "#277f00" }
+      { title: "Want", value: +props.stats.wantExpense, color: "#f50d00" },
+      { title: "Need", value: +props.stats.needExpense, color: "#277f00" }
     ];
   }
   return (

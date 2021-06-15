@@ -1,60 +1,80 @@
 import React, { useState, useEffect } from "react";
-import { ProgressBar, Form, Col, Button } from "react-bootstrap";
+import { Form, Col, Button } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import Visualisation from "./Visualisation";
-import { datediff } from "./Utilities";
+import TopBar from "./TopBar";
+import { daystillend } from "./Utilities";
 
 function Dashboard() {
   const { currentUser } = useAuth();
   const db = firebase.firestore();
-  const expensesDoc = db.collection("expenses").doc(currentUser.email);
+  const expensesDoc = db
+    .collection("expenses-and-income")
+    .doc(currentUser.email);
   const [stats, setStats] = useState({
-    totalAmount: null,
-    wantAmount: null,
-    needAmount: null
+    totalExpense: null,
+    wantExpense: null,
+    needExpense: null
   });
   const [goal, setGoal] = useState(0);
-  const [filteredAmount, setFilteredAmount] = useState(0);
+  const [monthlyExp, setMonthlyExp] = useState(0);
+  const [income, setIncome] = useState(0);
 
   const today = new Date();
   var currentMonth = String(today.getMonth() + 1).padStart(2, "0");
+  var currentDate = today.getDate();
 
-  const income = 3000;
+  //const income = 3000;
   function getExpensesSummary() {
     //helper
     const amountAddFunc = (seed, currObj) =>
       Number(seed) + Number(currObj.amount);
+    const incomePred = (task) => task.type === "Income";
+    const expensePred = (task) => task.type === "Expense";
 
-    const totalAmount = (tasks) => tasks.reduce(amountAddFunc, 0).toFixed(2);
-    // const amountTilDate=
-    const wantAmount = (tasks) =>
+    const wantExpense = (tasks) =>
       tasks
-        .filter((task) => !task.isNeed)
+        .filter((task) => task.isNeed === false)
+        .filter((task) => task.date.slice(5, 7) === currentMonth)
         .reduce(amountAddFunc, 0)
         .toFixed(2);
 
-    const needAmount = (tasks) =>
+    const needExpense = (tasks) =>
       tasks
-        .filter((task) => task.isNeed)
+        .filter((task) => task.isNeed === true)
+        .filter((task) => task.date.slice(5, 7) === currentMonth)
         .reduce(amountAddFunc, 0)
         .toFixed(2);
 
-    const filteredAmount = (tasks) =>
+    const incomeForCurrMonth = (tasks) =>
       tasks
+        .filter(incomePred)
+        .filter((task) => task.date.slice(5, 7) === currentMonth)
+        .reduce(amountAddFunc, 0)
+        .toFixed(2);
+
+    const expenseForCurrMonth = (tasks) =>
+      tasks
+        .filter(expensePred)
         .filter((task) => task.date.slice(5, 7) === currentMonth)
         .reduce(amountAddFunc, 0)
         .toFixed(2);
 
     const obj = expensesDoc.get().then((doc) => {
       if (doc.exists) {
-        const arr = doc.data().Expenses;
+        const arr = doc.data().expensesAndIncome
+          ? doc.data().expensesAndIncome
+          : [];
         setStats({
-          totalAmount: totalAmount(arr),
-          wantAmount: wantAmount(arr),
-          needAmount: needAmount(arr)
+          totalExpense: expenseForCurrMonth(arr),
+          wantExpense: wantExpense(arr),
+          needExpense: needExpense(arr)
         });
-        setFilteredAmount(filteredAmount(arr));
+        setMonthlyExp(expenseForCurrMonth(arr));
+        const goalobj = doc.data().Goal;
+        setGoal(goalobj);
+        setIncome(incomeForCurrMonth(arr));
       } else {
         return null;
       }
@@ -74,6 +94,7 @@ function Dashboard() {
   }, []);
   return (
     <>
+      <TopBar />
       <div>
         <Form
           className="info"
@@ -97,18 +118,29 @@ function Dashboard() {
       <br />
 
       <div>
-        <h1>You can potentially save ${income - filteredAmount}!</h1>
+        <h1>
+          {" "}
+          You can spend up to $
+          {((income - monthlyExp - goal) / daystillend()).toFixed(2)} daily till
+          the end of the month!
+        </h1>
+      </div>
+      <div>
+        <h2>
+          Current Average Daily Spending: $
+          {(monthlyExp / currentDate).toFixed(2)}
+        </h2>
       </div>
       <br />
       <div>
         <div className="splitExpense">
           <div>
-            <h3 id="want">Want Expenses: ${stats.wantAmount}</h3>
-            <h3 id="need">Need Expenses: ${stats.needAmount}</h3>
+            <h3 id="want">Want Expenses: ${stats.wantExpense}</h3>
+            <h3 id="need">Need Expenses: ${stats.needExpense}</h3>
           </div>
           <div>
             <h3 className="addMarg" id="total">
-              Total Expenses: ${stats.totalAmount}
+              Total Expenses: ${stats.totalExpense}
             </h3>
           </div>
         </div>
