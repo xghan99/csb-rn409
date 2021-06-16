@@ -3,7 +3,6 @@ import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import { validate, revchrono } from "./Utilities";
 import TopBar from "./TopBar";
-import ExpenseIncomeToggle from "./ExpenseIncomeToggle";
 import ExpenseIncomeForm from "./ExpenseIncomeForm";
 import ExpenseIncomeTable from "./ExpenseIncomeTable";
 import ExpenseIncomeEditModal from "./ExpenseIncomeEditModal";
@@ -248,11 +247,8 @@ function TaskManager() {
           <h2>Add {isExpense ? "Expense" : "Income"} </h2>
           {loading ? <h2> loading... </h2> : null}
           <br />
-          <ExpenseIncomeToggle
-            isExpense={isExpense}
-            toggleExpenseIncome={toggleExpenseIncome}
-          />
           <ExpenseIncomeForm
+            toggleExpenseIncome={toggleExpenseIncome}
             handleAddExpense={handleAddExpense}
             handleAddIncome={handleAddIncome}
             setDate={setDate}
