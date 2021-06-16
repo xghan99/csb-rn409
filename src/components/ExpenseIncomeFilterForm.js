@@ -6,7 +6,7 @@ import {
   Container
 } from "react-bootstrap";
 
-export default function FilterForm(props) {
+export default function ExpenseIncomeFilterForm(props) {
   function toggleButton() {
     return (
       <ButtonGroup toggle className="mb-2">

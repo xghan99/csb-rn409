@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import { validate, revchrono } from "./Utilities";
-import ExpensesForm from "./ExpensesForm";
-import IncomeForm from "./IncomeForm";
 import TopBar from "./TopBar";
-import ExpenseEditModal from "./ExpenseEditModal";
-import IncomeEditModal from "./IncomeEditModal";
-import ExpenseIncomeTable from "./ExpenseIncomeTable";
-import FilterForm from "./FilterForm";
 import ExpenseIncomeToggle from "./ExpenseIncomeToggle";
+import ExpenseIncomeForm from "./ExpenseIncomeForm";
+import ExpenseIncomeTable from "./ExpenseIncomeTable";
+import ExpenseIncomeEditModal from "./ExpenseIncomeEditModal";
+import ExpenseIncomeFilterForm from "./ExpenseIncomeFilterForm";
 
 function TaskManager() {
   const { currentUser } = useAuth();
@@ -105,7 +103,7 @@ function TaskManager() {
           console.log(err);
         });
     } else {
-      alert(validate("expense", newTasks[newTasks.length - 1]));
+      alert(validate("Expense", newTasks[newTasks.length - 1]));
       return false;
     }
   }
@@ -249,36 +247,23 @@ function TaskManager() {
             isExpense={isExpense}
             toggleExpenseIncome={toggleExpenseIncome}
           />
-
-          {isExpense && (
-            <ExpensesForm
-              handleAddTask={handleAddExpense}
-              setDate={setDate}
-              setNewTaskText={setNewTaskText}
-              setAmount={setAmount}
-              setCat={setCat}
-              setNeedWant={setNeedWant}
-              setType={setType}
-            />
-          )}
-          {!isExpense && (
-            <IncomeForm
-              handleAddTask={handleAddIncome}
-              setDate={setDate}
-              setNewTaskText={setNewTaskText}
-              setAmount={setAmount}
-              setCat={setCat}
-              setType={setType}
-            />
-          )}
+          <ExpenseIncomeForm
+            handleAddExpense={handleAddExpense}
+            handleAddIncome={handleAddIncome}
+            setDate={setDate}
+            setNewTaskText={setNewTaskText}
+            setAmount={setAmount}
+            setCat={setCat}
+            setNeedWant={setNeedWant}
+            setType={setType}
+            isExpense={isExpense}
+          />
         </div>
-
         <div className="addMarg">
           <h2> Filter by </h2>
         </div>
-
         <div>
-          <FilterForm
+          <ExpenseIncomeFilterForm
             expenseIncome={filters.type}
             months={[...new Set(tasks.map((task) => task.date.slice(5, 7)))]}
             handleIsNeedFilter={handleIsNeedFilter}
@@ -298,24 +283,13 @@ function TaskManager() {
             editItem={editItem}
           />
         </div>
-        {edit.type === "Expense" && (
-          <ExpenseEditModal
-            modalOpen={modalOpen}
-            toggleModal={toggleModal}
-            handleEdit={handleEdit}
-            edit={edit}
-            setEdit={setEdit}
-          />
-        )}
-        {edit.type === "Income" && (
-          <IncomeEditModal
-            modalOpen={modalOpen}
-            toggleModal={toggleModal}
-            handleEdit={handleEdit}
-            edit={edit}
-            setEdit={setEdit}
-          />
-        )}
+        <ExpenseIncomeEditModal
+          modalOpen={modalOpen}
+          toggleModal={toggleModal}
+          handleEdit={handleEdit}
+          edit={edit}
+          setEdit={setEdit}
+        />
       </main>
     </>
   );
