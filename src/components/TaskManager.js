@@ -224,7 +224,12 @@ function TaskManager() {
     if (val !== "Expense/Income") {
       typeFilterValue = val;
     }
-    setFilters({ ...filters, type: typeFilterValue });
+    setFilters({
+      isNeed: "default",
+      category: "default",
+      type: typeFilterValue,
+      month: "default"
+    });
   }
 
   function handleMonthFilter(e) {
