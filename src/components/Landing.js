@@ -10,16 +10,22 @@ export default function Landing() {
       </Navbar>
       <br />
       <div>
-        <Jumbotron className="mt-auto body">
-          <h1> Hello World! </h1>
-          <p>Ever wondered why it is so difficult to save money?</p>
-          <p>
-            <Button variant="primary" href="/signup">
-              {" "}
-              Sign up for a free acount{" "}
-            </Button>
-          </p>
-        </Jumbotron>
+        <Container>
+          <Jumbotron className="mt-auto body">
+            <h1> Hello World! </h1>
+            <p>Ever wondered why it is so difficult to save money?</p>
+            <p>
+              <Button variant="primary" href="/signup">
+                {" "}
+                Sign up for a free acount{" "}
+              </Button>
+            </p>
+          </Jumbotron>
+          <Jumbotron>
+            <h1> Hello World! </h1>
+            <p> Lorem ipsum </p>
+          </Jumbotron>
+        </Container>
       </div>
     </>
   );
