@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@900&family=Montserrat&family=Noto+Sans+JP:wght@100&family=Overpass:wght@600&family=Roboto:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@900&family=Montserrat&family=Noto+Sans+JP:wght@300&family=Overpass:wght@600&family=Roboto:wght@500&display=swap");
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -104,10 +104,12 @@ body {
 
 .mb-1 {
   padding-left: 476px;
+  padding-top: 0px;
 }
 
 .mb-2 {
   padding-left: 440px;
+  padding-top: 28px;
 }
 .expenseHeadings {
   font-family: "Overpass", sans-serif;
