@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Col, Button, ProgressBar } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import Visualisation from "./Visualisation";
@@ -24,8 +24,10 @@ function Dashboard() {
   const today = new Date();
   var currentMonth = String(today.getMonth() + 1).padStart(2, "0");
   var currentDate = today.getDate();
+  var now =
+    (100 * (monthlyExp / currentDate)) /
+    ((income - monthlyExp - goal) / daystillend());
 
-  //const income = 3000;
   function getExpensesSummary() {
     //helper
     const amountAddFunc = (seed, currObj) =>
@@ -116,7 +118,7 @@ function Dashboard() {
         </Form>
       </div>
       <br />
-
+      <div>Savings Goal: ${goal}</div>
       <div>
         <h1>
           {" "}
@@ -126,15 +128,16 @@ function Dashboard() {
             : 0}{" "}
           daily till the end of the month!
         </h1>
+        <h1>
+          <ProgressBar
+            now={now}
+            label={`Current Average Daily Spending: $
+          ${(monthlyExp / currentDate).toFixed(2)}`}
+            variant={now < 100 ? "success" : "danger"}
+          />
+        </h1>
       </div>
-      <div>
-        <h2>
-          Current Average Daily Spending: $
-          {monthlyExp / currentDate >= 0
-            ? (monthlyExp / currentDate).toFixed(2)
-            : 0}
-        </h2>
-      </div>
+
       <br />
       <div>
         <div className="splitExpense">

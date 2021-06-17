@@ -15,7 +15,7 @@ export default function ExpenseIncomeFilterForm(props) {
           checked={props.expenseIncome === "default"}
           onChange={(e) => props.handleTypeFilter("Expense/Income")}
         >
-          Expense/Income
+          All
         </ToggleButton>
         <ToggleButton
           type="radio"
@@ -132,7 +132,6 @@ export default function ExpenseIncomeFilterForm(props) {
       <Container>
         {toggleButton()}
         <div>
-          <h3> More filters for {props.expenseIncome} </h3>
           {props.expenseIncome === "default" && expenseIncomeFilters()}
           {props.expenseIncome === "Expense" && expenseFilters()}
           {props.expenseIncome === "Income" && incomeFilters()}

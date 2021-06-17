@@ -21,8 +21,8 @@ function TopBar() {
 
   return (
     <Fragment>
-      <Navbar className="color-nav" expand="lg" sticky="top">
-        <Navbar.Brand href="#home">
+      <Navbar bg="light" expand="lg" fixed="top">
+        <Navbar.Brand href="#home" className="welcomeMsg">
           <img
             alt="h"
             width="60"
@@ -38,17 +38,22 @@ function TopBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/dashboard">My Dashboard</Nav.Link>
-            <Nav.Link href="/expenses-income-tracking">
-              Expenses Tracking
+            <Nav.Link className="landingMenu" href="/dashboard">
+              Dashboard
             </Nav.Link>
-            <Nav.Link href="/">My Investments</Nav.Link>
-            <Nav.Link href="#" onClick={handleLogout}>
+            <Nav.Link className="landingMenu" href="/expenses-income-tracking">
+              Income & Expenditure
+            </Nav.Link>
+            <Nav.Link className="landingMenu" href="/">
+              Investments
+            </Nav.Link>
+            <Nav.Link className="landingMenu" href="#" onClick={handleLogout}>
               Log out
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <div className="mt-5">Hello</div>
     </Fragment>
   );
 }

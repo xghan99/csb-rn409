@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@900&family=Montserrat&family=Noto+Sans+JP:wght@100&family=Overpass:wght@600&family=Roboto:wght@500&display=swap");
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -11,7 +12,6 @@
 }
 
 .color-nav {
-  background-color: burlywood;
 }
 
 .addMarg {
@@ -61,4 +61,62 @@
 
 .body {
   padding-top: 70px;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.poor {
+  background-image: url("resources/poorguy.jpg");
+  background-size: 720px 450px;
+  height: 450px;
+  width: 720px;
+  margin: auto;
+}
+
+.rich {
+  background-image: url("resources/richguy.jpg");
+  background-size: 720px 450px;
+  height: 450px;
+  width: 720px;
+  margin: auto;
+}
+
+.pageName {
+  font-family: "Big Shoulders Text", cursive;
+}
+.landingMenu {
+  font-family: "Montserrat", sans-serif;
+}
+
+.welcomeMsg {
+  font-family: "Roboto", sans-serif;
+}
+
+.add {
+  display: flex;
+  justify-content: center;
+  font-family: "Overpass", sans-serif;
+}
+
+.mb-1 {
+  padding-left: 476px;
+}
+
+.mb-2 {
+  padding-left: 440px;
+}
+.expenseHeadings {
+  font-family: "Overpass", sans-serif;
+}
+
+.tableHeadings {
+  font-family: "Roboto", sans-serif;
+}
+
+.tableValues {
+  font-family: "Noto Sans JP", sans-serif;
 }

@@ -1,4 +1,4 @@
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 
 export default function ExpenseIncomeTable(props) {
   return (
@@ -9,32 +9,35 @@ export default function ExpenseIncomeTable(props) {
     >
       <thead>
         <tr>
-          <th>No.</th>
-          <th>Date</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Need/Want</th>
-          <th>Category</th>
+          <th className="tableHeadings">Date</th>
+          <th className="tableHeadings">Type</th>
+          <th className="tableHeadings">Description</th>
+          <th className="tableHeadings">Amount</th>
+          <th className="tableHeadings">Need/Want</th>
+          <th className="tableHeadings">Category</th>
         </tr>
       </thead>
       <tbody>
         {props.tasks.filter(props.expFilter).map((task, index) => (
           <tr key={task.id}>
-            <td>{index + 1}</td>
-            <td>{task.date}</td>
-            <td>{task.type}</td>
-            <td>{task.description}</td>
-            <td style={{ color: task.type === "Expense" ? "red" : "green" }}>
+            <td className="tableValues">{task.date}</td>
+            <td className="tableValues">{task.type}</td>
+            <td className="tableValues">{task.description}</td>
+            <td
+              className="tableValues"
+              style={{ color: task.type === "Expense" ? "red" : "green" }}
+            >
               ${task.amount}
             </td>
-            <td>{task.isNeed === "-" ? "-" : task.isNeed ? "Need" : "Want"}</td>
-            <td>{task.category}</td>
+            <td className="tableValues">
+              {task.isNeed === "-" ? "-" : task.isNeed ? "Need" : "Want"}
+            </td>
+            <td className="tableValues">{task.category}</td>
             <td>
-              <button onClick={() => props.deleteItem(index)}>Delete</button>
+              <Button onClick={() => props.deleteItem(index)}>Delete</Button>
             </td>
             <td>
-              <button onClick={() => props.editItem(index)}>Edit</button>
+              <Button onClick={() => props.editItem(index)}>Edit</Button>
             </td>
           </tr>
         ))}

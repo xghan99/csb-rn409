@@ -9,7 +9,7 @@ export default function ExpenseIncomeForm(props) {
   function expenseIncomeToggle() {
     return (
       <>
-        <ButtonGroup toggle className="mb-2">
+        <ButtonGroup toggle className="mb-1">
           <ToggleButton
             type="radio"
             checked={props.isExpense}

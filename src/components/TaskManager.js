@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
+import { Container } from "react-bootstrap";
 import { validate, revchrono } from "./Utilities";
 import TopBar from "./TopBar";
 import ExpenseIncomeForm from "./ExpenseIncomeForm";
@@ -242,10 +243,10 @@ function TaskManager() {
   return (
     <>
       <TopBar />
-      <main>
+      <main className="mt-5">
         <div>
-          <h2>Add {isExpense ? "Expense" : "Income"} </h2>
-          {loading ? <h2> loading... </h2> : null}
+          <h2 className="add">Add {isExpense ? "Expense" : "Income"} </h2>
+          {loading ? <h2 className="add"> loading... </h2> : null}
           <br />
           <ExpenseIncomeForm
             toggleExpenseIncome={toggleExpenseIncome}
@@ -261,7 +262,7 @@ function TaskManager() {
           />
         </div>
         <div className="addMarg">
-          <h2> Filter by </h2>
+          <h2 className="add"> Filter by </h2>
         </div>
         <div>
           <ExpenseIncomeFilterForm
@@ -275,7 +276,7 @@ function TaskManager() {
         </div>
         <div>
           <div>
-            <h2> My Expenses and Income Table </h2>
+            <h2 className="expenseHeadings"> My Expenses and Income Table </h2>
           </div>
           <ExpenseIncomeTable
             tasks={tasks}
