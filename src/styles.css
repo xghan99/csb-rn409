@@ -70,7 +70,7 @@ body {
 }
 
 .poor {
-  background-image: url("resources/poorguy.jpg");
+  background-image: url("../public/resources/poorguy.jpg");
   background-size: 720px 450px;
   height: 450px;
   width: 720px;
@@ -78,7 +78,7 @@ body {
 }
 
 .rich {
-  background-image: url("resources/richguy.jpg");
+  background-image: url("../public/resources/richguy.jpg");
   background-size: 720px 450px;
   height: 450px;
   width: 720px;

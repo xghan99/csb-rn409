@@ -157,7 +157,7 @@ export default function Landing() {
         <Container className="mt-5">
           {top()}
           {mid()}
-          <div className="rich d-none d-lg-block"> </div>
+          <div className="rich d-none d-lg-block"></div>
         </Container>
       </div>
     </>
