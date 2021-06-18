@@ -132,3 +132,14 @@ body {
   border: solid;
   width: 300px;
 }
+
+.cardHeadings {
+  font-family: "Roboto", sans-serif;
+}
+.cardSubheading {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+}
+.cardText {
+  font-family: "Noto Sans JP", sans-serif;
+}

@@ -172,23 +172,31 @@ function Dashboard() {
                     alt=""
                   />
                 </div>
-                Expenditure Breakdown
+                <div className="cardHeadings">Expenditure Breakdown</div>
               </Card.Title>
               <div>
                 <Row>
                   <Col lg={6}>
                     <Card className="m-1" border="danger">
                       <Card.Body>
-                        <Card.Title>Want Expenses</Card.Title>
-                        <Card.Text>${stats.wantExpense}</Card.Text>
+                        <Card.Title className="cardSubheading">
+                          Want Expenses
+                        </Card.Title>
+                        <Card.Text className="cardText">
+                          ${stats.wantExpense}
+                        </Card.Text>
                       </Card.Body>
                     </Card>
                   </Col>
                   <Col lg={6}>
                     <Card className="m-1" border="success">
                       <Card.Body>
-                        <Card.Title>Need Expenses</Card.Title>
-                        <Card.Text>{stats.needExpense}</Card.Text>
+                        <Card.Title className="cardSubheading">
+                          Need Expenses
+                        </Card.Title>
+                        <Card.Text className="cardText">
+                          ${stats.needExpense}
+                        </Card.Text>
                       </Card.Body>
                     </Card>
                   </Col>
@@ -197,8 +205,12 @@ function Dashboard() {
                   <Col lg={12}>
                     <Card className="m-1" border="info">
                       <Card.Body>
-                        <Card.Title>Total Expenses</Card.Title>
-                        <Card.Text>{stats.totalExpense}</Card.Text>
+                        <Card.Title className="cardSubheading">
+                          Total Expenses
+                        </Card.Title>
+                        <Card.Text className="cardText">
+                          ${stats.totalExpense}
+                        </Card.Text>
                       </Card.Body>
                     </Card>
                   </Col>
@@ -266,14 +278,14 @@ function Dashboard() {
                       />
                     </div>
                   </div>
-                  <div>Saving Goal</div>
+                  <div className="cardHeadings">Saving Goal</div>
                 </Card.Title>
-                <Card.Text>${goal}</Card.Text>
+                <Card.Text className="cardText">${goal}</Card.Text>
               </Card.Body>
             </Card>
             <Card style={{ width: "30rem" }}>
               <Card.Body>
-                <Card.Title>
+                <Card.Title className="cardHeadings">
                   <div style={{ position: "relative" }}>
                     <div
                       style={{
@@ -290,18 +302,22 @@ function Dashboard() {
                         alt=""
                       />
                     </div>
-                  </div>{" "}
-                  Daily Budget: $
-                  {(income - monthlyExp - goal) / daystillend() >= 0
-                    ? ((income - monthlyExp - goal) / daystillend()).toFixed(2)
-                    : 0}{" "}
+                  </div>
+                  <div className="cardHeadings">
+                    Daily Budget: $
+                    {(income - monthlyExp - goal) / daystillend() >= 0
+                      ? ((income - monthlyExp - goal) / daystillend()).toFixed(
+                          2
+                        )
+                      : 0}
+                  </div>
                 </Card.Title>
                 <ProgressBar
                   animated
                   now={now}
                   variant={now < 100 ? "success" : "danger"}
                 />
-                <Card.Text>{`Current Average Daily Spending: $
+                <Card.Text className="cardText">{`Current Average Daily Spending: $
           ${(monthlyExp / currentDate).toFixed(2)}`}</Card.Text>
               </Card.Body>
             </Card>

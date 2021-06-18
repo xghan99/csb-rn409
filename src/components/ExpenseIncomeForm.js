@@ -1,4 +1,11 @@
-import { Form, Col, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
+import {
+  Form,
+  Col,
+  Button,
+  ButtonGroup,
+  ToggleButton,
+  Row
+} from "react-bootstrap";
 
 export default function ExpenseIncomeForm(props) {
   const type = props.isExpense ? "Expense" : "Income";
@@ -9,22 +16,24 @@ export default function ExpenseIncomeForm(props) {
   function expenseIncomeToggle() {
     return (
       <>
-        <ButtonGroup toggle className="mb-1">
-          <ToggleButton
-            type="radio"
-            checked={props.isExpense}
-            onChange={(e) => props.toggleExpenseIncome(true)}
-          >
-            Expense
-          </ToggleButton>
-          <ToggleButton
-            type="radio"
-            checked={!props.isExpense}
-            onChange={(e) => props.toggleExpenseIncome(false)}
-          >
-            Income
-          </ToggleButton>
-        </ButtonGroup>
+        <div>
+          <ButtonGroup toggle className="mb-1">
+            <ToggleButton
+              type="radio"
+              checked={props.isExpense}
+              onChange={(e) => props.toggleExpenseIncome(true)}
+            >
+              Expense
+            </ToggleButton>
+            <ToggleButton
+              type="radio"
+              checked={!props.isExpense}
+              onChange={(e) => props.toggleExpenseIncome(false)}
+            >
+              Income
+            </ToggleButton>
+          </ButtonGroup>
+        </div>
       </>
     );
   }
