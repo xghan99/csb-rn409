@@ -28,7 +28,7 @@
 .info {
   padding-top: 30px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .image {
@@ -121,4 +121,14 @@ body {
 
 .tableValues {
   font-family: "Noto Sans JP", sans-serif;
+}
+
+.savingGoal {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  font-family: "Overpass", sans-serif;
+  font-size: 30px;
+  border: solid;
+  width: 300px;
 }

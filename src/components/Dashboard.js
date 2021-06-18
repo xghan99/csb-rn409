@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Form, Col, Button, ProgressBar } from "react-bootstrap";
+import {
+  Form,
+  Col,
+  Button,
+  ProgressBar,
+  Toast,
+  Card,
+  Row,
+  Container
+} from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import Visualisation from "./Visualisation";
@@ -90,6 +99,124 @@ function Dashboard() {
     expensesDoc.update({ Goal: goal });
   }
 
+  const [showA, setShowA] = useState(true);
+  const [showB, setShowB] = useState(true);
+
+  const handleCloseA = () => setShowA(!showA);
+  const handleCloseB = () => setShowB(!showB);
+
+  function userGuideToast() {
+    return (
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0
+        }}
+      >
+        <Toast show={showA} onClose={handleCloseA} animation={true}>
+          <Toast.Header>
+            <img
+              src="resources/pig.png"
+              width="30"
+              height="30"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">Goalie Admin</strong>
+            <small>just now</small>
+          </Toast.Header>
+          <Toast.Body>
+            First time here? Check out our user guide here!
+          </Toast.Body>
+        </Toast>
+        <Toast show={showB} onClose={handleCloseB} animation={true}>
+          <Toast.Header>
+            <img
+              src="resources/pig.png"
+              width="30"
+              height="30"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">Goalie Admin</strong>
+            <small>2 seconds ago</small>
+          </Toast.Header>
+          <Toast.Body>
+            <a href="/guide"> guide </a>
+          </Toast.Body>
+        </Toast>
+      </div>
+    );
+  }
+
+  function bottom() {
+    return (
+      <>
+        <Row className="d-flex justify-content-lg-center">
+          <Card style={{ width: "30rem" }}>
+            <Card.Body>
+              <Card.Title>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0
+                  }}
+                >
+                  <img
+                    variant="top"
+                    src="resources/piechart.png"
+                    height="30px"
+                    width="30px"
+                    alt=""
+                  />
+                </div>
+                Expenditure Breakdown
+              </Card.Title>
+              <div>
+                <Row>
+                  <Col lg={6}>
+                    <Card className="m-1" border="danger">
+                      <Card.Body>
+                        <Card.Title>Want Expenses</Card.Title>
+                        <Card.Text>${stats.wantExpense}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                  <Col lg={6}>
+                    <Card className="m-1" border="success">
+                      <Card.Body>
+                        <Card.Title>Need Expenses</Card.Title>
+                        <Card.Text>{stats.needExpense}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={12}>
+                    <Card className="m-1" border="info">
+                      <Card.Body>
+                        <Card.Title>Total Expenses</Card.Title>
+                        <Card.Text>{stats.totalExpense}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
+              </div>
+            </Card.Body>
+          </Card>
+
+          <Card style={{ width: "30rem" }}>
+            <div>
+              <Visualisation stats={stats} />
+            </div>
+          </Card>
+        </Row>
+      </>
+    );
+  }
+
   useEffect(() => {
     getExpensesSummary();
     // eslint-disable-next-line
@@ -97,64 +224,91 @@ function Dashboard() {
   return (
     <>
       <TopBar />
-      <div>
-        <Form
-          className="info"
-          id="form1"
-          onSubmit={(event) => handleSaving(event)}
-        >
-          <Form.Row>
-            <Form.Group as={Col} xs={12} md="auto">
-              <Form.Control
-                type="number"
-                placeholder="Savings Goal"
-                onInput={(event) => setGoal(event.target.value)}
-              />
-            </Form.Group>
-            <Form.Group as={Col} xs={12} md="auto">
-              <Button type="submit">Set</Button>
-            </Form.Group>
-          </Form.Row>
-        </Form>
-      </div>
       <br />
-      <div>Savings Goal: ${goal}</div>
-      <div>
-        <h1>
-          {" "}
-          You can spend up to $
-          {(income - monthlyExp - goal) / daystillend() >= 0
-            ? ((income - monthlyExp - goal) / daystillend()).toFixed(2)
-            : 0}{" "}
-          daily till the end of the month!
-        </h1>
-        <h1>
-          <ProgressBar
-            now={now}
-            label={`Current Average Daily Spending: $
-          ${(monthlyExp / currentDate).toFixed(2)}`}
-            variant={now < 100 ? "success" : "danger"}
-          />
-        </h1>
-      </div>
-
-      <br />
-      <div>
-        <div className="splitExpense">
-          <div>
-            <h3 id="want">Want Expenses: ${stats.wantExpense}</h3>
-            <h3 id="need">Need Expenses: ${stats.needExpense}</h3>
-          </div>
-          <div>
-            <h3 className="addMarg" id="total">
-              Total Expenses: ${stats.totalExpense}
-            </h3>
-          </div>
+      <Container>
+        <div aria-live="polite" aria-atomic="true">
+          <Form
+            className="info"
+            id="form1"
+            onSubmit={(event) => handleSaving(event)}
+          >
+            <Form.Row>
+              <Form.Group as={Col} xs={12} md="auto">
+                <Form.Control
+                  type="number"
+                  placeholder="Savings Goal"
+                  onInput={(event) => setGoal(event.target.value)}
+                />
+              </Form.Group>
+              <Form.Group as={Col} xs={12} md="auto">
+                <Button type="submit">Set</Button>
+              </Form.Group>
+            </Form.Row>
+          </Form>
+          <Row className="d-flex justify-content-lg-center">
+            <Card style={{ width: "30rem" }}>
+              <Card.Body>
+                <Card.Title>
+                  <div style={{ position: "relative" }}>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0
+                      }}
+                    >
+                      <img
+                        variant="top"
+                        src="resources/piggybank.png"
+                        height="30px"
+                        width="30px"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div>Saving Goal</div>
+                </Card.Title>
+                <Card.Text>${goal}</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card style={{ width: "30rem" }}>
+              <Card.Body>
+                <Card.Title>
+                  <div style={{ position: "relative" }}>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0
+                      }}
+                    >
+                      <img
+                        variant="top"
+                        src="resources/dollarnote.png"
+                        height="30px"
+                        width="30px"
+                        alt=""
+                      />
+                    </div>
+                  </div>{" "}
+                  Daily Budget: $
+                  {(income - monthlyExp - goal) / daystillend() >= 0
+                    ? ((income - monthlyExp - goal) / daystillend()).toFixed(2)
+                    : 0}{" "}
+                </Card.Title>
+                <ProgressBar
+                  animated
+                  now={now}
+                  variant={now < 100 ? "success" : "danger"}
+                />
+                <Card.Text>{`Current Average Daily Spending: $
+          ${(monthlyExp / currentDate).toFixed(2)}`}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Row>
         </div>
-        <div>
-          <Visualisation stats={stats} />
-        </div>
-      </div>
+        {bottom()}
+      </Container>
     </>
   );
 }
