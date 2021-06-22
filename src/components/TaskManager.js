@@ -64,6 +64,10 @@ function TaskManager() {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    document.body.style.backgroundImage = "url(resources/soft_wallpaper.png)";
+  }, []);
+
   function handleAddExpense(event) {
     event.preventDefault();
     if (addExpense(newTaskText) !== false) {

@@ -106,30 +106,31 @@ export default function Landing() {
       <>
         <Carousel activeIndex={index} onSelect={handleSelectCarousel}>
           <Carousel.Item>
-            <img src="resources/pig.png" alt="first" />
-            <Carousel.Caption>
-              <h3>Set a savings goal for the month</h3>
-            </Carousel.Caption>
+            <img src="resources/1.png" alt="first" height="300" width="500" />
+            <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img src="resources/pig.png" alt="second" />
-            <Carousel.Caption>
-              <h3>
-                Keep track of your income and expenses throughout the month
-              </h3>
-            </Carousel.Caption>
+            <img src="resources/2.png" alt="second" height="300" width="500" />
+            <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img src="resources/pig.png" alt="third" />
             <Carousel.Caption>
-              <h3>Keep track of your investments</h3>
+              <h3
+                style={{
+                  color: "black",
+                  position: "relative",
+                  top: "-190px",
+                  paddingRight: "87px"
+                }}
+              >
+                Stay Tuned!
+              </h3>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img src="resources/pig.png" alt="fourth" />
-            <Carousel.Caption>
-              <h3>Goalie will help you achieve your savings goals</h3>
-            </Carousel.Caption>
+            <img src="resources/4.png" alt="fourth" height="300" width="500" />
+            <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
         </Carousel>
       </>

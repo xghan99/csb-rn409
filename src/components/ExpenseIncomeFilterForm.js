@@ -9,29 +9,31 @@ import {
 export default function ExpenseIncomeFilterForm(props) {
   function toggleButton() {
     return (
-      <ButtonGroup toggle className="mb-2">
-        <ToggleButton
-          type="radio"
-          checked={props.expenseIncome === "default"}
-          onChange={(e) => props.handleTypeFilter("Expense/Income")}
-        >
-          All
-        </ToggleButton>
-        <ToggleButton
-          type="radio"
-          checked={props.expenseIncome === "Expense"}
-          onChange={(e) => props.handleTypeFilter("Expense")}
-        >
-          Expense
-        </ToggleButton>
-        <ToggleButton
-          type="radio"
-          checked={props.expenseIncome === "Income"}
-          onChange={(e) => props.handleTypeFilter("Income")}
-        >
-          Income
-        </ToggleButton>
-      </ButtonGroup>
+      <Form className="info">
+        <ButtonGroup toggle>
+          <ToggleButton
+            type="radio"
+            checked={props.expenseIncome === "default"}
+            onChange={(e) => props.handleTypeFilter("Expense/Income")}
+          >
+            All
+          </ToggleButton>
+          <ToggleButton
+            type="radio"
+            checked={props.expenseIncome === "Expense"}
+            onChange={(e) => props.handleTypeFilter("Expense")}
+          >
+            Expense
+          </ToggleButton>
+          <ToggleButton
+            type="radio"
+            checked={props.expenseIncome === "Income"}
+            onChange={(e) => props.handleTypeFilter("Income")}
+          >
+            Income
+          </ToggleButton>
+        </ButtonGroup>
+      </Form>
     );
   }
 

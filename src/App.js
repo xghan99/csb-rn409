@@ -14,10 +14,6 @@ import { useEffect } from "react";
 import "./styles.css";
 
 export default function App() {
-  useEffect(() => {
-    document.body.style.backgroundImage = "url(resources/soft_wallpaper.png)";
-  }, []);
-
   return (
     <Container
       className="d-flex justify-content-center"
