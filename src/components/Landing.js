@@ -56,7 +56,7 @@ export default function Landing() {
     return (
       <>
         <Row>
-          <Col lg={3}>
+          <Col lg={4}>
             <Card>
               <Card.Body>
                 <Card.Title>
@@ -95,7 +95,9 @@ export default function Landing() {
               </Card.Body>
             </Card>
           </Col>
-          <Col lg={7}>{carousel()}</Col>
+          <Col lg={7} className="ml-auto mt-5 mt-md-1">
+            {carousel()}
+          </Col>
         </Row>
       </>
     );
@@ -106,30 +108,62 @@ export default function Landing() {
       <>
         <Carousel activeIndex={index} onSelect={handleSelectCarousel}>
           <Carousel.Item>
-            <img src="resources/1.png" alt="first" height="300" width="500" />
-            <Carousel.Caption></Carousel.Caption>
+            <div className="text-center">
+              <img
+                src="resources/1.png"
+                alt="first"
+                height="300"
+                width="500"
+                className="landingImage img-fluid"
+              />
+              <Carousel.Caption></Carousel.Caption>
+            </div>
           </Carousel.Item>
           <Carousel.Item>
-            <img src="resources/2.png" alt="second" height="300" width="500" />
-            <Carousel.Caption></Carousel.Caption>
+            <div className="text-center">
+              <img
+                src="resources/2.png"
+                alt="second"
+                height="300"
+                width="500"
+                className="landingImage img-fluid"
+              />
+              <Carousel.Caption></Carousel.Caption>
+            </div>
           </Carousel.Item>
           <Carousel.Item>
-            <img src="resources/pig.png" alt="third" />
-            <Carousel.Caption>
-              <h3
-                style={{
-                  color: "black",
-                  position: "relative",
-                  top: "-190px",
-                  paddingRight: "87px"
-                }}
-              >
-                Stay Tuned!
-              </h3>
-            </Carousel.Caption>
+            <div className="text-center">
+              <img
+                src="resources/pig.png"
+                alt="third"
+                height="300"
+                className="landingImage"
+              />
+              <Carousel.Caption>
+                <h3
+                  style={{
+                    color: "black",
+                    position: "relative",
+                    top: "-90px",
+                    left: "182px",
+                    paddingRight: "350px"
+                  }}
+                >
+                  Stay Tuned!
+                </h3>
+              </Carousel.Caption>
+            </div>
           </Carousel.Item>
           <Carousel.Item>
-            <img src="resources/4.png" alt="fourth" height="300" width="500" />
+            <div className="text-center">
+              <img
+                src="resources/4.png"
+                alt="fourth"
+                height="300"
+                width="500"
+                className="landingImage img-fluid"
+              />
+            </div>
             <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
         </Carousel>

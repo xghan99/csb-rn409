@@ -143,3 +143,8 @@ body {
 .cardText {
   font-family: "Noto Sans JP", sans-serif;
 }
+
+.landingImage {
+  border: solid;
+  border-radius: 5px;
+}
