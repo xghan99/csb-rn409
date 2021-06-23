@@ -5,7 +5,7 @@ function validate(type, obj) {
   var yyyy = today.getFullYear();
   var todayDate = yyyy + "-" + mm + "-" + dd;
   if (obj.amount && +obj.amount <= 0) {
-    return "Amount cannot be negative!";
+    return "Amount cannot be zero or negative!";
   } else if (obj.description && obj.description == +obj.description) {
     return "Please ensure that Description does not purely contain numbers!";
   } else if (obj.date > todayDate) {

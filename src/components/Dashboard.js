@@ -211,6 +211,8 @@ function Dashboard() {
   function getRecMessage() {
     if (dailyExpense == 0 && dailyBudget == 0) {
       return "";
+    } else if (+dailyExpense == +dailyBudget) {
+      return "We recommend that you watch your expenses closely so as not to exceed your budget.";
     } else if (+dailyExpense >= +dailyBudget) {
       if (dailyBudget <= 0) {
         return "We recommend that you start earning some additional income to offset your expenses";
@@ -234,12 +236,13 @@ function Dashboard() {
   var dailyExpense = (monthlyExp / currentDate).toFixed(2);
 
   var financialStatus =
-    +dailyExpense >= +dailyBudget ? (
-      <CircleFill color="red" />
-    ) : (
+    +dailyExpense == +dailyBudget ? (
+      <CircleFill color="orange" />
+    ) : ++dailyExpense <= +dailyBudget ? (
       <CircleFill color="green" />
+    ) : (
+      <CircleFill color="red" />
     );
-
   function analysisCard() {
     return (
       <>

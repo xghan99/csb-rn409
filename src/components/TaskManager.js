@@ -37,7 +37,7 @@ function TaskManager() {
     type: "default",
     month: "default"
   });
-  const [isExpense, toggleExpenseIncome] = useState(false);
+  const [isExpense, toggleExpenseIncome] = useState(true);
 
   const db = firebase.firestore();
 
