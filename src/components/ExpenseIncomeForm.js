@@ -68,7 +68,7 @@ export default function ExpenseIncomeForm(props) {
             as="select"
             onChange={(e) => props.setCat(e.target.value)}
           >
-            <option value="NIL">--Category--</option>
+            <option value="">--Category--</option>
             <option value="Food & Drink">Food & Drinks </option>
             <option value="Entertainment">Entertainment</option>
             <option value="Others">Others</option>
@@ -107,7 +107,7 @@ export default function ExpenseIncomeForm(props) {
             as="select"
             onChange={(e) => props.setCat(e.target.value)}
           >
-            <option value="NIL">--Category--</option>
+            <option value="">--Category--</option>
             <option value="Allowance">Allowance </option>
             <option value="Salary">Salary</option>
             <option value="Others">Others</option>
