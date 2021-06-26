@@ -100,7 +100,7 @@ function Dashboard() {
     if (tempGoal >= 0) {
       expensesDoc.update({ Goal: tempGoal });
     } else {
-      alert("Savings Goal cannot be 0 or negative!");
+      alert("Savings Goal cannot be negative!");
     }
   }
 
