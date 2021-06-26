@@ -16,22 +16,24 @@
 ## About the project
 
 Goalie is a web-based solution that seeks to help people keep track of their finances and be in track of their finances through the following methods: 
-1. allowing users to set a savings goal
-2. allowing users to keep track of their expenses and income 
-3. allowing users to keep track of their investments (coming soon!)
+1. Set a savings goal
+2. Keep track of expenses and income 
+3. Keep track of investments (coming soon!)
 This is part of the module CP2106 Independent Software Development, also known as Orbital. 
 
 ![](public/resources/poster2.png)
 
 
 ### Built With
-*[ReactJS](https://reactjs.org/)
-*[Bootstrap](https://getbootstrap.com)
-*[Google Firebase](https://firebase.google.com/)
+* [ReactJS](https://reactjs.org/)
+* [Bootstrap](https://getbootstrap.com)
+* [Google Firebase](https://firebase.google.com/)
 
-  
+### Acknowledgements 
+* [React Bootstrap](https://react-bootstrap.github.io/)
+* [React Bootstrap Icons](https://www.npmjs.com/package/react-bootstrap-icons)
+* [React minimal pie chart](https://www.npmjs.com/package/react-minimal-pie-chart)
 
-## Roadmap
 
 Brought to you by Ivan and Xiao Guang 
 
