@@ -97,7 +97,11 @@ function Dashboard() {
 
   function handleSaving(event) {
     event.preventDefault();
-    expensesDoc.update({ Goal: tempGoal });
+    if (tempGoal >= 0) {
+      expensesDoc.update({ Goal: tempGoal });
+    } else {
+      alert("Savings Goal cannot be 0 or negative!");
+    }
   }
 
   useEffect(() => {
