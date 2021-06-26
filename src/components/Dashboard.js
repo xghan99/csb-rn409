@@ -237,7 +237,7 @@ function Dashboard() {
 
   var dailyBudget = ((income - monthlyExp - goal) / daystillend()).toFixed(2);
 
-  var dailyExpense = (monthlyExp / currentDate).toFixed(2);
+  var dailyExpense = (monthlyExp / currentDate);
 
   var financialStatus =
     +dailyExpense == +dailyBudget ? (
@@ -287,7 +287,7 @@ function Dashboard() {
                 <b>Max Daily Budget:</b> ${dailyBudget}{" "}
               </ListGroup.Item>
               <ListGroup.Item>
-                <b> Average Daily Spending: </b> $ {dailyExpense}{" "}
+                <b> Average Daily Spending: </b> $ {dailyExpense.toFixed(2)}{" "}
               </ListGroup.Item>
             </ListGroup>
           </Card.Text>
