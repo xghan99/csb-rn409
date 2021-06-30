@@ -198,7 +198,7 @@ export default function Landing() {
                 <iframe
                   title="dashboard"
                   class="embed-responsive-item"
-                  src="https://www.youtube.com/embed/rGhx5scO_G0?loop=5;color=ffffff"
+                  src="https://www.youtube.com/embed/rGhx5scO_G0?loop=5&mute=1;color=ffffff"
                   allowfullscreen
                 ></iframe>
               </div>
