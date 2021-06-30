@@ -88,7 +88,9 @@ function Dashboard() {
 
         setIncome(incomeForCurrMonth(arr));
       } else {
-        return null;
+        db.collection("expenses-and-income")
+          .doc(currentUser.email)
+          .set({ expensesAndIncome: [], goal: 0 });
       }
     });
 
@@ -98,7 +100,7 @@ function Dashboard() {
   function handleSaving(event) {
     event.preventDefault();
     if (tempGoal >= 0) {
-      expensesDoc.update({ Goal: tempGoal });
+      expensesDoc.update({ goal: tempGoal });
     } else {
       alert("Savings Goal cannot be negative!");
     }
@@ -121,7 +123,7 @@ function Dashboard() {
   function getGoal() {
     expensesDoc.onSnapshot((doc) => {
       if (doc.exists) {
-        const goalobj = doc.data().Goal;
+        const goalobj = doc.data().goal;
         setGoal(goalobj);
       } else {
         return null;
@@ -154,7 +156,7 @@ function Dashboard() {
   function motivationCard() {
     return (
       <Card.Body>
-        <Card.Title>Quote of the day</Card.Title>
+        <Card.Title>Random Financial Quote</Card.Title>
         <Card.Text className="cardText">
           "{quote}" ~{person}
         </Card.Text>
