@@ -68,26 +68,40 @@ export default function Landing() {
                     variant="light"
                     onClick={(e) => handleClickList(0)}
                   >
-                    Set a savings goal for the month
+                    Sign up for an account
                   </ListGroupItem>
                   <ListGroupItem
                     action
                     variant="light"
                     onClick={(e) => handleClickList(1)}
                   >
-                    Keep track of your income and expenses throughout the month
+                    Set a savings goal for the month
                   </ListGroupItem>
                   <ListGroupItem
                     action
                     variant="light"
                     onClick={(e) => handleClickList(2)}
                   >
-                    Keep track of your investments
+                    Keep track of your income and expenses throughout the month
                   </ListGroupItem>
                   <ListGroupItem
                     action
                     variant="light"
                     onClick={(e) => handleClickList(3)}
+                  >
+                    Delete or edit your income and expenses as you wish
+                  </ListGroupItem>
+                  <ListGroupItem
+                    action
+                    variant="light"
+                    onClick={(e) => handleClickList(4)}
+                  >
+                    Keep track of your investments
+                  </ListGroupItem>
+                  <ListGroupItem
+                    action
+                    variant="light"
+                    onClick={(e) => handleClickList(5)}
                   >
                     Goalie will help you achieve your savings goals
                   </ListGroupItem>
@@ -109,26 +123,50 @@ export default function Landing() {
         <Carousel activeIndex={index} onSelect={handleSelectCarousel}>
           <Carousel.Item>
             <div className="text-center">
-              <img
-                src="resources/1.png"
-                alt="first"
-                height="300"
-                width="500"
-                className="landingImage img-fluid"
-              />
-              <Carousel.Caption></Carousel.Caption>
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe
+                  title="Sign up"
+                  class="embed-responsive-item"
+                  src="https://www.youtube.com/embed/0OqMUJYyM3s?loop=5;color=ffffff"
+                  allowfullscreen
+                ></iframe>
+              </div>
             </div>
           </Carousel.Item>
           <Carousel.Item>
             <div className="text-center">
-              <img
-                src="resources/2.png"
-                alt="second"
-                height="300"
-                width="500"
-                className="landingImage img-fluid"
-              />
-              <Carousel.Caption></Carousel.Caption>
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe
+                  title="Save"
+                  class="embed-responsive-item"
+                  src="https://www.youtube.com/embed/ImWKasUjWt0?loop=5;color=ffffff"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="text-center">
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe
+                  title="Add"
+                  class="embed-responsive-item"
+                  src="https://www.youtube.com/embed/Ptzn3ZDZYdU?&loop=5;color=ffffff"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="text-center">
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe
+                  title="Delete Edit"
+                  class="embed-responsive-item"
+                  src="https://www.youtube.com/embed/wanASGehBPo?&loop=5;color=ffffff"
+                  allowfullscreen
+                ></iframe>
+              </div>
             </div>
           </Carousel.Item>
           <Carousel.Item>
@@ -156,15 +194,15 @@ export default function Landing() {
           </Carousel.Item>
           <Carousel.Item>
             <div className="text-center">
-              <img
-                src="resources/4.png"
-                alt="fourth"
-                height="300"
-                width="500"
-                className="landingImage img-fluid"
-              />
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe
+                  title="dashboard"
+                  class="embed-responsive-item"
+                  src="https://www.youtube.com/embed/rGhx5scO_G0?loop=5;color=ffffff"
+                  allowfullscreen
+                ></iframe>
+              </div>
             </div>
-            <Carousel.Caption></Carousel.Caption>
           </Carousel.Item>
         </Carousel>
       </>
