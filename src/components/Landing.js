@@ -120,7 +120,11 @@ export default function Landing() {
   function carousel() {
     return (
       <>
-        <Carousel activeIndex={index} onSelect={handleSelectCarousel}>
+        <Carousel
+          activeIndex={index}
+          onSelect={handleSelectCarousel}
+          interval={null}
+        >
           <Carousel.Item>
             <div className="text-center">
               <div class="embed-responsive embed-responsive-16by9">
