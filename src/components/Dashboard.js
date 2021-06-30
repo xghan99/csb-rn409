@@ -235,7 +235,10 @@ function Dashboard() {
     }
   }
 
-  var dailyBudget = ((income - monthlyExp - goal) / daystillend()).toFixed(2);
+  var dailyBudget = (
+    (income - monthlyExp - goal) /
+    (daystillend() + 1)
+  ).toFixed(2);
 
   var dailyExpense = (monthlyExp / currentDate).toFixed(2);
 
