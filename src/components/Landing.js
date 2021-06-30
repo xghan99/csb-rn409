@@ -132,7 +132,7 @@ export default function Landing() {
                   title="Sign up"
                   class="embed-responsive-item"
                   src="https://www.youtube.com/embed/0OqMUJYyM3s?loop=5;color=ffffff"
-                  allowfullscreen
+                  allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
             </div>
@@ -144,7 +144,7 @@ export default function Landing() {
                   title="Save"
                   class="embed-responsive-item"
                   src="https://www.youtube.com/embed/ImWKasUjWt0?loop=5;color=ffffff"
-                  allowfullscreen
+                  allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
             </div>
@@ -156,7 +156,7 @@ export default function Landing() {
                   title="Add"
                   class="embed-responsive-item"
                   src="https://www.youtube.com/embed/Ptzn3ZDZYdU?&loop=5;color=ffffff"
-                  allowfullscreen
+                  allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
             </div>
@@ -168,7 +168,7 @@ export default function Landing() {
                   title="Delete Edit"
                   class="embed-responsive-item"
                   src="https://www.youtube.com/embed/wanASGehBPo?&loop=5;color=ffffff"
-                  allowfullscreen
+                  allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
             </div>
@@ -203,7 +203,7 @@ export default function Landing() {
                   title="dashboard"
                   class="embed-responsive-item"
                   src="https://www.youtube.com/embed/rGhx5scO_G0?loop=5&mute=1;color=ffffff"
-                  allowfullscreen
+                  allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
             </div>
