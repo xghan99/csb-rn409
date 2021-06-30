@@ -53,7 +53,7 @@ function TaskManager() {
         } else {
           db.collection("expenses-and-income")
             .doc(currentUser.email)
-            .update({ expensesAndIncome: [], goal: 0 });
+            .set({ expensesAndIncome: [], goal: 0 });
           setLoading(false);
         }
       });
