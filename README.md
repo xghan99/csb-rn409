@@ -7,9 +7,9 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="user-guide">User Guide</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
   </ol>
 </details>
 
@@ -29,9 +29,9 @@ This is part of the module CP2106 Independent Software Development, also known a
 * [Bootstrap](https://getbootstrap.com)
 * [Google Firebase](https://firebase.google.com/)
 
-  
+### User Guide 
+[Click here](https://docs.google.com/document/d/19hsHTJ4N3tQbr3S4x2aC2lNfhVpWl5i-spuUGj_CSRg/edit?usp=sharing)
 
-## Roadmap
 
 Brought to you by Ivan and Xiao Guang 
 
