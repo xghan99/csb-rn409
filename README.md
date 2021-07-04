@@ -25,9 +25,9 @@ This is part of the module CP2106 Independent Software Development, also known a
 
 
 ### Built With
-*[ReactJS](https://reactjs.org/)
-*[Bootstrap](https://getbootstrap.com)
-*[Google Firebase](https://firebase.google.com/)
+* [ReactJS](https://reactjs.org/)
+* [Bootstrap](https://getbootstrap.com)
+* [Google Firebase](https://firebase.google.com/)
 
   
 
