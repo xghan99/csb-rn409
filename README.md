@@ -16,9 +16,12 @@
 ## About the project
 
 Goalie is a web-based solution that seeks to help people keep track of their finances and be in track of their finances through the following methods: 
-1. allowing users to set a savings goal
-2. allowing users to keep track of their expenses and income 
-3. allowing users to keep track of their investments (coming soon!)
+<ol>
+  <li> allowing users to set a savings goal </li>
+  <li> allowing users to keep track of their expenses and income </li> 
+  <li> allowing users to keep track of their investments (coming soon!) </li>
+</ol>
+
 This is part of the module CP2106 Independent Software Development, also known as Orbital. 
 
 ![](public/resources/poster2.png)
