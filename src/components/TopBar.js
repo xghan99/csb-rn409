@@ -44,7 +44,7 @@ function TopBar() {
             <Nav.Link className="landingMenu" href="/expenses-income-tracking">
               Income & Expenditure
             </Nav.Link>
-            <Nav.Link className="landingMenu" href="#">
+            <Nav.Link className="landingMenu" href="/investments">
               Investments
             </Nav.Link>
             <Nav.Link className="landingMenu" href="#" onClick={handleLogout}>

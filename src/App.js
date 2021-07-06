@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 import "./styles.css";
+import Investment from "./components/Investment";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
                 component={TaskManager}
               />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/investments" component={Investment} />
             </Switch>
           </AuthProvider>
         </Router>
