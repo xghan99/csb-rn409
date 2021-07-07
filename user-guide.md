@@ -1,5 +1,31 @@
 ## Goalie User Guide
 
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+ <ol>
+    <ul>
+      <li> <a href="#quick-introduction"> Quick Introduction </a> </li>
+      <li> <a href="#quick-start"> Quick Start </a> </li>
+      <li> <a href="#feature-guide"> Feature guide </a> </li>
+      <ul>
+        <li><a href="#1-sign-up">Sign up</a></li>
+        <li><a href="#2-login">Log in</a></li>
+        <li><a href="#3-set-a-savings-goal">Set a savings goal</a></li>
+        <li><a href="#4-track-your-expenses-and-income">Track your expenses and income</a></li>
+      <ul>
+         <li><a href="#4a-adding-an-expense"> Adding an expense </a></li>
+         <li><a href="4b-adding-an-income"> Adding an income </a></li>
+      </ul>
+        <li><a href="#5-deleting-and-editing-entries-in-my-expenses-and-income-table"> Deleting and Editing entries in "My Expense and Income Table" </a></li>
+        <ul>
+          <li><a href="#5a-deleting-entries"> Deleting Entries </a></li>
+          <li><a href="5b-editing-entries"> Editing Entries </a></li>
+        </ul>
+      <li><a href="#6-filtering-entries-in-my-expenses-and-income-table"> Filtering entries in "My Expenses and Income Tabl" </a></li>
+    </ul>
+  </ol>
+</details>
+
 ### 
 
 ### Quick Introduction 
