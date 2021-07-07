@@ -2,14 +2,14 @@
 
 ### 
 
-### __Quick Introduction __
+### Quick Introduction 
 Goalie is your companion in financial planning. Goalie helps you plan for your finances better by giving you an all-in-one solution that will help you:
 
 1. Save money by allowing you to set a savings goal
 2. Track your expenses and income
 3. Track your investments *(Coming soon!)*
 
-### __Quick Start __
+### Quick Start 
 Step 1: Start by accessing our website: [https://csb-rn409.vercel.app/](https://csb-rn409.vercel.app/)
 Step 2: Sign up for a free account by clicking on the following button (Figure 1). *Note: Each email can only be used to create 1 account.*
 
@@ -24,10 +24,10 @@ Figure 3: Enter your email address and password and you’re all set!
 
 ### Feature Guide
 
-#### __1. Sign up__
+#### 1. Sign up
 Refer to [Quick Start ](#heading=h.g7jv267ychlx)
 
-#### __2. Login__
+#### 2. Login
 *Note that you must have a working, valid account with us before proceeding. Refer to **[Quick Start](#heading=h.g7jv267ychlx)** if you do not have an account.*
 
 On our [website](https://csb-rn409.vercel.app/), click on the “Log in” button on the navigation bar (Figure 4). Enter your login information and click “Log in” (Figure 5). You will be brought to the dashboard page.
@@ -38,7 +38,7 @@ Figure 4: The navigation bar of the main page. Click on “Log in”
 ![](public/user-guide-pictures/figure5.png)\
 Figure 5: Enter your login information
 
-#### __3. Set a Savings Goal __
+#### 3. Set a Savings Goal 
 Once you have signed up or logged in, you should be on the dashboard page. Otherwise, navigate to the dashboard by clicking “Dashboard” on the navigation bar (Figure 6).
 
 ![](public/user-guide-pictures/figure6.png)\
@@ -244,7 +244,7 @@ Furthermore, when toggling through “All”, “Expense” and “Income”, it
 
 For example, If I am currently viewing Expenses in the month of July, with the category “Food & Drink”, once I toggle over to “Income”, I will be viewing all Income with no filters applied.
 
-#### __8. Viewing the Dashboard: Descriptive Statistics__
+#### 8. Viewing the Dashboard: Descriptive Statistics
 
 *This section will not be helpful if you have not set a savings goal or have not tracked your expenses and income. Find out more about **[setting a savings goal](#heading=h.n0qmmgpl6bt0)**, or find out more about **[tracking your expenses and income ](#heading=h.w22kvt4et9v7)*
 
@@ -266,7 +266,7 @@ Goalie helps you segregate and aggregate your expenses by whether they are a nee
 ![](public/user-guide-pictures/figure39.png)\
 Figure 39: An example of a need and want expense pie chart. (Clearly, I have been spending a lot less on wants than needs, which is ideal!)
 
-#### __9. Viewing the Dashboard: Analysis __
+#### 9. Viewing the Dashboard: Analysis 
 
 Goalie evaluates your spending habits and savings goal to determine how much you can afford to spend for the day.
 
