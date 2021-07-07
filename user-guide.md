@@ -28,7 +28,7 @@ Figure 3: Enter your email address and password and you’re all set!
 Refer to [Quick Start ](#heading=h.g7jv267ychlx)
 
 #### 2. Login
-*Note that you must have a working, valid account with us before proceeding. Refer to **[Quick Start](#heading=h.g7jv267ychlx)** if you do not have an account.*
+*Note that you must have a working, valid account with us before proceeding. Refer to **[Quick Start](#quick-start)** if you do not have an account.*
 
 On our [website](https://csb-rn409.vercel.app/), click on the “Log in” button on the navigation bar (Figure 4). Enter your login information and click “Log in” (Figure 5). You will be brought to the dashboard page.
 
@@ -52,9 +52,9 @@ Figure 7: Enter your savings goal. Any amount counts!
 ![](public/user-guide-pictures/figure8.png)\
 Figure 8: Click “Set” and your savings goal will be reflected.
 
-Now, having set a goal, it is time to achieve it. Start [keeping track of your expenses and income](#heading=h.w22kvt4et9v7).
+Now, having set a goal, it is time to achieve it. Start [keeping track of your expenses and income](#4-track-your-expenses-and-income).
 
-#### __4. Track Your Expenses and Income__
+#### 4. Track Your Expenses and Income
 Get started by navigating to the Income & Expenditure page. This is accessible from the navigation bar (Figure 9).
 
 ![](public/user-guide-pictures/figure9.png)\
@@ -64,7 +64,7 @@ Figure 9: Navigate to Income & Expenditure
 
 By default, you are able to add an expense. In the form, indicate the date of expense, a short description of the expense, amount, category, and whether the expense was a need or a want (Figure 10).
 
-Note: All fields have to be filled in with valid input (No future dates, purely numerical descriptions, or non-positive amounts are allowed).
+<p id="rule"> Note: All fields have to be filled in with valid input (No future dates, purely numerical descriptions, or non-positive amounts are allowed). </p>
 
 Currently, our expense categories are “Food & Drink”, “Entertainment”, “Others”.
 
@@ -82,7 +82,7 @@ Figure 11: Expenses and Income Table
 
 If you want to add an income instead, simply toggle the Income button and the form will change to one that will allow you to add an income (Figure 12). Add the needed details accordingly.
 
-*The **[rules](#bookmark=id.11cu6l3iesn1)** for adding an expense apply here as well. *
+*The **[rules](#rule)** for adding an expense apply here as well. *
 
 ![](public/user-guide-pictures/figure12.png)\
 Figure 12: Toggle the income button. Notice that the form changes (Why? Because Income cannot be categorized as “need” or “want”)
