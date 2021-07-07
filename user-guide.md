@@ -64,7 +64,7 @@ Figure 9: Navigate to Income & Expenditure
 
 By default, you are able to add an expense. In the form, indicate the date of expense, a short description of the expense, amount, category, and whether the expense was a need or a want (Figure 10).
 
-<p id="rule"> Note: All fields have to be filled in with valid input (No future dates, purely numerical descriptions, or non-positive amounts are allowed). </p>
+<a name="rule"> Note: All fields have to be filled in with valid input (No future dates, purely numerical descriptions, or non-positive amounts are allowed). </a>
 
 Currently, our expense categories are “Food & Drink”, “Entertainment”, “Others”.
 
