@@ -49,7 +49,7 @@ Set a savings goal by entering your savings goal **(for the current month)** (Fi
 ![](public/user-guide-pictures/figure7.png)\
 Figure 7: Enter your savings goal. Any amount counts!
 
-![](public/user-guide-pictures/figure8.png)
+![](public/user-guide-pictures/figure8.png)\
 Figure 8: Click “Set” and your savings goal will be reflected.
 
 Now, having set a goal, it is time to achieve it. Start [keeping track of your expenses and income](#heading=h.w22kvt4et9v7).
