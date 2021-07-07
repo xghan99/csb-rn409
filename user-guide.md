@@ -25,7 +25,7 @@ Figure 3: Enter your email address and password and you’re all set!
 ### Feature Guide
 
 #### 1. Sign up
-Refer to [Quick Start ](#heading=h.g7jv267ychlx)
+Refer to [Quick Start ](#quick-start)
 
 #### 2. Login
 *Note that you must have a working, valid account with us before proceeding. Refer to **[Quick Start](#quick-start)** if you do not have an account.*
@@ -116,7 +116,7 @@ Figure 16: Click the “Edit” button to edit an entry
 
 Next, a popup form should appear. You may edit any of the fields. Once done, click “Save changes” for the changes to be reflected in the table (Figure 17).
 
-*Note: The same **[rules](#bookmark=id.11cu6l3iesn1)** for adding expenses or income apply here.*
+*Note: The same **[rules](#rule)** for adding expenses or income apply here.*
 
 ![](public/user-guide-pictures/figure17.png)\
 
@@ -145,7 +145,7 @@ You may also apply the month filter to filter expenses and income by the chosen 
 Figure 20: Click on the month dropdown and click on the desired month. In this example, the user’s table has transactions in June and July.
 
 ![](public/user-guide-pictures/figure21.png)\
-Figure 21: Demonstration - The user clicks on 06 (June)
+<a name="demo"> Figure 21: Demonstration - The user clicks on 06 (June) </a>
 
 ![](public/user-guide-pictures/figure22.png)\
 Figure 22: Demonstration - Expenses and income in the month of June will be shown
@@ -164,7 +164,7 @@ If you would like to view your expenses by the month,
 ![](public/user-guide-pictures/figure24.png)\
 Figure 24: Click on the desired month after clicking on the “Month” dropdown
 
-For example, if “07” was selected, then expenses in the month of July will be shown. Refer to this [demonstration](#bookmark=id.r3qh7vmgghdf) which performs a similar operation.
+For example, if “07” was selected, then expenses in the month of July will be shown. Refer to this [demonstration](#demo) which performs a similar operation.
 
 ###### 6bii. Filtering expenses by Need or Want
 If you would like to view your expense by whether the expense was a “Need” or a “Want”,
@@ -210,7 +210,7 @@ If you would like to view your income by the month,
 ![](public/user-guide-pictures/figure32.png)\
 Figure 32: Click on the desired month after clicking on the “Month” dropdown
 
-For example, if “07” was selected, then income in the month of July will be shown. Refer to this [demonstration](#bookmark=id.r3qh7vmgghdf) which performs a similar operation.
+For example, if “07” was selected, then income in the month of July will be shown. Refer to this [demonstration](#demo) which performs a similar operation.
 
 ###### 6cii. Filtering income by Category
 If you would like to view your expense by category
@@ -220,7 +220,7 @@ If you would like to view your expense by category
 ![](public/user-guide-pictures/figure33.png)\
 Figure 33: Click on “Category” and select the desired category
 
-For example, if “Allowance” was selected, then the income of the category “Allowance” will be displayed. Refer to this [demonstration](#bookmark=id.eqzidh5qckiq) which performs a similar operation.
+For example, if “Allowance” was selected, then the income of the category “Allowance” will be displayed. Refer to this [demonstration](#demo) which performs a similar operation.
 
 #### 7. Resetting filters
 Filters can be reset by selecting the original state of the desired dropdown.
@@ -246,9 +246,9 @@ For example, If I am currently viewing Expenses in the month of July, with the c
 
 #### 8. Viewing the Dashboard: Descriptive Statistics
 
-*This section will not be helpful if you have not set a savings goal or have not tracked your expenses and income. Find out more about **[setting a savings goal](#heading=h.n0qmmgpl6bt0)**, or find out more about **[tracking your expenses and income ](#heading=h.w22kvt4et9v7)*
+*This section will not be helpful if you have not set a savings goal or have not tracked your expenses and income. Find out more about **[setting a savings goal](#3-set-a-savings-goal)**, or find out more about **[tracking your expenses and income ](#4-track-your-expenses-and-income)*
 
-*Also, take note that all descriptive statistics are for the ****current month****.*
+*Also, take note that all descriptive statistics are for the **current month**.*
 
 To view the dashboard, simply navigate to the dashboard by clicking on “Dashboard” in the navigation bar. Goalie shows you two kinds of descriptive statistics (for now):
 
@@ -280,6 +280,6 @@ Figure 40: Recommendation example 1
 ![](public/user-guide-pictures/figure41.png)\
 Figure 41: Recommendation example 2
 
-#### __10. Track your investments (Coming soon!)__
+#### 10. Track your investments (Coming soon!)
 
 *Stay tuned for Milestone 3!*
