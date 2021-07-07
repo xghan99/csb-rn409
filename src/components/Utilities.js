@@ -4,12 +4,25 @@ function validate(type, obj) {
   var mm = String(today.getMonth() + 1).padStart(2, "0");
   var yyyy = today.getFullYear();
   var todayDate = yyyy + "-" + mm + "-" + dd;
-  if (obj.amount && +obj.amount <= 0) {
-    return "Amount cannot be zero or negative!";
-  } else if (obj.description && obj.description == +obj.description) {
-    return "Please ensure that Description does not purely contain numbers!";
-  } else if (obj.date > todayDate) {
+
+  if (obj.date > todayDate) {
     return "Please ensure that selected date is today or earlier!";
+  } else if (
+    ((type === "Expense" || type === "Income") &&
+      obj.amount &&
+      +obj.amount <= 0) ||
+    (type === "Stock" &&
+      obj.units &&
+      obj.costPrice &&
+      (+obj.units <= 0 || +obj.costPrice <= 0))
+  ) {
+    return "Amount cannot be zero or negative!";
+  } else if (
+    (type === "Expense" || type === "Income") &&
+    obj.description &&
+    obj.description == +obj.description
+  ) {
+    return "Please ensure that Description does not purely contain numbers!";
   } else if (
     type === "Expense" &&
     obj.description &&
@@ -25,6 +38,14 @@ function validate(type, obj) {
     obj.amount &&
     obj.category &&
     obj.date
+  ) {
+    return 1;
+  } else if (
+    type === "Stock" &&
+    obj.date &&
+    obj.ticker &&
+    obj.units &&
+    obj.costPrice
   ) {
     return 1;
   } else {
