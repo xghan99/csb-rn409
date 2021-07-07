@@ -23,30 +23,30 @@
         </ul>
       <li><a href="#6-filtering-entries-in-my-expenses-and-income-table"> Filtering entries in "My Expenses and Income Table" </a></li>
       <ul>
-        <li><a href="6a-default-filter-both-expenses-and-income"> Default filter (both expenses and income) </a></li>
+        <li><a href="#6a-default-filter-both-expenses-and-income"> Default filter (both expenses and income) </a></li>
         <ul>
-          <li><a href="6ai-filter-expenses-and-income-by-month"> Filter expenses and income by month </a></li>
+          <li><a href="#6ai-filter-expenses-and-income-by-month"> Filter expenses and income by month </a></li>
         </ul>
-        <li><a href="6b-filtering-expenses-only"> Filtering expenses only </a> </li>
+        <li><a href="#6b-filtering-expenses-only"> Filtering expenses only </a> </li>
         <ul>
-          <li><a href="6bi-filtering-expenses-by-month">Filtering expenses by month</a> </li>
-          <li><a href="6bii-filtering-expenses-by-need-or-want">Filtering expenses by need or want</a></li>
-          <li><a href="6biii-filtering-expenses-by-category">Filtering expenses by category</a></li>
+          <li><a href="#6bi-filtering-expenses-by-month">Filtering expenses by month</a> </li>
+          <li><a href="#6bii-filtering-expenses-by-need-or-want">Filtering expenses by need or want</a></li>
+          <li><a href="#6biii-filtering-expenses-by-category">Filtering expenses by category</a></li>
         </ul>
-        <li><a href="6c-filtering-income-only">Filtering income only</a></li>
+        <li><a href="#6c-filtering-income-only">Filtering income only</a></li>
         <ul>
-          <li><a href="6ci-filtering-income-by-month">Filtering income by month</a></li>
-          <li><a href="6cii-filtering-income-by-category">Filtering incomy by category</a></li>
+          <li><a href="#6ci-filtering-income-by-month">Filtering income by month</a></li>
+          <li><a href="#6cii-filtering-income-by-category">Filtering incomy by category</a></li>
         </ul>
         </ul>
-        <li><a href="7-resetting-filters">Resetting filters</a></li>
-        <li><a href="8-viewing-the-dashboard-descriptive-statistics">Viewing the dashboard: Descriptive statistics</a></li>
+        <li><a href="#7-resetting-filters">Resetting filters</a></li>
+        <li><a href="#8-viewing-the-dashboard-descriptive-statistics">Viewing the dashboard: Descriptive statistics</a></li>
         <ul>
-          <li><a href="8a-breakdown"> Breakdown </a></li>
-          <li><a href="8b-need-and-want-pie-chart"> Need and want pie chart </a></li>
+          <li><a href="#8a-breakdown"> Breakdown </a></li>
+          <li><a href="#8b-need-and-want-pie-chart"> Need and want pie chart </a></li>
         </ul>
-        <li><a href="viewing-the-dashboard-analysis">Viewing the dashboard: Analysis</a></li>
-        <li><a href="track-your-investments-coming-soon">Track your investments (coming soon)</a></li>
+        <li><a href="#viewing-the-dashboard-analysis">Viewing the dashboard: Analysis</a></li>
+        <li><a href="#track-your-investments-coming-soon">Track your investments (coming soon)</a></li>
     </ul>
   </ol>
 </details>
