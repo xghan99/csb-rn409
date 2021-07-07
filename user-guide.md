@@ -13,7 +13,7 @@ Goalie is your companion in financial planning. Goalie helps you plan for your f
 Step 1: Start by accessing our website: [https://csb-rn409.vercel.app/](https://csb-rn409.vercel.app/)
 Step 2: Sign up for a free account by clicking on the following button (Figure 1). *Note: Each email can only be used to create 1 account.*
 
-![](public/user-guide-pictures/figure1.png)
+![](public/user-guide-pictures/figure1.png)\
 Figure 1: Click the “Sign up for a free account” button
 
 ![](public/user-guide-pictures/figure2.png)
