@@ -82,7 +82,7 @@ Figure 11: Expenses and Income Table
 
 If you want to add an income instead, simply toggle the Income button and the form will change to one that will allow you to add an income (Figure 12). Add the needed details accordingly.
 
-*The **[rules](#rule)** for adding an expense apply here as well. *
+*The **[rules](#rule)** for adding an expense apply here as well.*
 
 ![](public/user-guide-pictures/figure12.png)\
 Figure 12: Toggle the income button. Notice that the form changes (Why? Because Income cannot be categorized as “need” or “want”)
@@ -139,7 +139,7 @@ Figure 19: Apply the default filter by clicking on “All”
 ###### 6ai. Filter expenses and income by month
 You may also apply the month filter to filter expenses and income by the chosen month. Click on the dropdown labeled “Month” and click on the desired month (Figure 20). Refer to Figures 20-22 for a full demonstration.
 
-*Do note that not all 12 months will be shown. Only months in which you have expenses and income will be reflected in the dropdown. This also applies to “Filter expenses by month” and “filter income by month”. *
+*Do note that not all 12 months will be shown. Only months in which you have expenses and income will be reflected in the dropdown. This also applies to “Filter expenses by month” and “filter income by month”.*
 
 ![](public/user-guide-pictures/figure20.png)\
 Figure 20: Click on the month dropdown and click on the desired month. In this example, the user’s table has transactions in June and July.
