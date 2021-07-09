@@ -166,10 +166,13 @@ export default function Investment() {
       return storedPrices[ticker]["price"];
     } else {
       var fetchedPrice = fetchStockPrice(apiKey, ticker);
-      storedPrices[ticker] = {
-        date: new Date(),
-        price: fetchedPrice
-      };
+      setStoredPrices({
+        ...storedPrices,
+        ticker: {
+          date: new Date(),
+          price: fetchedPrice
+        }
+      });
       db.collection("investment")
         .doc("stockInfo")
         .update({
