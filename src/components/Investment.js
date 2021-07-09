@@ -168,7 +168,7 @@ export default function Investment() {
       var fetchedPrice = fetchStockPrice(apiKey, ticker);
       setStoredPrices({
         ...storedPrices,
-        ticker: {
+        [ticker]: {
           date: new Date(),
           price: fetchedPrice
         }
