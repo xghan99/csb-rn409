@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { Form, Col, Button, Table, Modal } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
-import { revchrono, validate } from "./Utilities";
+import { revchrono, validate, fetchStockPrice } from "./Utilities";
 import TopBar from "./TopBar";
 
 export default function Investment() {
@@ -117,6 +117,64 @@ export default function Investment() {
     document.body.style.backgroundImage = "url(resources/soft_wallpaper.png)";
   }, []);
 
+  const [apiKey, setApiKey] = useState("");
+  const [storedPrices, setStoredPrices] = useState(false);
+
+  function getApiKey() {
+    db.collection("keys")
+      .doc("apiKey")
+      .onSnapshot((doc) => {
+        setApiKey(doc.data().apiKey);
+      });
+  }
+
+  function getStockInfo() {
+    db.collection("investment")
+      .doc("stockInfo")
+      .onSnapshot((doc) => {
+        setStoredPrices(doc.data().storedPrices);
+      });
+  }
+
+  function doFetch(prevDate, currDate) {
+    return (
+      (currDate.getMonth() !== prevDate.getMonth() ||
+        currDate.getDate() !== prevDate.getDate()) && //check if not exactly the same date
+      currDate - prevDate > 0
+    );
+  }
+
+  useEffect(() => {
+    getApiKey();
+    getStockInfo();
+    // eslint-disable-next-line
+  }, []);
+
+  function getStockPrice(ticker) {
+    var tickerPrevFetchDate = storedPrices[ticker]
+      ? storedPrices[ticker][date]
+      : null;
+    if (
+      tickerPrevFetchDate &&
+      !doFetch(new Date(tickerPrevFetchDate), new Date())
+    ) {
+      return storedPrices[ticker]["price"];
+    } else {
+      var fetchedPrice = fetchStockPrice(apiKey, ticker);
+      storedPrices[ticker] = {
+        date: new Date(),
+        price: fetchedPrice
+      };
+      db.collection("investment")
+        .doc("stockInfo")
+        .update({
+          storedPrices: storedPrices
+        })
+        .catch((err) => console.log(err));
+      return fetchedPrice;
+    }
+  }
+
   function tickerForm() {
     return (
       <>
@@ -173,6 +231,7 @@ export default function Investment() {
               <th className="tableHeadings">Ticker</th>
               <th className="tableHeadings">Units</th>
               <th className="tableHeadings">Cost Price</th>
+              <th className="tableHeadings">Current Price</th>
             </tr>
           </thead>
           <tbody>
@@ -182,6 +241,8 @@ export default function Investment() {
                 <td className="tableValues">{task.ticker}</td>
                 <td className="tableValues">{task.units}</td>
                 <td className="tableValues">{task.costPrice}</td>
+                <td className="tableValues">{getStockPrice(task.ticker)}</td>
+
                 <td>
                   <Button onClick={() => deleteItem(index)}>Delete</Button>
                 </td>

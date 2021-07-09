@@ -1,3 +1,5 @@
+import axios from "axios";
+
 function validate(type, obj) {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
@@ -78,4 +80,32 @@ function daystillend() {
   return days;
 }
 
-export { validate, revchrono, daystillend };
+function fetchStockPrice(apiKey, ticker) {
+  const country = "US";
+  let price = null;
+
+  var options = {
+    method: "GET",
+    url: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes",
+    params: { region: country, symbols: ticker },
+    headers: {
+      "x-rapidapi-key": apiKey,
+      "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com"
+    }
+  };
+
+  axios
+    .request(options)
+    .then((response) => response.json())
+    .then(
+      (data) =>
+        (price = data.quoteResponse.result[0].regularMarketPreviousClose)
+    )
+    .catch((error) => {
+      console.error(error.message);
+    });
+
+  return price;
+}
+
+export { validate, revchrono, daystillend, fetchStockPrice };
