@@ -118,7 +118,12 @@ export default function Investment() {
   }, []);
 
   const [apiKey, setApiKey] = useState("");
-  const [storedPrices, setStoredPrices] = useState(false);
+  const [storedPrices, setStoredPrices] = useState({
+    DUMMY: {
+      date: "",
+      price: ""
+    }
+  });
 
   function getApiKey() {
     db.collection("keys")
