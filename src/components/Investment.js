@@ -145,19 +145,11 @@ export default function Investment() {
   function getStockInfo() {
     console.log("getstockinfocalled");
 
-    const stockInfo = db
-      .collection("investment")
+    db.collection("investment")
       .doc("stockInfo")
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          setStoredPrices(doc.data().storedPrices);
-        } else {
-          console.log("Does not exist");
-        }
+      .onSnapshot((doc) => {
+        setStoredPrices(doc.data().storedPrices);
       });
-    console.log(storedPrices);
-    return stockInfo;
   }
 
   function doFetch(prevDate, currDate) {
