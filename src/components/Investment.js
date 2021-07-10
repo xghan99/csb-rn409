@@ -24,6 +24,7 @@ export default function Investment() {
   const db = firebase.firestore();
 
   function getInvestments() {
+    //console.log("getInvestmentCalled")
     db.collection("investment")
       .doc(currentUser.email)
       .onSnapshot((doc) => {
@@ -38,7 +39,13 @@ export default function Investment() {
       });
   }
 
+  useEffect(() => {
+    getInvestments();
+    // eslint-disable-next-line
+  }, []);
+
   function handleAddStock(event) {
+    //console.log("handleAddStockCalled")
     event.preventDefault();
     if (addStock() !== false) {
       event.target.reset();
@@ -50,6 +57,8 @@ export default function Investment() {
   }
 
   function addStock() {
+    //console.log("AddStockCalled")
+    addNewStock(ticker);
     const newArr = [
       ...arr,
       {
@@ -78,6 +87,7 @@ export default function Investment() {
   }
 
   function deleteItem(index) {
+    //console.log("deleteitemCalled")
     const newTasks = arr
       .slice(0, index)
       .concat(arr.slice(index + 1, arr.length));
@@ -88,6 +98,7 @@ export default function Investment() {
   }
 
   function handleEdit(type, event) {
+    //console.log("handleeditCalled")
     event.preventDefault();
     if (validate(type, edit) === 1) {
       const newTasks = [...arr];
@@ -104,14 +115,10 @@ export default function Investment() {
   }
 
   function editItem(index) {
+    //console.log("edititemCalled")
     setEdit(arr[index]);
     toggleModal(true);
   }
-
-  useEffect(() => {
-    getInvestments();
-    // eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     document.body.style.backgroundImage = "url(resources/soft_wallpaper.png)";
@@ -126,6 +133,7 @@ export default function Investment() {
   });
 
   function getApiKey() {
+    //console.log("getAPIkeyCalled")
     db.collection("keys")
       .doc("apiKey")
       .onSnapshot((doc) => {
@@ -133,15 +141,27 @@ export default function Investment() {
       });
   }
 
+  //updates storedPrices based on database (DOESNT FUCKING WORK FOR SOME REASON)
   function getStockInfo() {
-    db.collection("investment")
+    console.log("getstockinfocalled");
+
+    const stockInfo = db
+      .collection("investment")
       .doc("stockInfo")
-      .onSnapshot((doc) => {
-        setStoredPrices(doc.data().storedPrices);
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setStoredPrices(doc.data().storedPrices);
+        } else {
+          console.log("Does not exist");
+        }
       });
+    console.log(storedPrices);
+    return stockInfo;
   }
 
   function doFetch(prevDate, currDate) {
+    //console.log("dofetchCalled")
     return (
       (currDate.getMonth() !== prevDate.getMonth() ||
         currDate.getDate() !== prevDate.getDate()) && //check if not exactly the same date
@@ -150,13 +170,33 @@ export default function Investment() {
   }
 
   useEffect(() => {
-    getApiKey();
     getStockInfo();
+    getApiKey();
+
     // eslint-disable-next-line
   }, []);
 
-  function getStockPrice(ticker) {
-    var tickerPrevFetchDate = storedPrices[ticker]
+  // adds new UNPRECEDENTED ticker to firebase
+  function addNewStock(ticker) {
+    if (!(ticker in storedPrices)) {
+      var fetchedPrice = fetchStockPrice(apiKey, ticker);
+      var newStoredPrices = {
+        ...storedPrices,
+        [ticker]: {
+          date: new Date(),
+          price: fetchedPrice
+        }
+      };
+      setStoredPrices(newStoredPrices);
+      db.collection("investment")
+        .doc("stockInfo")
+        .update({
+          storedPrices: newStoredPrices
+        })
+        .catch((err) => console.log(err));
+    }
+
+    /*var tickerPrevFetchDate = storedPrices[ticker]
       ? storedPrices[ticker][date]
       : null;
     if (
@@ -180,13 +220,58 @@ export default function Investment() {
         })
         .catch((err) => console.log(err));
       return fetchedPrice;
-    }
+    } */
+  }
+
+  function investmentTable() {
+    //console.log("investment table called")
+    //console.log(storedPrices)
+    //console.log(storedPrices)
+    return (
+      <>
+        <Table
+          responsive
+          style={{ margin: "0 auto", width: "100%" }}
+          className="addMarg"
+        >
+          <thead>
+            <tr>
+              <th className="tableHeadings">Date</th>
+              <th className="tableHeadings">Ticker</th>
+              <th className="tableHeadings">Units</th>
+              <th className="tableHeadings">Cost Price</th>
+              <th className="tableHeadings">Current Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {arr.map((task, index) => (
+              <tr key={task.id}>
+                <td className="tableValues">{task.date}</td>
+                <td className="tableValues">{task.ticker}</td>
+                <td className="tableValues">{task.units}</td>
+                <td className="tableValues">{task.costPrice}</td>
+                <td className="tableValues">
+                  {storedPrices[task.ticker]["price"]}
+                </td>
+
+                <td>
+                  <Button onClick={() => deleteItem(index)}>Delete</Button>
+                </td>
+                <td>
+                  <Button onClick={() => editItem(index)}>Edit</Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </>
+    );
   }
 
   function tickerForm() {
     return (
       <>
-        <Form onSubmit={handleAddStock} className="info" id="form1">
+        <Form onSubmit={(e) => handleAddStock(e)} className="info" id="form1">
           <Form.Group as={Col} xs={12} md="auto">
             <Form.Control
               type="date"
@@ -225,47 +310,8 @@ export default function Investment() {
     );
   }
 
-  function investmentTable() {
-    return (
-      <>
-        <Table
-          responsive
-          style={{ margin: "0 auto", width: "100%" }}
-          className="addMarg"
-        >
-          <thead>
-            <tr>
-              <th className="tableHeadings">Date</th>
-              <th className="tableHeadings">Ticker</th>
-              <th className="tableHeadings">Units</th>
-              <th className="tableHeadings">Cost Price</th>
-              <th className="tableHeadings">Current Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {arr.map((task, index) => (
-              <tr key={task.id}>
-                <td className="tableValues">{task.date}</td>
-                <td className="tableValues">{task.ticker}</td>
-                <td className="tableValues">{task.units}</td>
-                <td className="tableValues">{task.costPrice}</td>
-                <td className="tableValues">{getStockPrice(task.ticker)}</td>
-
-                <td>
-                  <Button onClick={() => deleteItem(index)}>Delete</Button>
-                </td>
-                <td>
-                  <Button onClick={() => editItem(index)}>Edit</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </>
-    );
-  }
-
   function investmentModal() {
+    //console.log("investmentmodalCalled")
     return (
       <Modal show={modalOpen} onHide={() => toggleModal(!modalOpen)}>
         <Modal.Header closeButton>Edit</Modal.Header>
