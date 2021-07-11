@@ -20,6 +20,8 @@ export default function Investment() {
     units: null,
     costPrice: null
   });
+  const [apiKey, setApiKey] = useState("");
+  const [storedPrices, setStoredPrices] = useState({});
 
   const db = firebase.firestore();
 
@@ -103,6 +105,9 @@ export default function Investment() {
     if (validate(type, edit) === 1) {
       const newTasks = [...arr];
       newTasks[edit.id] = edit;
+      if (!(edit.ticker in storedPrices)) {
+        addNewStock(edit.ticker);
+      }
       revchrono(newTasks);
       db.collection("investment").doc(currentUser.email).update({
         stocks: newTasks
@@ -124,14 +129,6 @@ export default function Investment() {
     document.body.style.backgroundImage = "url(resources/soft_wallpaper.png)";
   }, []);
 
-  const [apiKey, setApiKey] = useState("");
-  const [storedPrices, setStoredPrices] = useState({
-    DUMMY: {
-      date: "",
-      price: ""
-    }
-  });
-
   function getApiKey() {
     //console.log("getAPIkeyCalled")
     db.collection("keys")
@@ -140,85 +137,96 @@ export default function Investment() {
         setApiKey(doc.data().apiKey);
       });
   }
+  //update existing stocks in the database before stock info
 
-  //updates storedPrices based on database (DOESNT FUCKING WORK FOR SOME REASON)
-  function getStockInfo() {
-    console.log("getstockinfocalled");
+  async function updateExisting(arr, storedPrices) {
+    console.log("updateExisting called");
+    const today = new Date();
+    var todaySeconds = today.getTime() / 1000;
+
+    var daySeconds = 24 * 60 * 60;
+    var storedPricesCopy = { ...storedPrices };
+
+    for (const ticker in storedPricesCopy) {
+      const lastUpdate = storedPricesCopy[ticker].date.seconds;
+
+      for (var obj of arr) {
+        if (ticker === obj.ticker && +todaySeconds - +lastUpdate > daySeconds) {
+          await fetchStockPrice(apiKey, ticker).then((x) => {
+            storedPricesCopy = {
+              ...storedPricesCopy,
+              [ticker]: {
+                date: new Date(),
+                price: x
+              }
+            };
+          });
+        }
+      }
+    }
 
     db.collection("investment")
       .doc("stockInfo")
-      .onSnapshot((doc) => {
-        setStoredPrices(doc.data().storedPrices);
-      });
+      .update({
+        storedPrices: storedPricesCopy
+      })
+      .catch((err) => console.log(err.message));
   }
 
-  function doFetch(prevDate, currDate) {
-    //console.log("dofetchCalled")
-    return (
-      (currDate.getMonth() !== prevDate.getMonth() ||
-        currDate.getDate() !== prevDate.getDate()) && //check if not exactly the same date
-      currDate - prevDate > 0
-    );
+  //updates storedPrices based on database (IDK WHY IT WORKS NOW)
+
+  function getStockInfo() {
+    console.log("getstockinfocalled");
+    updateExisting(arr, storedPrices);
+    db.collection("investment")
+      .doc("stockInfo")
+      .onSnapshot((doc) => {
+        var newStoredPrices = doc.data().storedPrices;
+        setStoredPrices(newStoredPrices);
+      });
   }
 
   useEffect(() => {
     getStockInfo();
-    getApiKey();
+    //console.log(storedPrices);
+    // eslint-disable-next-line
+  }, []);
 
+  useEffect(() => {
+    getApiKey();
     // eslint-disable-next-line
   }, []);
 
   // adds new UNPRECEDENTED ticker to firebase
-  function addNewStock(ticker) {
+  async function addNewStock(ticker) {
+    var newStoredPrices;
+
     if (!(ticker in storedPrices)) {
       var fetchedPrice = fetchStockPrice(apiKey, ticker);
-      var newStoredPrices = {
-        ...storedPrices,
-        [ticker]: {
-          date: new Date(),
-          price: fetchedPrice
-        }
-      };
-      setStoredPrices(newStoredPrices);
-      db.collection("investment")
-        .doc("stockInfo")
-        .update({
-          storedPrices: newStoredPrices
-        })
-        .catch((err) => console.log(err));
+      await fetchedPrice.then((x) => {
+        newStoredPrices = {
+          ...storedPrices,
+          [ticker]: {
+            date: new Date(),
+            price: x
+          }
+        };
+      });
+
+      //console.log(newStoredPrices);
     }
 
-    /*var tickerPrevFetchDate = storedPrices[ticker]
-      ? storedPrices[ticker][date]
-      : null;
-    if (
-      tickerPrevFetchDate &&
-      !doFetch(new Date(tickerPrevFetchDate), new Date())
-    ) {
-      return storedPrices[ticker]["price"];
-    } else {
-      var fetchedPrice = fetchStockPrice(apiKey, ticker);
-      setStoredPrices({
-        ...storedPrices,
-        [ticker]: {
-          date: new Date(),
-          price: fetchedPrice
-        }
-      });
-      db.collection("investment")
-        .doc("stockInfo")
-        .update({
-          storedPrices: storedPrices
-        })
-        .catch((err) => console.log(err));
-      return fetchedPrice;
-    } */
+    console.log(newStoredPrices);
+    db.collection("investment")
+      .doc("stockInfo")
+      .update({
+        storedPrices: newStoredPrices
+      })
+      .catch((err) => console.log(err));
   }
 
   function investmentTable() {
-    //console.log("investment table called")
-    //console.log(storedPrices)
-    //console.log(storedPrices)
+    //console.log(storedPrices);
     return (
       <>
         <Table
@@ -243,7 +251,9 @@ export default function Investment() {
                 <td className="tableValues">{task.units}</td>
                 <td className="tableValues">{task.costPrice}</td>
                 <td className="tableValues">
-                  {storedPrices[task.ticker]["price"]}
+                  {storedPrices[task.ticker]
+                    ? storedPrices[task.ticker]["price"]
+                    : ""}
                 </td>
 
                 <td>
@@ -381,10 +391,10 @@ export default function Investment() {
     <div>
       {TopBar()}
       <br />
-      <h1> Add a stock </h1>
+      <h1 className="add"> Add a Stock </h1>
       {investmentModal()}
       <div>{tickerForm()}</div>
-      <h1> My stocks </h1>
+      <h1 className="expenseHeadings"> My Stocks </h1>
       <div>{investmentTable()}</div>
     </div>
   );

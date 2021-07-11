@@ -80,31 +80,30 @@ function daystillend() {
   return days;
 }
 
-function fetchStockPrice(apiKey, ticker) {
-  const country = "US";
-  let price = null;
+async function fetchStockPrice(apiKey, ticker) {
+  var price;
 
   var options = {
     method: "GET",
-    url: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes",
-    params: { region: country, symbols: ticker },
+    url: "https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/" + ticker,
     headers: {
       "x-rapidapi-key": apiKey,
-      "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com"
+      "x-rapidapi-host": "yahoo-finance15.p.rapidapi.com"
     }
   };
 
-  axios
+  await axios
     .request(options)
-    .then((response) => response.json())
-    .then(
-      (data) =>
-        (price = data.quoteResponse.result[0].regularMarketPreviousClose)
-    )
+    .then((response) => {
+      price = response.data[0].regularMarketPreviousClose;
+      //console.log(response.data[0].regularMarketPreviousClose);
+    })
     .catch((error) => {
       console.error(error.message);
     });
 
+  //console.log(price);
+  //console.log(typeof price);
   return price;
 }
 
