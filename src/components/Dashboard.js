@@ -463,6 +463,22 @@ function Dashboard() {
   }
 
   function stockProfitLossCard() {
+    console.log("stocksSummary", stocksSummary);
+    if (Object.keys(stocksSummary).length === 0) {
+      return (
+        <>
+          <Card.Body>
+            <Card.Title className="cardHeadings">
+              {" "}
+              You have no stocks!
+            </Card.Title>
+            <Card.Text>
+              <a href="/investments"> Add investments here </a>
+            </Card.Text>
+          </Card.Body>
+        </>
+      );
+    }
     return (
       <>
         <Card.Body>
@@ -486,7 +502,7 @@ function Dashboard() {
             </div>
             <div className="cardHeadings">My Stocks</div>
           </Card.Title>
-          <ListGroup>
+          <ListGroup className="stock-list">
             <ListGroup.Item>
               <Row>
                 <Col>Net Profit and Loss:</Col>

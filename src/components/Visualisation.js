@@ -1,5 +1,6 @@
 import { PieChart } from "react-minimal-pie-chart";
 import React from "react";
+import { Card } from "react-bootstrap";
 
 function Visualisation(props) {
   var data = [];
@@ -7,8 +8,15 @@ function Visualisation(props) {
   if (+props.stats.needExpense === 0 && +props.stats.wantExpense === 0) {
     return (
       <>
-        <h1> You have no expenses! </h1>
-        <a href="/expenses-income-tracking"> Add expenses here </a>
+        <Card.Body>
+          <Card.Title>
+            {" "}
+            <div className="cardHeadings"> You have no expenses! </div>{" "}
+          </Card.Title>
+          <Card.Text>
+            <a href="/expenses-income-tracking"> Add expenses here </a>
+          </Card.Text>
+        </Card.Body>
       </>
     );
   } else if (+props.stats.needExpense === 0 && +props.stats.wantExpense !== 0) {
