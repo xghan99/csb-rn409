@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import { Form, Col, Button, Table, Modal } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
@@ -71,6 +71,7 @@ export default function Investment() {
         costPrice: costPrice
       }
     ];
+    console.log(newArr);
 
     if (validate("Stock", newArr[newArr.length - 1]) === 1) {
       revchrono(newArr);
@@ -140,7 +141,6 @@ export default function Investment() {
   //update existing stocks in the database before stock info
 
   async function updateExisting(arr, storedPrices) {
-    console.log("updateExisting called");
     const today = new Date();
     var todaySeconds = today.getTime() / 1000;
 
@@ -165,7 +165,8 @@ export default function Investment() {
       }
     }
 
-    db.collection("investment")
+    await db
+      .collection("investment")
       .doc("stockInfo")
       .update({
         storedPrices: storedPricesCopy
@@ -174,8 +175,8 @@ export default function Investment() {
   }
 
   //updates storedPrices based on database (IDK WHY IT WORKS NOW)
-
-  function getStockInfo() {
+  // not in use anymore
+  async function getStockInfo() {
     console.log("getstockinfocalled");
     updateExisting(arr, storedPrices);
     db.collection("investment")
@@ -186,16 +187,27 @@ export default function Investment() {
       });
   }
 
-  useEffect(() => {
-    getStockInfo();
-    //console.log(storedPrices);
-    // eslint-disable-next-line
-  }, []);
-
+  //first setStoredPrices that is called after render
   useEffect(() => {
     getApiKey();
-    // eslint-disable-next-line
+    console.log("call");
+    db.collection("investment")
+      .doc("stockInfo")
+      .onSnapshot((doc) => {
+        var newStoredPrices = doc.data().storedPrices;
+        setStoredPrices(newStoredPrices);
+      });
   }, []);
+
+  //second updateExising() is called everytime storedPrices is updated and not on initial state
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    updateExisting(arr, storedPrices);
+  }, [storedPrices]);
 
   // adds new UNPRECEDENTED ticker to firebase
   async function addNewStock(ticker) {
