@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Form,
   Col,
@@ -12,7 +12,7 @@ import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import Visualisation from "./Visualisation";
 import TopBar from "./TopBar";
-import { daystillend } from "./Utilities";
+import { daystillend, updateExisting } from "./Utilities";
 import { CircleFill } from "react-bootstrap-icons";
 
 function Dashboard() {
@@ -21,6 +21,14 @@ function Dashboard() {
   const expensesDoc = db
     .collection("expenses-and-income")
     .doc(currentUser.email);
+
+  //investment states
+  const [stocks, setStocks] = useState([]);
+  const [storedPrices, setStoredPrices] = useState({});
+  const [apiKey, setApiKey] = useState("");
+  const [stocksSummary, setStocksSummary] = useState({});
+
+  //expenditure states
   const [stats, setStats] = useState({
     totalExpense: null,
     wantExpense: null,
@@ -32,12 +40,80 @@ function Dashboard() {
   const [income, setIncome] = useState(0);
   const [quote, setQuote] = useState("");
   const [person, setPerson] = useState("");
+
+  //date helpers
   const today = new Date();
   var currentMonth = String(today.getMonth() + 1).padStart(2, "0");
   var currentDate = today.getDate();
-  var fill =
-    (100 * (monthlyExp / currentDate)) /
-    ((income - monthlyExp - goal) / daystillend());
+
+  // investment stuff
+  function getApiKey() {
+    //console.log("getAPIkeyCalled")
+    db.collection("keys")
+      .doc("apiKey")
+      .onSnapshot((doc) => {
+        setApiKey(doc.data().apiKey);
+      });
+  }
+
+  useEffect(() => {
+    db.collection("investment")
+      .doc(currentUser.email)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          const items = doc.data().stocks;
+          setStocks(items);
+        } else {
+          db.collection("investment")
+            .doc(currentUser.email)
+            .set({ stocks: [] });
+        }
+      });
+    // eslint-disable-next-line
+  }, []);
+
+  //first setStoredPrices, setStocks, setApiKey that is called after render
+  useEffect(() => {
+    getApiKey();
+    db.collection("investment")
+      .doc("stockInfo")
+      .onSnapshot((doc) => {
+        var newStoredPrices = doc.data().storedPrices;
+        setStoredPrices(newStoredPrices);
+      });
+    // eslint-disable-next-line
+  }, []);
+
+  //second updateExising() is called everytime storedPrices is updated and not on initial state
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    updateExisting(apiKey, stocks, storedPrices);
+    setStocksSummary(summariseStocks(stocks, storedPrices));
+    // eslint-disable-next-line
+  }, [storedPrices]);
+
+  function summariseStocks(arr, storedPrices) {
+    var summaryObj = {};
+    for (const transaction of arr) {
+      var cost = +transaction.costPrice;
+      var current = +storedPrices[transaction.ticker].price;
+      var units = +transaction.units;
+      if (transaction.ticker in summaryObj) {
+        summaryObj[transaction.ticker] += (current - cost) * units;
+      } else {
+        summaryObj[transaction.ticker] = (current - cost) * units;
+      }
+    }
+    for (const ticker of Object.keys(summaryObj)) {
+      summaryObj[ticker] = summaryObj[ticker].toFixed(2);
+    }
+    console.log(summaryObj);
+    return summaryObj;
+  }
 
   function getExpensesSummary() {
     //helper
@@ -386,6 +462,77 @@ function Dashboard() {
     );
   }
 
+  function stockProfitLossCard() {
+    return (
+      <>
+        <Card.Body>
+          <Card.Title>
+            <div style={{ position: "relative" }}>
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0
+                }}
+              >
+                <img
+                  variant="top"
+                  src="resources/piechart.png"
+                  height="30px"
+                  width="30px"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div className="cardHeadings">My Stocks</div>
+          </Card.Title>
+          <ListGroup>
+            <ListGroup.Item>
+              <Row>
+                <Col>Net Profit and Loss:</Col>
+                <Col
+                  className="d-flex justify-content-end"
+                  style={{
+                    color:
+                      Object.keys(stocksSummary).reduce(
+                        (seed, next) => seed + +stocksSummary[next],
+                        0
+                      ) < 0
+                        ? "red"
+                        : "green"
+                  }}
+                >
+                  $
+                  {Object.keys(stocksSummary).reduce(
+                    (seed, next) => seed + +stocksSummary[next],
+                    0
+                  )}
+                </Col>
+              </Row>
+            </ListGroup.Item>
+            {Object.keys(stocksSummary).map((ticker) => (
+              <ListGroup.Item>
+                <Row>
+                  <Col className="d-flex justify-content-between">
+                    {ticker}:
+                  </Col>
+                  <Col
+                    className="d-flex justify-content-end"
+                    style={{
+                      color: +stocksSummary[ticker] < 0 ? "red" : "green"
+                    }}
+                  >
+                    ${stocksSummary[ticker]}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Card.Body>
+      </>
+    );
+  }
+
   return (
     <>
       <TopBar />
@@ -393,7 +540,8 @@ function Dashboard() {
       <Container>
         <div aria-live="polite" aria-atomic="true">
           <Row className="d-flex justify-content-lg-center">
-            <Card style={{ width: "60rem" }}>{motivationCard()}</Card>
+            <Card style={{ width: "30rem" }}>{motivationCard()}</Card>
+            <Card style={{ width: "30rem" }}>{stockProfitLossCard()}</Card>
           </Row>
           <Row className="d-flex justify-content-lg-center">
             <Card style={{ width: "30rem" }}>{savingGoalCard()}</Card>

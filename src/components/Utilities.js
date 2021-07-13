@@ -1,4 +1,5 @@
 import axios from "axios";
+import firebase from "../Firebase";
 
 function validate(type, obj) {
   var today = new Date();
@@ -96,15 +97,47 @@ async function fetchStockPrice(apiKey, ticker) {
     .request(options)
     .then((response) => {
       price = response.data[0].regularMarketPreviousClose;
-      //console.log(response.data[0].regularMarketPreviousClose);
     })
     .catch((error) => {
       console.error(error.message);
     });
-
-  //console.log(price);
-  //console.log(typeof price);
   return price;
 }
 
-export { validate, revchrono, daystillend, fetchStockPrice };
+const db = firebase.firestore();
+
+async function updateExisting(apiKey, arr, storedPrices) {
+  const today = new Date();
+  var todaySeconds = today.getTime() / 1000;
+
+  var daySeconds = 24 * 60 * 60;
+  var storedPricesCopy = { ...storedPrices };
+
+  for (const ticker in storedPricesCopy) {
+    const lastUpdate = storedPricesCopy[ticker].date.seconds;
+
+    for (var obj of arr) {
+      if (ticker === obj.ticker && +todaySeconds - +lastUpdate > daySeconds) {
+        await fetchStockPrice(apiKey, ticker).then((x) => {
+          storedPricesCopy = {
+            ...storedPricesCopy,
+            [ticker]: {
+              date: new Date(),
+              price: x
+            }
+          };
+        });
+      }
+    }
+  }
+
+  await db
+    .collection("investment")
+    .doc("stockInfo")
+    .update({
+      storedPrices: storedPricesCopy
+    })
+    .catch((err) => console.log(err.message));
+}
+
+export { validate, revchrono, daystillend, fetchStockPrice, updateExisting };

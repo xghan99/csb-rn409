@@ -2,7 +2,12 @@ import { React, useState, useEffect, useRef } from "react";
 import { Form, Col, Button, Table, Modal } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
-import { revchrono, validate, fetchStockPrice } from "./Utilities";
+import {
+  revchrono,
+  validate,
+  fetchStockPrice,
+  updateExisting
+} from "./Utilities";
 import TopBar from "./TopBar";
 
 export default function Investment() {
@@ -140,7 +145,8 @@ export default function Investment() {
   }
   //update existing stocks in the database before stock info
 
-  async function updateExisting(arr, storedPrices) {
+  /*
+  async function updateExisting(apiKey, arr, storedPrices) {
     const today = new Date();
     var todaySeconds = today.getTime() / 1000;
 
@@ -173,19 +179,7 @@ export default function Investment() {
       })
       .catch((err) => console.log(err.message));
   }
-
-  //updates storedPrices based on database (IDK WHY IT WORKS NOW)
-  // not in use anymore
-  async function getStockInfo() {
-    console.log("getstockinfocalled");
-    updateExisting(arr, storedPrices);
-    db.collection("investment")
-      .doc("stockInfo")
-      .onSnapshot((doc) => {
-        var newStoredPrices = doc.data().storedPrices;
-        setStoredPrices(newStoredPrices);
-      });
-  }
+  */
 
   //first setStoredPrices that is called after render
   useEffect(() => {
@@ -206,7 +200,7 @@ export default function Investment() {
       isFirstRender.current = false;
       return;
     }
-    updateExisting(arr, storedPrices);
+    updateExisting(apiKey, arr, storedPrices);
   }, [storedPrices]);
 
   // adds new UNPRECEDENTED ticker to firebase
@@ -224,17 +218,15 @@ export default function Investment() {
           }
         };
       });
+      db.collection("investment")
+        .doc("stockInfo")
+        .update({
+          storedPrices: newStoredPrices
+        })
+        .catch((err) => console.log(err));
 
       //console.log(newStoredPrices);
     }
-
-    console.log(newStoredPrices);
-    db.collection("investment")
-      .doc("stockInfo")
-      .update({
-        storedPrices: newStoredPrices
-      })
-      .catch((err) => console.log(err));
   }
 
   function investmentTable() {
