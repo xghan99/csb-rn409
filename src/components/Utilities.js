@@ -110,6 +110,7 @@ async function fetchStockPrice(apiKey, ticker) {
 const db = firebase.firestore();
 
 async function updateExisting(apiKey, arr, storedPrices) {
+  console.log("updateExisting called");
   const today = new Date();
   var todaySeconds = today.getTime() / 1000;
 

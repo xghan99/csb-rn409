@@ -34,10 +34,10 @@ export default function ExpenseIncomeTable(props) {
             </td>
             <td className="tableValues">{task.category}</td>
             <td>
-              <Button onClick={() => props.deleteItem(index)}>Delete</Button>
+              <Button onClick={() => props.deleteItem(task.id)}>Delete</Button>
             </td>
             <td>
-              <Button onClick={() => props.editItem(index)}>Edit</Button>
+              <Button onClick={() => props.editItem(task.id)}>Edit</Button>
             </td>
           </tr>
         ))}

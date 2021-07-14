@@ -15,6 +15,9 @@ export default function InvestmentTable(props) {
             <th className="tableHeadings">Units</th>
             <th className="tableHeadings">Cost Price</th>
             <th className="tableHeadings">Current Price</th>
+            <th>
+              <Button onClick={() => props.handleRefresh()}>Refresh</Button>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -31,10 +34,12 @@ export default function InvestmentTable(props) {
               </td>
 
               <td>
-                <Button onClick={() => props.deleteItem(index)}>Delete</Button>
+                <Button onClick={() => props.deleteItem(task.id)}>
+                  Delete
+                </Button>
               </td>
               <td>
-                <Button onClick={() => props.editItem(index)}>Edit</Button>
+                <Button onClick={() => props.editItem(task.id)}>Edit</Button>
               </td>
             </tr>
           ))}
