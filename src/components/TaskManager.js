@@ -3,10 +3,10 @@ import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import { validate, revchrono } from "./Utilities";
 import TopBar from "./TopBar";
-import ExpenseIncomeForm from "./ExpenseIncomeForm";
-import ExpenseIncomeTable from "./ExpenseIncomeTable";
-import ExpenseIncomeEditModal from "./ExpenseIncomeEditModal";
-import ExpenseIncomeFilterForm from "./ExpenseIncomeFilterForm";
+import ExpenseIncomeForm from "./ExpenseIncomeFormsAndTables/ExpenseIncomeForm";
+import ExpenseIncomeTable from "./ExpenseIncomeFormsAndTables/ExpenseIncomeTable";
+import ExpenseIncomeEditModal from "./ExpenseIncomeFormsAndTables/ExpenseIncomeEditModal";
+import ExpenseIncomeFilterForm from "./ExpenseIncomeFormsAndTables/ExpenseIncomeFilterForm";
 
 function TaskManager() {
   const { currentUser } = useAuth();

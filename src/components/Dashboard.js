@@ -14,6 +14,10 @@ import Visualisation from "./Visualisation";
 import TopBar from "./TopBar";
 import { daystillend, updateExisting } from "./Utilities";
 import { CircleFill } from "react-bootstrap-icons";
+import StockProfitLossCard from "./DashboardCards/StockProfitLossCard";
+import AnalysisCard from "./DashboardCards/AnalysisCard";
+import BreakdownCard from "./DashboardCards/BreakdownCard";
+import SavingGoalCard from "./DashboardCards/SavingGoalCard";
 
 function Dashboard() {
   const { currentUser } = useAuth();
@@ -100,7 +104,9 @@ function Dashboard() {
     var summaryObj = {};
     for (const transaction of arr) {
       var cost = +transaction.costPrice;
-      var current = +storedPrices[transaction.ticker].price;
+      var current = +storedPrices[transaction.ticker].price
+        ? +storedPrices[transaction.ticker].price
+        : +transaction.costPrice;
       var units = +transaction.units;
       if (transaction.ticker in summaryObj) {
         summaryObj[transaction.ticker] += (current - cost) * units;
@@ -111,7 +117,7 @@ function Dashboard() {
     for (const ticker of Object.keys(summaryObj)) {
       summaryObj[ticker] = summaryObj[ticker].toFixed(2);
     }
-    console.log(summaryObj);
+    //console.log(summaryObj);
     return summaryObj;
   }
 
@@ -240,56 +246,6 @@ function Dashboard() {
     );
   }
 
-  function savingGoalCard() {
-    return (
-      <>
-        <Card.Body>
-          <Card.Title>
-            <div style={{ position: "relative" }}>
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0
-                }}
-              >
-                <img
-                  variant="top"
-                  src="resources/piggybank.png"
-                  height="30px"
-                  width="30px"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className="cardHeadings">Saving Goal</div>
-          </Card.Title>
-          <Card.Text className="cardText">
-            <Form className="info" id="form1" onSubmit={handleSaving}>
-              <Form.Row>
-                <Form.Group as={Col} xs={12} md="auto">
-                  <Form.Control
-                    type="number"
-                    placeholder="Savings Goal"
-                    onChange={(event) => setTempGoal(event.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group as={Col} xs={12} md="auto">
-                  <Button type="submit">Set</Button>
-                </Form.Group>
-              </Form.Row>
-            </Form>
-            <br />
-            <div className="text-center">
-              {" "}
-              <b>Current goal:</b> ${goal}{" "}
-            </div>
-          </Card.Text>
-        </Card.Body>
-      </>
-    );
-  }
-
   function getRecMessage() {
     if (dailyExpense == 0 && dailyBudget == 0) {
       return "";
@@ -328,129 +284,6 @@ function Dashboard() {
     ) : (
       <CircleFill color="red" />
     );
-  function analysisCard() {
-    return (
-      <>
-        <Card.Body>
-          <Card.Title className="cardHeadings">
-            <div style={{ position: "relative" }}>
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0
-                }}
-              >
-                <img
-                  variant="top"
-                  src="resources/dollarnote.png"
-                  height="30px"
-                  width="30px"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className="cardHeadings"> Analysis </div>
-          </Card.Title>
-          <Card.Text className="cardText">
-            {" "}
-            <ListGroup>
-              <ListGroup.Item>
-                <div>
-                  {" "}
-                  <b> Financial status: </b> {financialStatus}{" "}
-                </div>
-                <br />
-                <div> {getRecMessage()} </div>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                {" "}
-                <b>Max Daily Budget:</b> ${dailyBudget}{" "}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <b> Average Daily Spending: </b> $ {dailyExpense}{" "}
-              </ListGroup.Item>
-            </ListGroup>
-          </Card.Text>
-        </Card.Body>
-      </>
-    );
-  }
-
-  function breakDownCard() {
-    return (
-      <>
-        <Card.Body>
-          <Card.Title>
-            <div style={{ position: "relative" }}>
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0
-                }}
-              >
-                <img
-                  variant="top"
-                  src="resources/piechart.png"
-                  height="30px"
-                  width="30px"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className="cardHeadings">Breakdown</div>
-          </Card.Title>
-          <div>
-            <Row>
-              <Col lg={6}>
-                <Card
-                  className="m-1"
-                  border="danger"
-                  style={{ width: "13rem" }}
-                >
-                  <Card.Body>
-                    <Card.Title className="cardSubheading">
-                      Want Expenses
-                    </Card.Title>
-                    <Card.Text className="cardText">
-                      ${stats.wantExpense}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col lg={6}>
-                <Card className="m-1" border="success">
-                  <Card.Body>
-                    <Card.Title className="cardSubheading">
-                      Need Expenses
-                    </Card.Title>
-                    <Card.Text className="cardText">
-                      ${stats.needExpense}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={12}>
-                <Card className="m-1" border="info">
-                  <Card.Body>
-                    <Card.Title className="cardSubheading">
-                      Total Expenses
-                    </Card.Title>
-                    <Card.Text className="cardText">
-                      ${stats.totalExpense}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </div>
-        </Card.Body>
-      </>
-    );
-  }
 
   function visualisationCard() {
     return (
@@ -458,93 +291,6 @@ function Dashboard() {
         <div>
           <Visualisation stats={stats} />
         </div>
-      </>
-    );
-  }
-
-  function stockProfitLossCard() {
-    console.log("stocksSummary", stocksSummary);
-    if (Object.keys(stocksSummary).length === 0) {
-      return (
-        <>
-          <Card.Body>
-            <Card.Title className="cardHeadings">
-              {" "}
-              You have no stocks!
-            </Card.Title>
-            <Card.Text>
-              <a href="/investments"> Add investments here </a>
-            </Card.Text>
-          </Card.Body>
-        </>
-      );
-    }
-    return (
-      <>
-        <Card.Body>
-          <Card.Title>
-            <div style={{ position: "relative" }}>
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0
-                }}
-              >
-                <img
-                  variant="top"
-                  src="resources/piechart.png"
-                  height="30px"
-                  width="30px"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className="cardHeadings">My Stocks</div>
-          </Card.Title>
-          <ListGroup className="stock-list">
-            <ListGroup.Item>
-              <Row>
-                <Col>Net Profit and Loss:</Col>
-                <Col
-                  className="d-flex justify-content-end"
-                  style={{
-                    color:
-                      Object.keys(stocksSummary).reduce(
-                        (seed, next) => seed + +stocksSummary[next],
-                        0
-                      ) < 0
-                        ? "red"
-                        : "green"
-                  }}
-                >
-                  $
-                  {Object.keys(stocksSummary).reduce(
-                    (seed, next) => seed + +stocksSummary[next],
-                    0
-                  )}
-                </Col>
-              </Row>
-            </ListGroup.Item>
-            {Object.keys(stocksSummary).map((ticker) => (
-              <ListGroup.Item>
-                <Row>
-                  <Col className="d-flex justify-content-between">
-                    {ticker}:
-                  </Col>
-                  <Col
-                    className="d-flex justify-content-end"
-                    style={{
-                      color: +stocksSummary[ticker] < 0 ? "red" : "green"
-                    }}
-                  >
-                    ${stocksSummary[ticker]}
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Card.Body>
       </>
     );
   }
@@ -557,14 +303,35 @@ function Dashboard() {
         <div aria-live="polite" aria-atomic="true">
           <Row className="d-flex justify-content-lg-center">
             <Card style={{ width: "30rem" }}>{motivationCard()}</Card>
-            <Card style={{ width: "30rem" }}>{stockProfitLossCard()}</Card>
+            <Card style={{ width: "30rem" }}>
+              <StockProfitLossCard stocksSummary={stocksSummary} />
+            </Card>
           </Row>
           <Row className="d-flex justify-content-lg-center">
-            <Card style={{ width: "30rem" }}>{savingGoalCard()}</Card>
-            <Card style={{ width: "30rem" }}>{analysisCard()}</Card>
+            <Card style={{ width: "30rem" }}>
+              <SavingGoalCard
+                handleSaving={handleSaving}
+                setTempGoal={setTempGoal}
+                goal={goal}
+              />
+            </Card>
+            <Card style={{ width: "30rem" }}>
+              <AnalysisCard
+                financialStatus={financialStatus}
+                getRecMessage={getRecMessage}
+                dailyBudget={dailyBudget}
+                dailyExpense={dailyExpense}
+              />
+            </Card>
           </Row>
           <Row className="d-flex justify-content-lg-center">
-            <Card style={{ width: "30rem" }}>{breakDownCard()}</Card>
+            <Card style={{ width: "30rem" }}>
+              <BreakdownCard
+                totalExpense={stats.totalExpense}
+                needExpense={stats.needExpense}
+                wantExpense={stats.wantExpense}
+              />
+            </Card>
             <Card style={{ width: "30rem" }}>{visualisationCard()}</Card>
           </Row>
         </div>

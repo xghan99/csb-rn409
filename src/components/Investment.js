@@ -1,5 +1,4 @@
 import { React, useState, useEffect, useRef } from "react";
-import { Form, Col, Button, Table, Modal } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import {
@@ -9,6 +8,9 @@ import {
   updateExisting
 } from "./Utilities";
 import TopBar from "./TopBar";
+import InvestmentModal from "./InvestmentFormsAndTables/InvestmentModal";
+import InvestmentForm from "./InvestmentFormsAndTables/InvestmentForm";
+import InvestmentTable from "./InvestmentFormsAndTables/InvestmentTable";
 
 export default function Investment() {
   const [arr, setArr] = useState([]);
@@ -46,11 +48,6 @@ export default function Investment() {
       });
   }
 
-  useEffect(() => {
-    getInvestments();
-    // eslint-disable-next-line
-  }, []);
-
   function handleAddStock(event) {
     //console.log("handleAddStockCalled")
     event.preventDefault();
@@ -65,13 +62,13 @@ export default function Investment() {
 
   function addStock() {
     //console.log("AddStockCalled")
-    addNewStock(ticker);
+    addNewStock(ticker.toUpperCase());
     const newArr = [
       ...arr,
       {
         id: arr.length,
         date: date,
-        ticker: ticker,
+        ticker: ticker.toUpperCase(),
         units: units,
         costPrice: costPrice
       }
@@ -131,55 +128,48 @@ export default function Investment() {
     toggleModal(true);
   }
 
-  useEffect(() => {
-    document.body.style.backgroundImage = "url(resources/soft_wallpaper.png)";
-  }, []);
-
   function getApiKey() {
-    //console.log("getAPIkeyCalled")
     db.collection("keys")
       .doc("apiKey")
       .onSnapshot((doc) => {
         setApiKey(doc.data().apiKey);
       });
   }
-  //update existing stocks in the database before stock info
 
-  /*
-  async function updateExisting(apiKey, arr, storedPrices) {
-    const today = new Date();
-    var todaySeconds = today.getTime() / 1000;
+  // adds new UNPRECEDENTED ticker to firebase
+  async function addNewStock(ticker) {
+    var newStoredPrices;
 
-    var daySeconds = 24 * 60 * 60;
-    var storedPricesCopy = { ...storedPrices };
-
-    for (const ticker in storedPricesCopy) {
-      const lastUpdate = storedPricesCopy[ticker].date.seconds;
-
-      for (var obj of arr) {
-        if (ticker === obj.ticker && +todaySeconds - +lastUpdate > daySeconds) {
-          await fetchStockPrice(apiKey, ticker).then((x) => {
-            storedPricesCopy = {
-              ...storedPricesCopy,
-              [ticker]: {
-                date: new Date(),
-                price: x
-              }
-            };
-          });
-        }
-      }
+    if (!(ticker in storedPrices)) {
+      var fetchedPrice = fetchStockPrice(apiKey, ticker);
+      await fetchedPrice.then((x) => {
+        newStoredPrices = {
+          ...storedPrices,
+          [ticker]: {
+            date: new Date(),
+            price: x
+          }
+        };
+      });
+      db.collection("investment")
+        .doc("stockInfo")
+        .update({
+          storedPrices: newStoredPrices
+        })
+        .catch((err) => console.log(err));
     }
-
-    await db
-      .collection("investment")
-      .doc("stockInfo")
-      .update({
-        storedPrices: storedPricesCopy
-      })
-      .catch((err) => console.log(err.message));
   }
-  */
+
+  //start of useEffect
+
+  useEffect(() => {
+    getInvestments();
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    document.body.style.backgroundImage = "url(resources/soft_wallpaper.png)";
+  }, []);
 
   //first setStoredPrices that is called after render
   useEffect(() => {
@@ -203,203 +193,38 @@ export default function Investment() {
     updateExisting(apiKey, arr, storedPrices);
   }, [storedPrices]);
 
-  // adds new UNPRECEDENTED ticker to firebase
-  async function addNewStock(ticker) {
-    var newStoredPrices;
-
-    if (!(ticker in storedPrices)) {
-      var fetchedPrice = fetchStockPrice(apiKey, ticker);
-      await fetchedPrice.then((x) => {
-        newStoredPrices = {
-          ...storedPrices,
-          [ticker]: {
-            date: new Date(),
-            price: x
-          }
-        };
-      });
-      db.collection("investment")
-        .doc("stockInfo")
-        .update({
-          storedPrices: newStoredPrices
-        })
-        .catch((err) => console.log(err));
-
-      //console.log(newStoredPrices);
-    }
-  }
-
-  function investmentTable() {
-    //console.log(storedPrices);
-    return (
-      <>
-        <Table
-          responsive
-          style={{ margin: "0 auto", width: "100%" }}
-          className="addMarg"
-        >
-          <thead>
-            <tr>
-              <th className="tableHeadings">Date</th>
-              <th className="tableHeadings">Ticker</th>
-              <th className="tableHeadings">Units</th>
-              <th className="tableHeadings">Cost Price</th>
-              <th className="tableHeadings">Current Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {arr.map((task, index) => (
-              <tr key={task.id}>
-                <td className="tableValues">{task.date}</td>
-                <td className="tableValues">{task.ticker}</td>
-                <td className="tableValues">{task.units}</td>
-                <td className="tableValues">{task.costPrice}</td>
-                <td className="tableValues">
-                  {storedPrices[task.ticker]
-                    ? storedPrices[task.ticker]["price"]
-                    : ""}
-                </td>
-
-                <td>
-                  <Button onClick={() => deleteItem(index)}>Delete</Button>
-                </td>
-                <td>
-                  <Button onClick={() => editItem(index)}>Edit</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </>
-    );
-  }
-
-  function tickerForm() {
-    return (
-      <>
-        <Form onSubmit={(e) => handleAddStock(e)} className="info" id="form1">
-          <Form.Group as={Col} xs={12} md="auto">
-            <Form.Control
-              type="date"
-              placeholder="Date"
-              onInput={(event) => setDate(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group as={Col} xs={12} md="auto">
-            <Form.Control
-              type="text"
-              placeholder="Stock Ticker"
-              onChange={(event) => setTicker(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group as={Col} xs={12} md="auto">
-            <Form.Control
-              type="number"
-              step="any"
-              placeholder="Units"
-              onChange={(event) => setUnits(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group as={Col} xs={12} md="auto">
-            <Form.Control
-              type="number"
-              step="any"
-              placeholder="Cost Price"
-              onChange={(event) => setCostPrice(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group as={Col} xs={12} md="auto">
-            <Button type="submit">Add</Button>
-          </Form.Group>
-        </Form>
-      </>
-    );
-  }
-
-  function investmentModal() {
-    //console.log("investmentmodalCalled")
-    return (
-      <Modal show={modalOpen} onHide={() => toggleModal(!modalOpen)}>
-        <Modal.Header closeButton>Edit</Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={(e) => handleEdit("Stock", e)} id="edit">
-            <Form.Group>
-              <Form.Label> Date </Form.Label>
-              <Form.Control
-                type="date"
-                defaultValue={edit.date}
-                onChange={(event) =>
-                  setEdit({
-                    ...edit,
-                    date: event.target.value
-                  })
-                }
-              />
-            </Form.Group>
-            <br />
-            <Form.Group>
-              <Form.Label> Stock Ticker </Form.Label>
-              <Form.Control
-                type="text"
-                defaultValue={edit.ticker}
-                onChange={(event) =>
-                  setEdit({
-                    ...edit,
-                    ticker: event.target.value
-                  })
-                }
-              />
-              <br />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label> Units </Form.Label>
-              <Form.Control
-                type="number"
-                defaultValue={edit.units}
-                onChange={(event) =>
-                  setEdit({
-                    ...edit,
-                    units: event.target.value
-                  })
-                }
-              />
-            </Form.Group>
-            <br />
-            <Form.Group>
-              <Form.Label> Cost Price </Form.Label>
-              <Form.Control
-                type="number"
-                defaultValue={edit.costPrice}
-                onChange={(event) =>
-                  setEdit({
-                    ...edit,
-                    costPrice: event.target.value
-                  })
-                }
-              />
-            </Form.Group>
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={() => toggleModal(false)}
-            >
-              Save changes
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    );
-  }
+  //end of useEffect
 
   return (
     <div>
-      {TopBar()}
+      <TopBar />
       <br />
       <h1 className="add"> Add a Stock </h1>
-      {investmentModal()}
-      <div>{tickerForm()}</div>
+      <InvestmentModal
+        modalOpen={modalOpen}
+        toggleModal={toggleModal}
+        handleEdit={handleEdit}
+        edit={edit}
+        setEdit={setEdit}
+      />
+      <div>
+        <InvestmentForm
+          handleAddStock={handleAddStock}
+          setDate={setDate}
+          setTicker={setTicker}
+          setUnits={setUnits}
+          setCostPrice={setCostPrice}
+        />
+      </div>
       <h1 className="expenseHeadings"> My Stocks </h1>
-      <div>{investmentTable()}</div>
+      <div>
+        <InvestmentTable
+          arr={arr}
+          storedPrices={storedPrices}
+          deleteItem={deleteItem}
+          editItem={editItem}
+        />
+      </div>
     </div>
   );
 }

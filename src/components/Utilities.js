@@ -101,6 +101,9 @@ async function fetchStockPrice(apiKey, ticker) {
     .catch((error) => {
       console.error(error.message);
     });
+  if (!price) {
+    return "Invalid Stock Ticker";
+  }
   return price;
 }
 
