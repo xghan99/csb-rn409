@@ -349,7 +349,8 @@ In the form, fill in the following details: The date of transaction, the stock t
 
 Note: All fields have to be filled in with valid input (No future dates or non-positive amounts are allowed).
 
-Once the details are filled in, click “add” (Figure 43) to add the stock transaction to the stock table below the form (Figure 44).
+Once the details are filled in, click “add” (Figure 43) to add the stock transaction to the stock table below the form (Figure 44). Note that current prices reflected are of the previous close date price (eg. Stock added on 4pm today (In Singapore time), but the current price reflected will be the market closing price of the previous day).
+
 
 ![](public/user-guide-pictures/figure43.png)\
 Figure 43: Add a stock transaction\
