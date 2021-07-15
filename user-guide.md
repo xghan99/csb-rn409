@@ -46,11 +46,11 @@
           <li><a href="#8b-need-and-want-pie-chart"> Need and want pie chart </a></li>
         </ul>
         <li><a href="#9-viewing-the-dashboard-analysis">Viewing the dashboard: Analysis</a></li>
-        <li><a href="#10-track-your-investments-coming-soon">Track your investments</a></li>
+        <li><a href="#10-track-your-investments">Track your investments</a></li>
         <ul>
           <li><a href="#10a-add-a-stock-transaction">Add a stock transaction </a></li>
-          <li><a href="10b-delete-a-stock-transaction">Delete a stock transaction </a></li>
-          <li><a href="10c-edit-a-stock-transaction">Edit a stock transaction </a></li>
+          <li><a href="#10b-delete-a-stock-transaction">Delete a stock transaction </a></li>
+          <li><a href="#10c-edit-a-stock-transaction">Edit a stock transaction </a></li>
         </ul>
     </ul>
   </ol>
