@@ -33,7 +33,6 @@ export default function Investment() {
   const db = firebase.firestore();
 
   function getInvestments() {
-    console.log("getInvestmentCalled");
     db.collection("investment")
       .doc(currentUser.email)
       .onSnapshot((doc) => {
@@ -49,7 +48,6 @@ export default function Investment() {
   }
 
   function handleAddStock(event) {
-    console.log("handleAddStockCalled");
     event.preventDefault();
     if (addStock() !== false) {
       event.target.reset();
@@ -61,7 +59,6 @@ export default function Investment() {
   }
 
   function addStock() {
-    console.log("AddStockCalled");
     addNewStock(ticker.toUpperCase());
     const newArr = [
       ...arr,
@@ -73,7 +70,6 @@ export default function Investment() {
         costPrice: costPrice
       }
     ];
-    console.log(newArr);
 
     if (validate("Stock", newArr[newArr.length - 1]) === 1) {
       revchrono(newArr);
@@ -93,7 +89,6 @@ export default function Investment() {
   }
 
   function deleteItem(index) {
-    console.log("deleteitemCalled");
     const newTasks = arr
       .slice(0, index)
       .concat(arr.slice(index + 1, arr.length));
@@ -104,7 +99,6 @@ export default function Investment() {
   }
 
   function handleEdit(type, event) {
-    console.log("handleeditCalled");
     event.preventDefault();
     if (validate(type, edit) === 1) {
       const newTasks = [...arr];
@@ -112,6 +106,7 @@ export default function Investment() {
       if (!(edit.ticker in storedPrices)) {
         addNewStock(edit.ticker);
       }
+      updateExisting(apiKey, newTasks, storedPrices);
       revchrono(newTasks);
       db.collection("investment").doc(currentUser.email).update({
         stocks: newTasks
@@ -124,7 +119,6 @@ export default function Investment() {
   }
 
   function editItem(index) {
-    console.log("edititemCalled");
     setEdit(arr[index]);
     toggleModal(true);
   }
@@ -175,7 +169,6 @@ export default function Investment() {
   //first setStoredPrices that is called after render
   useEffect(() => {
     getApiKey();
-    console.log("call");
     db.collection("investment")
       .doc("stockInfo")
       .onSnapshot((doc) => {
@@ -195,10 +188,7 @@ export default function Investment() {
   }, [storedPrices]);
 
   //end of useEffect
-  function handleRefresh() {
-    console.log("handleRefreshcalled");
-    updateExisting(apiKey, arr, storedPrices);
-  }
+
   return (
     <div>
       <TopBar />
@@ -227,7 +217,6 @@ export default function Investment() {
           storedPrices={storedPrices}
           deleteItem={deleteItem}
           editItem={editItem}
-          handleRefresh={handleRefresh}
         />
       </div>
     </div>

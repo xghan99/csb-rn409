@@ -15,9 +15,6 @@ export default function InvestmentTable(props) {
             <th className="tableHeadings">Units</th>
             <th className="tableHeadings">Cost Price</th>
             <th className="tableHeadings">Current Price</th>
-            <th>
-              <Button onClick={() => props.handleRefresh()}>Refresh</Button>
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +23,9 @@ export default function InvestmentTable(props) {
               <td className="tableValues">{task.date}</td>
               <td className="tableValues">{task.ticker}</td>
               <td className="tableValues">{task.units}</td>
-              <td className="tableValues">{task.costPrice}</td>
+              <td className="tableValues">
+                {Number(task.costPrice).toFixed(2)}
+              </td>
               <td className="tableValues">
                 {props.storedPrices[task.ticker]
                   ? props.storedPrices[task.ticker]["price"]

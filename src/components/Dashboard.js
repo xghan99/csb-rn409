@@ -52,7 +52,6 @@ function Dashboard() {
 
   // investment stuff
   function getApiKey() {
-    //console.log("getAPIkeyCalled")
     db.collection("keys")
       .doc("apiKey")
       .onSnapshot((doc) => {
@@ -117,7 +116,6 @@ function Dashboard() {
     for (const ticker of Object.keys(summaryObj)) {
       summaryObj[ticker] = summaryObj[ticker].toFixed(2);
     }
-    //console.log(summaryObj);
     return summaryObj;
   }
 

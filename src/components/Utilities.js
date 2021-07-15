@@ -104,7 +104,7 @@ async function fetchStockPrice(apiKey, ticker) {
   if (!price) {
     return "Invalid Stock Ticker";
   }
-  return price;
+  return +price.toFixed(2);
 }
 
 const db = firebase.firestore();
@@ -116,7 +116,6 @@ async function updateExisting(apiKey, arr, storedPrices) {
 
   var daySeconds = 24 * 60 * 60;
   var storedPricesCopy = { ...storedPrices };
-
   for (const ticker in storedPricesCopy) {
     const lastUpdate = storedPricesCopy[ticker].date.seconds;
 
