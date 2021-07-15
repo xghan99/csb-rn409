@@ -352,7 +352,7 @@ Note: All fields have to be filled in with valid input (No future dates or non-p
 Once the details are filled in, click “add” (Figure 43) to add the stock transaction to the stock table below the form (Figure 44).
 
 ![](public/user-guide-pictures/figure43.png)\
-Figure 43: Add a stock transaction
+Figure 43: Add a stock transaction\
 ![](public/user-guide-pictures/figure44.png)\
 Figure 44: The stock transaction will be added to the table below
 
@@ -366,7 +366,7 @@ Figure 45: Click to delete the transaction
 Edit a stock transaction by clicking the “edit” button on the right of the transaction that you wish to edit (Figure 46). A modal will appear. Fill in the details you wish to edit and click the “Save Changes” button once you are done (Figure 47). The transaction will be updated automatically in the table.
 
 ![](public/user-guide-pictures/figure46.png)\
-Figure 46: Click to edit the transaction
+Figure 46: Click to edit the transaction\
 ![](public/user-guide-pictures/figure47.png)\
 Figure 47: The edit modal
 
