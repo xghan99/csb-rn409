@@ -45,8 +45,13 @@
           <li><a href="#8a-breakdown"> Breakdown </a></li>
           <li><a href="#8b-need-and-want-pie-chart"> Need and want pie chart </a></li>
         </ul>
-        <li><a href="#viewing-the-dashboard-analysis">Viewing the dashboard: Analysis</a></li>
-        <li><a href="#track-your-investments-coming-soon">Track your investments (coming soon)</a></li>
+        <li><a href="#9-viewing-the-dashboard-analysis">Viewing the dashboard: Analysis</a></li>
+        <li><a href="#10-track-your-investments-coming-soon">Track your investments</a></li>
+        <ul>
+          <li><a href="#10a-add-a-stock-transaction">Add a stock transaction </a></li>
+          <li><a href="10b-delete-a-stock-transaction">Delete a stock transaction </a></li>
+          <li><a href="10c-edit-a-stock-transaction">Edit a stock transaction </a></li>
+        </ul>
     </ul>
   </ol>
 </details>
@@ -295,7 +300,7 @@ Furthermore, when toggling through “All”, “Expense” and “Income”, it
 
 For example, If I am currently viewing Expenses in the month of July, with the category “Food & Drink”, once I toggle over to “Income”, I will be viewing all Income with no filters applied.
 
-#### 8. Viewing the Dashboard: Descriptive Statistics
+### 8. Viewing the Dashboard: Descriptive Statistics
 
 *This section will not be helpful if you have not set a savings goal or have not tracked your expenses and income. Find out more about **[setting a savings goal](#3-set-a-savings-goal)**, or find out more about **[tracking your expenses and income ](#4-track-your-expenses-and-income)*
 
@@ -331,6 +336,47 @@ Figure 40: Recommendation example 1
 ![](public/user-guide-pictures/figure41.png)\
 Figure 41: Recommendation example 2
 
-### 10. Track your investments (Coming soon!)
+### 10. Track your investments 
+#### 10a. Add a stock transaction
+Goalie allows users to track their investments (stock tickers).
 
-*Stay tuned for Milestone 3!*
+Navigate to the Investments page on the navigation bar.
+
+![](public/user-guide-pictures/figure42.png) \
+Figure 42: Navigate to the investments page
+
+In the form, fill in the following details: The date of transaction, the stock ticker, number of units of stock bought, and cost price per unit of stock.
+
+Note: All fields have to be filled in with valid input (No future dates or non-positive amounts are allowed).
+
+Once the details are filled in, click “add” (Figure 43) to add the stock transaction to the stock table below the form (Figure 44).
+
+![](public/user-guide-pictures/figure43.png) \
+Figure 43: Add a stock transaction
+![](public/user-guide-pictures/figure44.png) \
+Figure 44: The stock transaction will be added to the table below
+
+#### 10b. Delete a stock transaction
+Delete your stock transaction by clicking the “delete” button on the right of the transaction that you wish to delete (Figure 45).
+
+![](public/user-guide-pictures/figure45.png) \
+Figure 45: Click to delete the transaction
+
+#### 10c. Edit a stock transaction
+Edit a stock transaction by clicking the “edit” button on the right of the transaction that you wish to edit (Figure 46). A modal will appear. Fill in the details you wish to edit and click the “Save Changes” button once you are done (Figure 47). The transaction will be updated automatically in the table.
+
+![](public/user-guide-pictures/figure46.png) \
+Figure 46: Click to edit the transaction
+![](public/user-guide-pictures/figure47.png) \
+Figure 47: The edit modal
+
+#### 10d. View your Stocks’ Profit and Loss summary on the Dashboard page
+Once you have added your stock transactions, navigate to the dashboard page via the navigation bar (Figure 48). Your Stocks’ Profit and Loss will be displayed in a List. The first entry will be the net profit and loss, followed by the individual stocks’ profit and loss (Figure 49).
+
+![](public/user-guide-pictures/figure48.png) \
+Figure 48: Navigate to the dashboard page
+
+![](public/user-guide-pictures/figure49.png) \
+Figure 49: Your Stocks’ Profit and Loss will be displayed in a List
+
+ 
