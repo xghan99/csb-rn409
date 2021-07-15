@@ -131,7 +131,7 @@ export default function Landing() {
                 <iframe
                   title="Sign up"
                   class="embed-responsive-item"
-                  src="https://www.youtube.com/embed/0OqMUJYyM3s?loop=5;color=ffffff"
+                  src="https://www.youtube.com/embed/XUPNtcKvU9I?start=0&end=13;color=ffffff"
                   allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
@@ -143,7 +143,7 @@ export default function Landing() {
                 <iframe
                   title="Save"
                   class="embed-responsive-item"
-                  src="https://www.youtube.com/embed/ImWKasUjWt0?loop=5;color=ffffff"
+                  src="https://www.youtube.com/embed/XUPNtcKvU9I?start=14&end=19;color=ffffff"
                   allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
@@ -155,7 +155,7 @@ export default function Landing() {
                 <iframe
                   title="Add"
                   class="embed-responsive-item"
-                  src="https://www.youtube.com/embed/Ptzn3ZDZYdU?&loop=5;color=ffffff"
+                  src="https://www.youtube.com/embed/XUPNtcKvU9I?start=20&end=99;color=ffffff"
                   allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
@@ -167,33 +167,10 @@ export default function Landing() {
                 <iframe
                   title="Delete Edit"
                   class="embed-responsive-item"
-                  src="https://www.youtube.com/embed/wanASGehBPo?&loop=5;color=ffffff"
+                  src="https://www.youtube.com/embed/XUPNtcKvU9I?start=99&end=111;color=ffffff"
                   allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
-            </div>
-          </Carousel.Item>
-          <Carousel.Item>
-            <div className="text-center">
-              <img
-                src="resources/pig.png"
-                alt="third"
-                height="300"
-                className="landingImage"
-              />
-              <Carousel.Caption>
-                <h3
-                  style={{
-                    color: "black",
-                    position: "relative",
-                    top: "-90px",
-                    left: "182px",
-                    paddingRight: "350px"
-                  }}
-                >
-                  Stay Tuned!
-                </h3>
-              </Carousel.Caption>
             </div>
           </Carousel.Item>
           <Carousel.Item>
@@ -202,7 +179,19 @@ export default function Landing() {
                 <iframe
                   title="dashboard"
                   class="embed-responsive-item"
-                  src="https://www.youtube.com/embed/rGhx5scO_G0?loop=5&mute=1;color=ffffff"
+                  src="https://www.youtube.com/embed/XUPNtcKvU9I?start=111&end=147;color=ffffff"
+                  allowFullScreen="allowFullScreen"
+                ></iframe>
+              </div>
+            </div>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="text-center">
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe
+                  title="dashboard"
+                  class="embed-responsive-item"
+                  src="https://www.youtube.com/embed/XUPNtcKvU9I?start=147;color=ffffff"
                   allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>
