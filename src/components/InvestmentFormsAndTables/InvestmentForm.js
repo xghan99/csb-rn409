@@ -1,13 +1,38 @@
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Col, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
 
 export default function InvestmentForm(props) {
-  return (
-    <>
-      <Form
-        onSubmit={(e) => props.handleAddStock(e)}
-        className="info"
-        id="form1"
-      >
+  const type = props.isTicker ? "Ticker" : "Other";
+  const handleFunc = props.isTicker
+    ? props.handleAddStock
+    : props.handleAddOther;
+
+  function tickerOtherToggle() {
+    return (
+      <>
+        <Form className="info">
+          <ButtonGroup toggle>
+            <ToggleButton
+              type="radio"
+              checked={props.isTicker}
+              onChange={(e) => props.toggleTickerOther(true)}
+            >
+              Ticker
+            </ToggleButton>
+            <ToggleButton
+              type="radio"
+              checked={!props.isTicker}
+              onChange={(e) => props.toggleTickerOther(false)}
+            >
+              Other
+            </ToggleButton>
+          </ButtonGroup>
+        </Form>
+      </>
+    );
+  }
+  function commonFormGroups() {
+    return (
+      <>
         <Form.Group as={Col} xs={12} md="auto">
           <Form.Control
             type="date"
@@ -18,7 +43,7 @@ export default function InvestmentForm(props) {
         <Form.Group as={Col} xs={12} md="auto">
           <Form.Control
             type="text"
-            placeholder="Stock Ticker"
+            placeholder={type === "Ticker" ? "Ticker" : "Description"}
             onChange={(event) => props.setTicker(event.target.value)}
           />
         </Form.Group>
@@ -38,9 +63,38 @@ export default function InvestmentForm(props) {
             onChange={(event) => props.setCostPrice(event.target.value)}
           />
         </Form.Group>
+      </>
+    );
+  }
+
+  function otherFormGroups() {
+    return (
+      <>
         <Form.Group as={Col} xs={12} md="auto">
-          <Button type="submit">Add</Button>
+          <Form.Control
+            type="number"
+            step="any"
+            placeholder="Expected Rate of Return"
+            onChange={(event) => props.setRate(event.target.value)}
+          />
         </Form.Group>
+      </>
+    );
+  }
+  return (
+    <>
+      {tickerOtherToggle()}
+      <Form onSubmit={handleFunc} className="info" id="form1">
+        <Form.Row>
+          {commonFormGroups()}
+
+          {type === "Other" && otherFormGroups()}
+          <Form.Group as={Col} xs={12} md="auto">
+            <Button type="submit" onClick={(e) => props.setType(type)}>
+              Add
+            </Button>
+          </Form.Group>
+        </Form.Row>
       </Form>
     </>
   );

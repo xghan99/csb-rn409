@@ -30,6 +30,10 @@ export default function Investment() {
   const [apiKey, setApiKey] = useState("");
   const [storedPrices, setStoredPrices] = useState({});
 
+  const [type, setType] = useState("");
+  const [isTicker, toggleTickerOther] = useState(true);
+  const [rate, setRate] = useState(0.0);
+
   const db = firebase.firestore();
 
   function getInvestments() {
@@ -55,6 +59,8 @@ export default function Investment() {
       setTicker("");
       setUnits();
       setCostPrice(0.0);
+      setType("");
+      setRate(0.0);
     }
   }
 
@@ -67,7 +73,9 @@ export default function Investment() {
         date: date,
         ticker: ticker.toUpperCase(),
         units: units,
-        costPrice: costPrice
+        costPrice: costPrice,
+        type: type,
+        rate: ""
       }
     ];
 
@@ -154,7 +162,48 @@ export default function Investment() {
         .catch((err) => console.log(err));
     }
   }
+  function handleAddOther(event) {
+    event.preventDefault();
+    if (AddOther() !== false) {
+      event.target.reset();
+      setDate("");
+      setUnits();
+      setCostPrice(0.0);
+      setRate(0.0);
+      setType("");
+      setTicker("");
+    }
+  }
 
+  function AddOther() {
+    const newArr = [
+      ...arr,
+      {
+        id: arr.length,
+        date: date,
+        units: units,
+        costPrice: costPrice,
+        rate: rate,
+        type: type,
+        ticker: ticker
+      }
+    ];
+    if (validate("Other", newArr[newArr.length - 1]) === 1) {
+      revchrono(newArr);
+
+      db.collection("investment")
+        .doc(currentUser.email)
+        .update({
+          stocks: newArr
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert(validate("Stock", newArr[newArr.length - 1]));
+      return false;
+    }
+  }
   //start of useEffect
 
   useEffect(() => {
@@ -208,6 +257,11 @@ export default function Investment() {
           setTicker={setTicker}
           setUnits={setUnits}
           setCostPrice={setCostPrice}
+          setType={setType}
+          isTicker={isTicker}
+          toggleTickerOther={toggleTickerOther}
+          setRate={setRate}
+          handleAddOther={handleAddOther}
         />
       </div>
       <h1 className="expenseHeadings"> My Stocks </h1>

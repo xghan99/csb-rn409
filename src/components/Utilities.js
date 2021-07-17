@@ -51,6 +51,14 @@ function validate(type, obj) {
     obj.costPrice
   ) {
     return 1;
+  } else if (
+    type === "Other" &&
+    obj.date &&
+    obj.rate &&
+    obj.units &&
+    obj.costPrice
+  ) {
+    return 1;
   } else {
     return "Please ensure all fields are filled!";
   }
@@ -143,4 +151,23 @@ async function updateExisting(apiKey, arr, storedPrices) {
     .catch((err) => console.log(err.message));
 }
 
-export { validate, revchrono, daystillend, fetchStockPrice, updateExisting };
+function differenceInDays(date) {
+  var todayDate = new Date();
+  var prevDate = new Date(
+    date.slice(0, 4),
+    date.slice(5, 7) - 1,
+    date.slice(8)
+  );
+  var timeDifference = todayDate.getTime() - prevDate.getTime();
+
+  return Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+}
+
+export {
+  validate,
+  revchrono,
+  daystillend,
+  fetchStockPrice,
+  updateExisting,
+  differenceInDays
+};
