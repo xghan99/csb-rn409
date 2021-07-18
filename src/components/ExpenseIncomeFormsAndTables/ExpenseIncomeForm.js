@@ -45,6 +45,7 @@ export default function ExpenseIncomeForm(props) {
           <Form.Control
             type="text"
             placeholder="Description"
+            value={props.newTaskText}
             onChange={(event) => props.setNewTaskText(event.target.value)}
           />
         </Form.Group>
@@ -53,6 +54,7 @@ export default function ExpenseIncomeForm(props) {
             type="number"
             step="any"
             placeholder="Amount"
+            value={props.amount}
             onChange={(event) => props.setAmount(event.target.value)}
           />
         </Form.Group>

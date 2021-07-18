@@ -9,6 +9,7 @@ export default function InvestmentModal(props) {
           <Form.Control
             type="date"
             defaultValue={props.edit.date}
+            value={props.edit.date}
             onChange={(event) =>
               props.setEdit({
                 ...props.edit,
@@ -26,6 +27,7 @@ export default function InvestmentModal(props) {
           <Form.Control
             type="text"
             defaultValue={props.edit.ticker}
+            value={props.edit.ticker}
             onChange={(event) =>
               props.setEdit({
                 ...props.edit,
@@ -40,6 +42,7 @@ export default function InvestmentModal(props) {
           <Form.Control
             type="number"
             defaultValue={props.edit.units}
+            value={props.edit.units}
             onChange={(event) =>
               props.setEdit({
                 ...props.edit,
@@ -54,6 +57,7 @@ export default function InvestmentModal(props) {
           <Form.Control
             type="number"
             defaultValue={props.edit.costPrice}
+            value={props.edit.costPrice}
             onChange={(event) =>
               props.setEdit({
                 ...props.edit,
@@ -74,6 +78,7 @@ export default function InvestmentModal(props) {
           <Form.Control
             type="number"
             defaultValue={props.edit.rate}
+            value={props.edit.rate}
             onChange={(event) =>
               props.setEdit({
                 ...props.edit,

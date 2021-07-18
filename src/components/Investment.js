@@ -16,8 +16,8 @@ export default function Investment() {
   const [arr, setArr] = useState([]);
   const [date, setDate] = useState("");
   const [ticker, setTicker] = useState("");
-  const [units, setUnits] = useState(0);
-  const [costPrice, setCostPrice] = useState(0.0);
+  const [units, setUnits] = useState("");
+  const [costPrice, setCostPrice] = useState("");
   const { currentUser } = useAuth();
   const [modalOpen, toggleModal] = useState(false);
   const [edit, setEdit] = useState({
@@ -32,7 +32,7 @@ export default function Investment() {
 
   const [type, setType] = useState("");
   const [isTicker, toggleTickerOther] = useState(true);
-  const [rate, setRate] = useState(0.0);
+  const [rate, setRate] = useState("");
 
   const db = firebase.firestore();
 
@@ -57,15 +57,14 @@ export default function Investment() {
       event.target.reset();
       setDate("");
       setTicker("");
-      setUnits();
-      setCostPrice(0.0);
+      setUnits("");
+      setCostPrice("");
       setType("");
-      setRate(0.0);
+      setRate("");
     }
   }
 
   function addStock() {
-    addNewStock(ticker.toUpperCase());
     const newArr = [
       ...arr,
       {
@@ -79,7 +78,8 @@ export default function Investment() {
       }
     ];
 
-    if (validate("Stock", newArr[newArr.length - 1]) === 1) {
+    if (validate("Ticker", newArr[newArr.length - 1]) === 1) {
+      addNewStock(ticker.toUpperCase());
       revchrono(newArr);
       updateExisting(apiKey, newArr, storedPrices);
       db.collection("investment")
@@ -91,7 +91,7 @@ export default function Investment() {
           console.log(err);
         });
     } else {
-      alert(validate("Stock", newArr[newArr.length - 1]));
+      alert(validate("Ticker", newArr[newArr.length - 1]));
       return false;
     }
   }
@@ -167,9 +167,9 @@ export default function Investment() {
     if (AddOther() !== false) {
       event.target.reset();
       setDate("");
-      setUnits();
-      setCostPrice(0.0);
-      setRate(0.0);
+      setUnits("");
+      setCostPrice("");
+      setRate("");
       setType("");
       setTicker("");
     }
@@ -188,6 +188,8 @@ export default function Investment() {
         ticker: ticker
       }
     ];
+    console.log(units);
+
     if (validate("Other", newArr[newArr.length - 1]) === 1) {
       revchrono(newArr);
 
@@ -200,7 +202,7 @@ export default function Investment() {
           console.log(err);
         });
     } else {
-      alert(validate("Stock", newArr[newArr.length - 1]));
+      alert(validate("Other", newArr[newArr.length - 1]));
       return false;
     }
   }
@@ -254,13 +256,18 @@ export default function Investment() {
         <InvestmentForm
           handleAddStock={handleAddStock}
           setDate={setDate}
+          date={date}
           setTicker={setTicker}
+          ticker={ticker}
           setUnits={setUnits}
+          units={units}
           setCostPrice={setCostPrice}
+          costPrice={costPrice}
           setType={setType}
           isTicker={isTicker}
           toggleTickerOther={toggleTickerOther}
           setRate={setRate}
+          rate={rate}
           handleAddOther={handleAddOther}
         />
       </div>

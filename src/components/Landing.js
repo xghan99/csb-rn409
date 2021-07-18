@@ -96,12 +96,19 @@ export default function Landing() {
                     variant="light"
                     onClick={(e) => handleClickList(4)}
                   >
-                    Keep track of your investments
+                    Keep track of your stock tickers
                   </ListGroupItem>
                   <ListGroupItem
                     action
                     variant="light"
                     onClick={(e) => handleClickList(5)}
+                  >
+                    Project your returns with Goalie
+                  </ListGroupItem>
+                  <ListGroupItem
+                    action
+                    variant="light"
+                    onClick={(e) => handleClickList(6)}
                   >
                     Goalie will help you achieve your savings goals
                   </ListGroupItem>
@@ -180,6 +187,18 @@ export default function Landing() {
                   title="dashboard"
                   class="embed-responsive-item"
                   src="https://www.youtube.com/embed/XUPNtcKvU9I?start=111&end=147;color=ffffff"
+                  allowFullScreen="allowFullScreen"
+                ></iframe>
+              </div>
+            </div>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="text-center">
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe
+                  title="dashboard"
+                  class="embed-responsive-item"
+                  src="https://www.youtube.com/embed/AyyKbRZYto8;color=ffffff"
                   allowFullScreen="allowFullScreen"
                 ></iframe>
               </div>

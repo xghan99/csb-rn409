@@ -262,6 +262,8 @@ function TaskManager() {
             setNeedWant={setNeedWant}
             setType={setType}
             isExpense={isExpense}
+            amount={amount}
+            newTaskText={newTaskText}
           />
         </div>
         <div className="addMarg">

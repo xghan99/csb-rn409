@@ -37,12 +37,14 @@ export default function InvestmentForm(props) {
           <Form.Control
             type="date"
             placeholder="Date"
+            value={props.date}
             onInput={(event) => props.setDate(event.target.value)}
           />
         </Form.Group>
         <Form.Group as={Col} xs={12} md="auto">
           <Form.Control
             type="text"
+            value={props.ticker}
             placeholder={type === "Ticker" ? "Ticker" : "Description"}
             onChange={(event) => props.setTicker(event.target.value)}
           />
@@ -52,7 +54,11 @@ export default function InvestmentForm(props) {
             type="number"
             step="any"
             placeholder="Units"
-            onChange={(event) => props.setUnits(event.target.value)}
+            value={props.units}
+            onChange={(event) => {
+              props.setUnits(event.target.value);
+              console.log(event.target.value);
+            }}
           />
         </Form.Group>
         <Form.Group as={Col} xs={12} md="auto">
@@ -60,6 +66,7 @@ export default function InvestmentForm(props) {
             type="number"
             step="any"
             placeholder="Cost Price"
+            value={props.costPrice}
             onChange={(event) => props.setCostPrice(event.target.value)}
           />
         </Form.Group>
@@ -75,6 +82,7 @@ export default function InvestmentForm(props) {
             type="number"
             step="any"
             placeholder="Expected Rate of Return"
+            value={props.rate}
             onChange={(event) => props.setRate(event.target.value)}
           />
         </Form.Group>
