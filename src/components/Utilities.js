@@ -56,7 +56,8 @@ function validate(type, obj) {
     obj.date &&
     obj.rate &&
     obj.units &&
-    obj.costPrice
+    obj.costPrice &&
+    obj.ticker
   ) {
     return 1;
   } else {
