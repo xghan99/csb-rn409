@@ -22,7 +22,7 @@ function TopBar() {
   return (
     <Fragment>
       <Navbar bg="light" expand="lg" fixed="top">
-        <Navbar.Brand href="#home" className="welcomeMsg">
+        <Navbar.Brand href="/dashboard" className="welcomeMsg">
           <img
             alt="h"
             width="60"

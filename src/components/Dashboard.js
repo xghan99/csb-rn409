@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Card, Row, Container, Form, Col, ListGroup } from "react-bootstrap";
+import { Card, Row, Container } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import Visualisation from "./Visualisation";
@@ -11,7 +11,6 @@ import AnalysisCard from "./DashboardCards/AnalysisCard";
 import BreakdownCard from "./DashboardCards/BreakdownCard";
 import SavingGoalCard from "./DashboardCards/SavingGoalCard";
 import OtherInvestmentCard from "./DashboardCards/OtherInvestmentCard";
-import Plot from "react-plotly.js";
 
 function Dashboard() {
   const { currentUser } = useAuth();
