@@ -14,7 +14,7 @@ function TaskManager() {
 
   const [newTaskText, setNewTaskText] = useState("");
   const [isNeed, setNeedWant] = useState(null);
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState("");
   const [category, setCat] = useState("");
   const [date, setDate] = useState("");
   const [type, setType] = useState("");
@@ -74,7 +74,7 @@ function TaskManager() {
       event.target.reset();
       setNewTaskText("");
       setNeedWant(null);
-      setAmount();
+      setAmount("");
       setCat("");
       setDate("");
       setType("");
@@ -263,6 +263,7 @@ function TaskManager() {
             setType={setType}
             isExpense={isExpense}
             amount={amount}
+            category={category}
             newTaskText={newTaskText}
           />
         </div>

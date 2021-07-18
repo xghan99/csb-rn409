@@ -69,6 +69,7 @@ export default function ExpenseIncomeForm(props) {
           <Form.Control
             as="select"
             onChange={(e) => props.setCat(e.target.value)}
+            value={props.category}
           >
             <option value="">--Category--</option>
             <option value="Food & Drink">Food & Drinks </option>
