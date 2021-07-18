@@ -2,7 +2,6 @@ import React from "react";
 import { Card, ListGroup, Row, Col } from "react-bootstrap";
 
 export default function StockProfitLossCard(props) {
-  console.log("stocksSummary", props.stocksSummary);
   if (Object.keys(props.stocksSummary).length === 0) {
     return (
       <Card.Body>
@@ -26,7 +25,7 @@ export default function StockProfitLossCard(props) {
           >
             <img
               variant="top"
-              src="resources/piechart.png"
+              src="resources/stonks.png"
               height="30px"
               width="30px"
               alt=""
@@ -35,10 +34,12 @@ export default function StockProfitLossCard(props) {
         </div>
         <div className="cardHeadings">My Stocks</div>
       </Card.Title>
-      <ListGroup className="stock-list">
+      <ListGroup>
         <ListGroup.Item>
           <Row>
-            <Col>Net Profit and Loss:</Col>
+            <Col className="cardText">
+              <b>Net Profit and Loss:</b>
+            </Col>
             <Col
               className="d-flex justify-content-end"
               style={{

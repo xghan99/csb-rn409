@@ -1,23 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Form,
-  Col,
-  Button,
-  Card,
-  Row,
-  Container,
-  ListGroup
-} from "react-bootstrap";
+import { Card, Row, Container, Form, Col, ListGroup } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import Visualisation from "./Visualisation";
 import TopBar from "./TopBar";
-import { daystillend, updateExisting } from "./Utilities";
+import { daystillend, updateExisting, differenceInDays } from "./Utilities";
 import { CircleFill } from "react-bootstrap-icons";
 import StockProfitLossCard from "./DashboardCards/StockProfitLossCard";
 import AnalysisCard from "./DashboardCards/AnalysisCard";
 import BreakdownCard from "./DashboardCards/BreakdownCard";
 import SavingGoalCard from "./DashboardCards/SavingGoalCard";
+import OtherInvestmentCard from "./DashboardCards/OtherInvestmentCard";
+import Plot from "react-plotly.js";
 
 function Dashboard() {
   const { currentUser } = useAuth();
@@ -31,6 +25,8 @@ function Dashboard() {
   const [storedPrices, setStoredPrices] = useState({});
   const [apiKey, setApiKey] = useState("");
   const [stocksSummary, setStocksSummary] = useState({});
+  const [otherSummary, setOtherSummary] = useState({});
+  const [other, setOther] = useState("");
 
   //expenditure states
   const [stats, setStats] = useState({
@@ -96,12 +92,16 @@ function Dashboard() {
     }
     updateExisting(apiKey, stocks, storedPrices);
     setStocksSummary(summariseStocks(stocks, storedPrices));
+    setOtherSummary(summariseOther(stocks));
     // eslint-disable-next-line
   }, [storedPrices]);
 
   function summariseStocks(arr, storedPrices) {
     var summaryObj = {};
     for (const transaction of arr) {
+      if (transaction.type === "Other") {
+        continue;
+      }
       var cost = +transaction.costPrice;
       var current = +storedPrices[transaction.ticker].price
         ? +storedPrices[transaction.ticker].price
@@ -117,6 +117,50 @@ function Dashboard() {
       summaryObj[ticker] = summaryObj[ticker].toFixed(2);
     }
     return summaryObj;
+  }
+
+  function summariseOther(arr) {
+    var summaryObj = {};
+    for (const transaction of arr) {
+      if (transaction.type === "Ticker") {
+        continue;
+      }
+      var currentPrice =
+        +transaction.units *
+        +transaction.costPrice *
+        Math.pow(
+          1 + +transaction.rate / 100 / 365,
+          differenceInDays(transaction.date)
+        );
+
+      var pricesArr = [currentPrice];
+
+      for (let i = 0; i < 30; i++) {
+        pricesArr.push(
+          currentPrice * Math.pow(1 + +transaction.rate / 36500, (i + 1) * 365)
+        );
+      }
+
+      if (transaction.ticker in summaryObj) {
+        summaryObj[transaction.ticker] = arrMatrixAddition(
+          pricesArr,
+          summaryObj[transaction.ticker]
+        );
+      } else {
+        summaryObj[transaction.ticker] = pricesArr;
+      }
+    }
+    for (const ticker of Object.keys(summaryObj)) {
+      summaryObj[ticker] = summaryObj[ticker].map((value) => value.toFixed(2));
+    }
+    return summaryObj;
+  }
+
+  function arrMatrixAddition(arr1, arr2) {
+    for (let i = 0; i < arr2.length; i++) {
+      arr2[i] += arr1[i];
+    }
+    return arr2;
   }
 
   function getExpensesSummary() {
@@ -300,10 +344,7 @@ function Dashboard() {
       <Container>
         <div aria-live="polite" aria-atomic="true">
           <Row className="d-flex justify-content-lg-center">
-            <Card style={{ width: "30rem" }}>{motivationCard()}</Card>
-            <Card style={{ width: "30rem" }}>
-              <StockProfitLossCard stocksSummary={stocksSummary} />
-            </Card>
+            <Card style={{ width: "60rem" }}>{motivationCard()}</Card>
           </Row>
           <Row className="d-flex justify-content-lg-center">
             <Card style={{ width: "30rem" }}>
@@ -331,6 +372,18 @@ function Dashboard() {
               />
             </Card>
             <Card style={{ width: "30rem" }}>{visualisationCard()}</Card>
+          </Row>
+          <Row className="d-flex justify-content-lg-center">
+            <Card style={{ width: "30rem" }}>
+              <StockProfitLossCard stocksSummary={stocksSummary} />
+            </Card>
+            <Card style={{ width: "30rem" }}>
+              <OtherInvestmentCard
+                setOther={setOther}
+                other={other}
+                otherSummary={otherSummary}
+              />
+            </Card>
           </Row>
         </div>
       </Container>

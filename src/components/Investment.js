@@ -111,7 +111,7 @@ export default function Investment() {
     if (validate(type, edit) === 1) {
       const newTasks = [...arr];
       newTasks[edit.id] = edit;
-      if (!(edit.ticker in storedPrices)) {
+      if (!(edit.ticker in storedPrices) && edit.type === "Ticker") {
         addNewStock(edit.ticker);
       }
       updateExisting(apiKey, newTasks, storedPrices);
