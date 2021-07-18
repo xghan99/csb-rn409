@@ -354,6 +354,7 @@ function Dashboard() {
                 goal={goal}
               />
             </Card>
+
             <Card style={{ width: "30rem" }}>
               <AnalysisCard
                 financialStatus={financialStatus}
