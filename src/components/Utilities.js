@@ -10,20 +10,30 @@ function validate(type, obj) {
   if (obj.date > todayDate) {
     return "Please ensure that selected date is today or earlier!";
   } else if (
-    ((type === "Expense" || type === "Income") &&
-      obj.amount &&
-      +obj.amount <= 0) ||
-    (type === "Ticker" &&
-      obj.units &&
-      obj.costPrice &&
-      (+obj.units <= 0 || +obj.costPrice <= 0))
+    (type === "Expense" || type === "Income") &&
+    obj.amount &&
+    +obj.amount <= 0
   ) {
     return "Amount cannot be zero or negative!";
+  } else if (
+    (type === "Ticker" || type === "Other") &&
+    obj.units &&
+    +obj.units <= 0
+  ) {
+    return "Units cannot be zero or negative!";
+  } else if (
+    (type === "Ticker" || type === "Other") &&
+    obj.costPrice &&
+    +obj.costPrice <= 0
+  ) {
+    return "Cost Price cannot be zero or negative!";
   } else if (
     (type === "Expense" || type === "Income") &&
     obj.description &&
     obj.description == +obj.description
   ) {
+    return "Please ensure that Description does not purely contain numbers!";
+  } else if (type === "Other" && obj.ticker && obj.ticker == +obj.ticker) {
     return "Please ensure that Description does not purely contain numbers!";
   } else if (
     type === "Expense" &&
