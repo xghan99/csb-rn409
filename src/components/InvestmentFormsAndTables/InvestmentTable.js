@@ -14,8 +14,8 @@ export default function InvestmentTable(props) {
             <th className="tableHeadings">Date</th>
             <th className="tableHeadings">Ticker/Description</th>
             <th className="tableHeadings">Units</th>
-            <th className="tableHeadings">Cost Price</th>
-            <th className="tableHeadings">Current Price</th>
+            <th className="tableHeadings">Cost Price Per Unit</th>
+            <th className="tableHeadings">Current Price Per Unit</th>
             <th className="tableHeadings">
               Expected Rate of Return (Per Annum)
             </th>

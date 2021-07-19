@@ -65,7 +65,7 @@ export default function InvestmentForm(props) {
           <Form.Control
             type="number"
             step="any"
-            placeholder="Cost Price"
+            placeholder="Cost Price Per Unit"
             value={props.costPrice}
             onChange={(event) => props.setCostPrice(event.target.value)}
           />
