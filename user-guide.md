@@ -418,7 +418,7 @@ Once you have added your other investments, navigate to the dashboard page via t
 ![](public/user-guide-pictures/figure54.png)\
 Figure 54: Navigate to the dashboard page\
 ![](public/user-guide-pictures/figure55.png)\
-Figure 55: Select investment from the dropdown\
+Figure 55: Select investment from the dropdown
 
 ![](public/user-guide-pictures/figure56.png)\
 Figure 56: View a visualization of your projected returns into the future (up to 30 years)
