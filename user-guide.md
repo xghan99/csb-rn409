@@ -51,6 +51,11 @@
           <li><a href="#10a-add-a-stock-transaction">Add a stock transaction </a></li>
           <li><a href="#10b-delete-a-stock-transaction">Delete a stock transaction </a></li>
           <li><a href="#10c-edit-a-stock-transaction">Edit a stock transaction </a></li>
+          <li><a href="#10d-view-your-stocks-profit-and-loss-summary-on-the-dashboard-page">Edit a stock transaction </a></li>
+          <li><a href="#10e-add-other-investments-with-known-estimated-annual-returns">Edit a stock transaction </a></li>
+          <li><a href="#10f-delete-other-investment-entries">Edit a stock transaction </a></li>
+          <li><a href="#10g-edit-other-investment-entries">Edit a stock transaction </a></li>
+          <li><a href="#10h-view-projected-returns-from-other-investments-with-known-estimated-annual-returns">Edit a stock transaction </a></li>
         </ul>
     </ul>
   </ol>
@@ -404,15 +409,15 @@ Figure 52: Click done once the details are filled in\
 ![](public/user-guide-pictures/figure53.png)\
 Figure 53: The investment will be added to the table
 
-#### 10g. Delete other investment entries
+#### 10f. Delete other investment entries
 
 Please refer to [10b](#10b-delete-a-stock-transaction) for a similar example
 
-#### 10h. Edit other investment entries
+#### 10g. Edit other investment entries
 
 Please refer to [10c](#10c-edit-a-stock-transaction) for a similar example
 
-#### 10i. View projected returns from other investments with known estimated annual returns
+#### 10h. View projected returns from other investments with known estimated annual returns
 Once you have added your other investments, navigate to the dashboard page via the navigation bar (Figure 54). Scroll down to the card “My Other investments” and select the investment projection you would like to view (Figure 55). A visualization shows your projected returns into the future (Figure 56).
 
 ![](public/user-guide-pictures/figure54.png)\
