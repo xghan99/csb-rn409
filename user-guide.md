@@ -380,4 +380,47 @@ Figure 48: Navigate to the dashboard page
 ![](public/user-guide-pictures/figure49.png)\
 Figure 49: Your Stocks’ Profit and Loss will be displayed in a List
 
+#### 10e. Add other investments with known estimated annual returns
+Goalie allows users to track their investments (other investments with known estimated annual returns).
+
+Some examples of such investments include
+* Robo-advisors
+* Banks and interest rate (more of saving than investment but works in this case)
+
+Navigate to the Investments page on the navigation bar (Figure 50) and toggle the “Other” button (Figure 51)
+
+![](public/user-guide-pictures/figure50.png)\
+Figure 50: Navigate to the investments page\
+
+![](public/user-guide-pictures/figure51.png)\
+Figure 51: Toggle the “Other” button
+
+Fill in the necessary details and click add once done (Figure 52) and the investment will be added to the investment table below (Figure 53).
+
+Note that “Expected Rate of Return” refers to an annual rate of return (Figure 52).
+
+![](public/user-guide-pictures/figure52.png)\
+Figure 52: Click done once the details are filled in\
+![](public/user-guide-pictures/figure53.png)\
+Figure 53: The investment will be added to the table
+
+#### 10g. Delete other investment entries
+
+Please refer to [10b](#10b-delete-a-stock-transaction) for a similar example
+
+#### 10h. Edit other investment entries
+
+Please refer to [10c](#10c-edit-a-stock-transaction) for a similar example
+
+#### 10i. View projected returns from other investments with known estimated annual returns
+Once you have added your other investments, navigate to the dashboard page via the navigation bar (Figure 54). Scroll down to the card “My Other investments” and select the investment projection you would like to view (Figure 55). A visualization shows your projected returns into the future (Figure 56).
+
+![](public/user-guide-pictures/figure54.png)\
+Figure 54: Navigate to the dashboard page\
+![](public/user-guide-pictures/figure55.png)\
+Figure 55: Select investment from the dropdown\
+
+![](public/user-guide-pictures/figure56.png)\
+Figure 56: View a visualization of your projected returns into the future (up to 30 years)
+
  
