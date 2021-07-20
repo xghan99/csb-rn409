@@ -392,7 +392,7 @@ Navigate to the Investments page on the navigation bar (Figure 50) and toggle th
 ![](public/user-guide-pictures/figure50.png)\
 Figure 50: Navigate to the investments page\
 
-![](public/user-guide-pictures/figure51.png)\
+![](public/user-guide-pictures/figure51a.png)\
 Figure 51: Toggle the “Other” button\
 
 Fill in the necessary details and click add once done (Figure 52) and the investment will be added to the investment table below (Figure 53).
