@@ -51,11 +51,11 @@
           <li><a href="#10a-add-a-stock-transaction">Add a stock transaction </a></li>
           <li><a href="#10b-delete-a-stock-transaction">Delete a stock transaction </a></li>
           <li><a href="#10c-edit-a-stock-transaction">Edit a stock transaction </a></li>
-          <li><a href="#10d-view-your-stocks-profit-and-loss-summary-on-the-dashboard-page">Edit a stock transaction </a></li>
-          <li><a href="#10e-add-other-investments-with-known-estimated-annual-returns">Edit a stock transaction </a></li>
-          <li><a href="#10f-delete-other-investment-entries">Edit a stock transaction </a></li>
-          <li><a href="#10g-edit-other-investment-entries">Edit a stock transaction </a></li>
-          <li><a href="#10h-view-projected-returns-from-other-investments-with-known-estimated-annual-returns">Edit a stock transaction </a></li>
+          <li><a href="#10d-view-your-stocks-profit-and-loss-summary-on-the-dashboard-page">View your stocks' profit and loss summary on the dashboard page </a></li>
+          <li><a href="#10e-add-other-investments-with-known-estimated-annual-returns">Add other investments with known estimated annual returns </a></li>
+          <li><a href="#10f-delete-other-investment-entries">Delete other investment entries </a></li>
+          <li><a href="#10g-edit-other-investment-entries">Edit other investment entries </a></li>
+          <li><a href="#10h-view-projected-returns-from-other-investments-with-known-estimated-annual-returns">View projected returns from other investments with known estimated annual returns </a></li>
         </ul>
     </ul>
   </ol>
