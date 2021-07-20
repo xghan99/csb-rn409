@@ -6,6 +6,7 @@
     <ul>
       <li> <a href="#quick-introduction"> Quick Introduction </a> </li>
       <li> <a href="#quick-start"> Quick Start </a> </li>
+      <li> <a href="#video-walkthrough"> Video Walkthrough </a> </li>
       <li> <a href="#feature-guide"> Feature guide </a> </li>
       <ul>
         <li><a href="#1-sign-up">Sign up</a></li>
@@ -82,6 +83,13 @@ Figure 2: Or Click the “Sign up” button on the navigation bar
 
 ![](public/user-guide-pictures/figure3.png)\
 Figure 3: Enter your email address and password and you’re all set!
+  
+## Video Walkthrough
+Check out the videos on our [website](https://csb-rn409.vercel.app). Simply toggle through the various videos for a walkthrough of each of our features. For instance, if you wish to learn about how to sign up for an account, simply toggle the “Sign up for an account” button (Figure A). 
+
+![](public/user-guide-pictures/figurea.png)\
+
+Still confused about the features? Read about them in the [Feature Guide](#feature-guide).
 
 ## Feature Guide
 
