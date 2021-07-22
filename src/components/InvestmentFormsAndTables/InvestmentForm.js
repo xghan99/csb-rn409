@@ -33,7 +33,7 @@ export default function InvestmentForm(props) {
   function commonFormGroups() {
     return (
       <>
-        <Form.Group as={Col} xs={12} md="auto">
+        <Form.Group as={Col} xs={12} md="auto" className="step1">
           <Form.Control
             type="date"
             placeholder="Date"
@@ -41,7 +41,7 @@ export default function InvestmentForm(props) {
             onInput={(event) => props.setDate(event.target.value)}
           />
         </Form.Group>
-        <Form.Group as={Col} xs={12} md="auto">
+        <Form.Group as={Col} xs={12} md="auto" className="step2">
           <Form.Control
             type="text"
             value={props.ticker}
@@ -49,7 +49,7 @@ export default function InvestmentForm(props) {
             onChange={(event) => props.setTicker(event.target.value)}
           />
         </Form.Group>
-        <Form.Group as={Col} xs={12} md="auto">
+        <Form.Group as={Col} xs={12} md="auto" className="step3">
           <Form.Control
             type="number"
             step="any"
@@ -61,7 +61,7 @@ export default function InvestmentForm(props) {
             }}
           />
         </Form.Group>
-        <Form.Group as={Col} xs={12} md="auto">
+        <Form.Group as={Col} xs={12} md="auto" className="step4">
           <Form.Control
             type="number"
             step="any"
@@ -98,7 +98,11 @@ export default function InvestmentForm(props) {
 
           {type === "Other" && otherFormGroups()}
           <Form.Group as={Col} xs={12} md="auto">
-            <Button type="submit" onClick={(e) => props.setType(type)}>
+            <Button
+              type="submit"
+              onClick={(e) => props.setType(type)}
+              className="step5"
+            >
               Add
             </Button>
           </Form.Group>

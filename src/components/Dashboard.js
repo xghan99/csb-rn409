@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Card, Row, Container } from "react-bootstrap";
+import { Card, Row, Container, Button } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import firebase from "../Firebase";
 import Visualisation from "./Visualisation";
@@ -11,6 +11,8 @@ import AnalysisCard from "./DashboardCards/AnalysisCard";
 import BreakdownCard from "./DashboardCards/BreakdownCard";
 import SavingGoalCard from "./DashboardCards/SavingGoalCard";
 import OtherInvestmentCard from "./DashboardCards/OtherInvestmentCard";
+import { Hints, Steps } from "intro.js-react";
+import "intro.js/introjs.css";
 
 function Dashboard() {
   const { currentUser } = useAuth();
@@ -44,6 +46,7 @@ function Dashboard() {
   const today = new Date();
   var currentMonth = String(today.getMonth() + 1).padStart(2, "0");
   var currentDate = today.getDate();
+  const [stepsEnabled, toggleStepsEnabled] = useState(false);
 
   // investment stuff
   function getApiKey() {
@@ -335,10 +338,38 @@ function Dashboard() {
       </>
     );
   }
-
+  const steps = [
+    {
+      element: ".step1",
+      intro: "Set your monthly savings goal!"
+    },
+    {
+      element: ".step2",
+      intro: "Monitor your financial status and budget!"
+    },
+    {
+      element: ".step3",
+      intro: "See the breakdown of your expenses!"
+    },
+    {
+      element: ".step4",
+      intro: "View the performance of your investments!"
+    }
+  ];
+  const initialStep = 0;
   return (
     <>
+      <Steps
+        enabled={stepsEnabled}
+        steps={steps}
+        initialStep={initialStep}
+        onExit={() => toggleStepsEnabled(false)}
+      />
       <TopBar />
+      <br />
+      <Button onClick={() => toggleStepsEnabled(true)}>
+        Need a walkthrough?
+      </Button>
       <br />
       <Container>
         <div aria-live="polite" aria-atomic="true">
@@ -346,7 +377,7 @@ function Dashboard() {
             <Card style={{ width: "60rem" }}>{motivationCard()}</Card>
           </Row>
           <Row className="d-flex justify-content-lg-center">
-            <Card style={{ width: "30rem" }}>
+            <Card style={{ width: "30rem" }} className="step1">
               <SavingGoalCard
                 handleSaving={handleSaving}
                 setTempGoal={setTempGoal}
@@ -354,7 +385,7 @@ function Dashboard() {
               />
             </Card>
 
-            <Card style={{ width: "30rem" }}>
+            <Card style={{ width: "30rem" }} className="step2">
               <AnalysisCard
                 financialStatus={financialStatus}
                 getRecMessage={getRecMessage}
@@ -363,28 +394,32 @@ function Dashboard() {
               />
             </Card>
           </Row>
-          <Row className="d-flex justify-content-lg-center">
-            <Card style={{ width: "30rem" }}>
-              <BreakdownCard
-                totalExpense={stats.totalExpense}
-                needExpense={stats.needExpense}
-                wantExpense={stats.wantExpense}
-              />
-            </Card>
-            <Card style={{ width: "30rem" }}>{visualisationCard()}</Card>
-          </Row>
-          <Row className="d-flex justify-content-lg-center">
-            <Card style={{ width: "30rem" }}>
-              <StockProfitLossCard stocksSummary={stocksSummary} />
-            </Card>
-            <Card style={{ width: "30rem" }}>
-              <OtherInvestmentCard
-                setOther={setOther}
-                other={other}
-                otherSummary={otherSummary}
-              />
-            </Card>
-          </Row>
+          <div className="step3">
+            <Row className="d-flex justify-content-lg-center">
+              <Card style={{ width: "30rem" }}>
+                <BreakdownCard
+                  totalExpense={stats.totalExpense}
+                  needExpense={stats.needExpense}
+                  wantExpense={stats.wantExpense}
+                />
+              </Card>
+              <Card style={{ width: "30rem" }}>{visualisationCard()}</Card>
+            </Row>
+          </div>
+          <div className="step4">
+            <Row className="d-flex justify-content-lg-center">
+              <Card style={{ width: "30rem" }}>
+                <StockProfitLossCard stocksSummary={stocksSummary} />
+              </Card>
+              <Card style={{ width: "30rem" }}>
+                <OtherInvestmentCard
+                  setOther={setOther}
+                  other={other}
+                  otherSummary={otherSummary}
+                />
+              </Card>
+            </Row>
+          </div>
         </div>
       </Container>
     </>

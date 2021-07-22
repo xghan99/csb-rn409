@@ -11,6 +11,9 @@ import TopBar from "./TopBar";
 import InvestmentModal from "./InvestmentFormsAndTables/InvestmentModal";
 import InvestmentForm from "./InvestmentFormsAndTables/InvestmentForm";
 import InvestmentTable from "./InvestmentFormsAndTables/InvestmentTable";
+import { Button } from "react-bootstrap";
+import { Hints, Steps } from "intro.js-react";
+import "intro.js/introjs.css";
 
 export default function Investment() {
   const [arr, setArr] = useState([]);
@@ -33,6 +36,7 @@ export default function Investment() {
   const [type, setType] = useState("");
   const [isTicker, toggleTickerOther] = useState(true);
   const [rate, setRate] = useState("");
+  const [stepsEnabled, toggleStepsEnabled] = useState(false);
 
   const db = firebase.firestore();
 
@@ -239,11 +243,57 @@ export default function Investment() {
   }, [storedPrices]);
 
   //end of useEffect
+  const steps = [
+    {
+      element: ".info",
+      intro:
+        "Choose between adding a ticker or an alternative form of investment."
+    },
+    {
+      element: ".step1",
+      intro: "Fill in the investment date."
+    },
+    {
+      element: ".step2",
+      intro:
+        "Fill in the ticker symbol or the description of the investment(if Other is selected)"
+    },
+    {
+      element: ".step3",
+      intro: "Fill in the number of units bought."
+    },
+    {
+      element: ".step4",
+      intro:
+        "Fill in the cost price per unit (i.e. How much you bought the investment for?)."
+    },
+    {
+      element: ".step5",
+      intro:
+        "Click to add it into the table. If 'Other' is selected, fill in the expected annual rate of return (usually found in factsheets)."
+    },
+    {
+      element: ".step6",
+      intro:
+        "You can view your entries in the table below (sorted in reverse chronological order). You also have the option of deleting and editing your entries."
+    }
+  ];
+
+  const initialStep = 0;
 
   return (
     <div>
+      <Steps
+        enabled={stepsEnabled}
+        steps={steps}
+        initialStep={initialStep}
+        onExit={() => toggleStepsEnabled(false)}
+      />
       <TopBar />
       <br />
+      <Button onClick={() => toggleStepsEnabled(true)}>
+        Need a walkthrough?
+      </Button>
       <h1 className="add"> Add a Stock </h1>
       <InvestmentModal
         modalOpen={modalOpen}
@@ -272,7 +322,7 @@ export default function Investment() {
         />
       </div>
       <h1 className="expenseHeadings"> My Stocks </h1>
-      <div>
+      <div className="step6">
         <InvestmentTable
           arr={arr}
           storedPrices={storedPrices}

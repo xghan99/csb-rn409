@@ -48,12 +48,15 @@ export default function InvestmentTable(props) {
                 {task.rate ? `${task.rate}%` : "-"}
               </td>
 
-              <td>
-                <Button onClick={() => props.deleteItem(task.id)}>
+              <td className="step7">
+                <Button
+                  onClick={() => props.deleteItem(task.id)}
+                  className="step7"
+                >
                   Delete
                 </Button>
               </td>
-              <td>
+              <td className="step8">
                 <Button onClick={() => props.editItem(task.id)}>Edit</Button>
               </td>
             </tr>

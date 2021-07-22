@@ -10,7 +10,7 @@ export default function ExpenseIncomeFilterForm(props) {
   function toggleButton() {
     return (
       <Form className="info">
-        <ButtonGroup toggle>
+        <ButtonGroup toggle className="step7">
           <ToggleButton
             type="radio"
             checked={props.expenseIncome === "default"}
@@ -40,7 +40,7 @@ export default function ExpenseIncomeFilterForm(props) {
   function expenseIncomeFilters() {
     return (
       <Form className="info">
-        <Form.Row>
+        <Form.Row className="step8">
           <Form.Group as={Col} xs={12} md="auto">
             <Form.Control
               as="select"
@@ -60,7 +60,7 @@ export default function ExpenseIncomeFilterForm(props) {
   function incomeFilters() {
     return (
       <Form className="info">
-        <Form.Row>
+        <Form.Row className="step8">
           <Form.Group as={Col} xs={12} md="auto">
             <Form.Control
               as="select"
@@ -91,7 +91,7 @@ export default function ExpenseIncomeFilterForm(props) {
   function expenseFilters() {
     return (
       <Form className="info">
-        <Form.Row>
+        <Form.Row className="step8">
           <Form.Group as={Col} xs={12} md="auto">
             <Form.Control
               as="select"

@@ -7,6 +7,9 @@ import ExpenseIncomeForm from "./ExpenseIncomeFormsAndTables/ExpenseIncomeForm";
 import ExpenseIncomeTable from "./ExpenseIncomeFormsAndTables/ExpenseIncomeTable";
 import ExpenseIncomeEditModal from "./ExpenseIncomeFormsAndTables/ExpenseIncomeEditModal";
 import ExpenseIncomeFilterForm from "./ExpenseIncomeFormsAndTables/ExpenseIncomeFilterForm";
+import { Button } from "react-bootstrap";
+import { Hints, Steps } from "intro.js-react";
+import "intro.js/introjs.css";
 
 function TaskManager() {
   const { currentUser } = useAuth();
@@ -38,7 +41,7 @@ function TaskManager() {
     month: "default"
   });
   const [isExpense, toggleExpenseIncome] = useState(true);
-
+  const [stepsEnabled, toggleStepsEnabled] = useState(false);
   const db = firebase.firestore();
 
   function getExpenses() {
@@ -242,10 +245,59 @@ function TaskManager() {
     }
     setFilters({ ...filters, month: monthFilterValue });
   }
-
+  const initialStep = 0;
+  const steps = [
+    {
+      element: ".info",
+      intro: "Choose between adding an expense or an income."
+    },
+    {
+      element: ".step1",
+      intro: "Fill in the transaction date."
+    },
+    {
+      element: ".step2",
+      intro: "Fill in the description."
+    },
+    {
+      element: ".step3",
+      intro: "Fill in the amount."
+    },
+    {
+      element: ".step4",
+      intro:
+        "Select the Category. For expenses, it is necessary to classify it as a need or want."
+    },
+    {
+      element: ".step5",
+      intro: "Click to add it into the table."
+    },
+    {
+      element: ".step6",
+      intro:
+        "You can view your entries in the table below (sorted in reverse chronological order). You also have the option of deleting and editing your entries."
+    },
+    {
+      element: ".step7",
+      intro: "Click to filter by expenses or income."
+    },
+    {
+      element: ".step8",
+      intro: "Filter by month, category or need/want using the drop down menu."
+    }
+  ];
   return (
     <>
+      <Steps
+        enabled={stepsEnabled}
+        steps={steps}
+        initialStep={initialStep}
+        onExit={() => toggleStepsEnabled(false)}
+      />
       <TopBar />
+      <Button onClick={() => toggleStepsEnabled(true)}>
+        Need a walkthrough?
+      </Button>
       <main className="mt-5">
         <div>
           <h2 className="add">Add {isExpense ? "Expense" : "Income"} </h2>
@@ -284,12 +336,14 @@ function TaskManager() {
           <div>
             <h2 className="expenseHeadings"> My Expenses and Income Table </h2>
           </div>
-          <ExpenseIncomeTable
-            tasks={tasks}
-            expFilter={expFilter}
-            deleteItem={deleteItem}
-            editItem={editItem}
-          />
+          <div className="step6">
+            <ExpenseIncomeTable
+              tasks={tasks}
+              expFilter={expFilter}
+              deleteItem={deleteItem}
+              editItem={editItem}
+            />
+          </div>
         </div>
         <ExpenseIncomeEditModal
           modalOpen={modalOpen}

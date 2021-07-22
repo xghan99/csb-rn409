@@ -34,14 +34,14 @@ export default function ExpenseIncomeForm(props) {
   function commonFormGroups() {
     return (
       <>
-        <Form.Group as={Col} xs={12} md="auto">
+        <Form.Group as={Col} xs={12} md="auto" className="step1">
           <Form.Control
             type="date"
             placeholder="Date"
             onInput={(event) => props.setDate(event.target.value)}
           />
         </Form.Group>
-        <Form.Group as={Col} xs={12} md="auto">
+        <Form.Group as={Col} xs={12} md="auto" className="step2">
           <Form.Control
             type="text"
             placeholder="Description"
@@ -49,7 +49,7 @@ export default function ExpenseIncomeForm(props) {
             onChange={(event) => props.setNewTaskText(event.target.value)}
           />
         </Form.Group>
-        <Form.Group as={Col} xs={12} md="auto">
+        <Form.Group as={Col} xs={12} md="auto" className="step3">
           <Form.Control
             type="number"
             step="any"
@@ -65,7 +65,7 @@ export default function ExpenseIncomeForm(props) {
   function expenseFormGroups() {
     return (
       <>
-        <Form.Group as={Col} xs={12} md="auto">
+        <Form.Group as={Col} xs={12} md="auto" className="step4">
           <Form.Control
             as="select"
             onChange={(e) => props.setCat(e.target.value)}
@@ -105,7 +105,7 @@ export default function ExpenseIncomeForm(props) {
   function incomeFormGroups() {
     return (
       <>
-        <Form.Group as={Col} xs={12} md="auto">
+        <Form.Group as={Col} xs={12} md="auto" className="step4">
           <Form.Control
             as="select"
             onChange={(e) => props.setCat(e.target.value)}
@@ -129,7 +129,11 @@ export default function ExpenseIncomeForm(props) {
           {type === "Income" && incomeFormGroups()}
           {type === "Expense" && expenseFormGroups()}
           <Form.Group as={Col} xs={12} md="auto">
-            <Button type="submit" onClick={(e) => props.setType(type)}>
+            <Button
+              type="submit"
+              onClick={(e) => props.setType(type)}
+              className="step5"
+            >
               Add
             </Button>
           </Form.Group>
