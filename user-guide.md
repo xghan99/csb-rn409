@@ -69,7 +69,7 @@ Goalie is your companion in financial planning. Goalie helps you plan for your f
 
 1. Save money by allowing you to set a savings goal
 2. Track your expenses and income
-3. Track your investments *(Coming soon!)*
+3. Track your investments 
 
 ### Quick Start 
 Step 1: Start by accessing our website: [https://csb-rn409.vercel.app/](https://csb-rn409.vercel.app/)
@@ -91,6 +91,8 @@ Check out the videos on our [website](https://csb-rn409.vercel.app). Simply togg
 Figure A: Example video
 
 Still confused about the features? Read about them in the [Feature Guide](#feature-guide).
+
+Overwhelmed by the instructions? Don’t worry as there would be in-app walkthroughs once you log in.
 
 ## Feature Guide
 
@@ -268,7 +270,7 @@ Figure 29: “Food & Drink” is selected from the “Category” dropdown
 Figure 30: Expenses with the Category “Food & Drink” is displayed
 
 #### 6c. Filtering Income only
-Apply the expense filter by clicking on the “Expense” toggle button (Figure 31). This will display all income only.
+Apply the income filter by clicking on the “Income” toggle button (Figure 31). This will display all income only.
 ![](public/user-guide-pictures/figure31.png)\
 Figure 31: Click on the “Income” toggle button and only income will be displayed
 
@@ -320,7 +322,7 @@ For example, If I am currently viewing Expenses in the month of July, with the c
 
 *Also, take note that all descriptive statistics are for the **current month**.*
 
-To view the dashboard, simply navigate to the dashboard by clicking on “Dashboard” in the navigation bar. Goalie shows you two kinds of descriptive statistics (for now):
+To view the dashboard, simply navigate to the dashboard by clicking on “Dashboard” in the navigation bar. Goalie shows you two kinds of descriptive statistics:
 
 #### 8a. Breakdown
 
@@ -395,11 +397,11 @@ Figure 48: Navigate to the dashboard page
 Figure 49: Your Stocks’ Profit and Loss will be displayed in a List
 
 #### 10e. Add other investments with known estimated annual returns
-Goalie allows users to track their investments (other investments with known estimated annual returns).
+Goalie allows users to track other forms of investments (with known estimated annual returns).
 
 Some examples of such investments include
 * Robo-advisors
-* Banks and interest rate (more of saving than investment but works in this case)
+* Savings/Cash Management Accounts(more of saving than investment but works in this case)
 
 Navigate to the Investments page on the navigation bar (Figure 50) and toggle the “Other” button (Figure 51)
 
@@ -427,7 +429,7 @@ Please refer to [10b](#10b-delete-a-stock-transaction) for a similar example
 Please refer to [10c](#10c-edit-a-stock-transaction) for a similar example
 
 #### 10h. View projected returns from other investments with known estimated annual returns
-Once you have added your other investments, navigate to the dashboard page via the navigation bar (Figure 54). Scroll down to the card “My Other investments” and select the investment projection you would like to view (Figure 55). A visualization shows your projected returns into the future (Figure 56).
+Once you have added your other investments, navigate to the dashboard page via the navigation bar (Figure 54). Scroll down to the card “My Other investments” and select the investment projection you would like to view (Figure 55). The card would display the estimated value of your investment at 5, 10 and 30 years from now. A visualization shows your projected returns into the future (Figure 56).
 
 ![](public/user-guide-pictures/figure54.png)\
 Figure 54: Navigate to the dashboard page\
