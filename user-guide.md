@@ -75,20 +75,20 @@ Goalie is your companion in financial planning. Goalie helps you plan for your f
 Step 1: Start by accessing our website: [https://csb-rn409.vercel.app/](https://csb-rn409.vercel.app/)
 Step 2: Sign up for a free account by clicking on the following button (Figure 1). *Note: Each email can only be used to create 1 account.*
 
-  <p align="center">![](public/user-guide-pictures/figure1.png)\</p>
-  <p align="center">Figure 1: Click the “Sign up for a free account” button</p>
+![](public/user-guide-pictures/figure1.png)\
+Figure 1: Click the “Sign up for a free account” button
 
-  <p align="center">![](public/user-guide-pictures/figure2.png)\</p>
-  <p align="center">Figure 2: Or Click the “Sign up” button on the navigation bar</p>
+![](public/user-guide-pictures/figure2.png)\
+Figure 2: Or Click the “Sign up” button on the navigation bar</p>
 
-  <p align="center">![](public/user-guide-pictures/figure3.png)\</p>
-  <p align="center">Figure 3: Enter your email address and password and you’re all set!</p>
+![](public/user-guide-pictures/figure3.png)\
+Figure 3: Enter your email address and password and you’re all set!
   
 ## Video Walkthrough
 Check out the videos on our [website](https://csb-rn409.vercel.app). Simply toggle through the various videos for a walkthrough of each of our features. For instance, if you wish to learn about how to sign up for an account, simply toggle the “Sign up for an account” button (Figure A). 
 
-  <p align="center">![](public/user-guide-pictures/figurea.png)\</p>
-  <p align="center">Figure A: Example video</p>
+![](public/user-guide-pictures/figurea.png)\
+Figure A: Example video
 
 Still confused about the features? Read about them in the [Feature Guide](#feature-guide).
 
